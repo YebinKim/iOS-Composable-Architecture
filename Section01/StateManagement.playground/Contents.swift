@@ -25,19 +25,13 @@ struct ContentView: View {
                 NavigationLink(destination: CounterView(state: self.state)) {
                     Text("Counter demo")
                 }
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: FavoritePrimesView(state: self.state)) {
                     Text("Favorite primes")
                 }
             }
             .navigationBarTitle("State management")
         }
     }
-}
-
-private func ordinal(_ n: Int) -> String {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .ordinal
-    return formatter.string(for: n) ?? ""
 }
 
 import Combine
@@ -52,11 +46,21 @@ class AppState: ObservableObject {
 //    }
     // @Published를 사용하면 objectWillChange를 사용하지 않아도 됨
     @Published var count = 0
+    @Published var favoritePrimes: [Int] = []
+}
+
+struct PrimeAlert: Identifiable {
+
+  let prime: Int
+
+  var id: Int { self.prime }
 }
 
 struct CounterView: View {
 
     @ObservedObject var state: AppState
+    @State var isPrimeModalShown: Bool = false
+    @State var alertNthPrime: PrimeAlert?
 
     var body: some View {
         VStack {
@@ -69,15 +73,95 @@ struct CounterView: View {
                     Text("+")
                 }
             }
-            Button(action: {}) {
-                Text("Is this prime?")
+            Button(action: { self.isPrimeModalShown = true }) {
+              Text("Is this prime?")
             }
-            Button(action: {}) {
-                Text("What is the \(ordinal(self.state.count)) prime?")
+            Button(action: self.nthPrimeButtonAction) {
+              Text("What is the \(ordinal(self.state.count)) prime?")
             }
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
+        // sheet: Binding의 상태를 받아서 모달을 presentation할 수 있음
+        .sheet(isPresented: self.$isPrimeModalShown) {
+            IsPrimeModalView(state: self.state)
+        }
+        .alert(item: self.$alertNthPrime) { alert in
+            Alert(
+                title: Text("The \(ordinal(self.state.count)) prime is \(alert.prime)"),
+                dismissButton: .default(Text("Ok"))
+            )
+        }
+    }
+
+    private func ordinal(_ n: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        return formatter.string(for: n) ?? ""
+    }
+
+    private func nthPrimeButtonAction() {
+        nthPrime(self.state.count) { prime in
+            self.alertNthPrime = prime.map(PrimeAlert.init(prime:))
+        }
+    }
+}
+
+struct IsPrimeModalView: View {
+
+    @ObservedObject var state: AppState
+
+    var body: some View {
+        VStack {
+            if isPrime(self.state.count) {
+                Text("\(self.state.count) is prime 🎉")
+                if self.state.favoritePrimes.contains(self.state.count) {
+                    Button(action: {
+                        self.state.favoritePrimes.removeAll(where: { $0 == self.state.count })
+                    }) {
+                        Text("Remove from favorite primes")
+                    }
+                } else {
+                    Button(action: {
+                        self.state.favoritePrimes.append(self.state.count)
+                    }) {
+                        Text("Save to favorite primes")
+                    }
+                }
+            } else {
+                Text("\(self.state.count) is not prime 😅")
+            }
+
+        }
+    }
+
+    private func isPrime(_ p: Int) -> Bool {
+        if p <= 1 { return false }
+        if p <= 3 { return true }
+        for i in 2...Int(sqrtf(Float(p))) {
+            if p % i == 0 { return false }
+        }
+        return true
+    }
+}
+
+struct FavoritePrimesView: View {
+
+    @ObservedObject var state: AppState
+
+    var body: some View {
+        List {
+            // 테이블뷰화 시킬 수 있도록 List 내부에 ForEach 구문 삽입
+            ForEach(self.state.favoritePrimes, id: \.self) { prime in
+                Text("\(prime)")
+            }
+            .onDelete { indexSet in
+                for index in indexSet {
+                    self.state.favoritePrimes.remove(at: index)
+                }
+            }
+        }
+        .navigationBarTitle(Text("Favorite Primes"))
     }
 }
 
