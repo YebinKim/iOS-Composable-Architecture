@@ -25,7 +25,8 @@ struct ContentView: View {
                 NavigationLink(destination: CounterView(state: self.state)) {
                     Text("Counter demo")
                 }
-                NavigationLink(destination: FavoritePrimesView(state: self.state)) {
+                NavigationLink(destination: FavoritePrimesView(favoritePrimes: self.$state.favoritePrimes,
+                                                               activityFeed: self.$state.activityFeed)) {
                     Text("Favorite primes")
                 }
             }
@@ -47,6 +48,49 @@ class AppState: ObservableObject {
     // @Published를 사용하면 objectWillChange를 사용하지 않아도 됨
     @Published var count = 0
     @Published var favoritePrimes: [Int] = []
+
+    @Published var activityFeed: [Activity] = []
+    @Published var loggedInUser: User? = nil
+
+    struct Activity {
+        let timestamp: Date
+        let type: ActivityType
+
+        enum ActivityType {
+            case addedFavoritePrime(Int)
+            case removedFavoritePrime(Int)
+        }
+    }
+
+    struct User {
+        let id: Int
+        let name: String
+        let bio: String
+    }
+}
+
+// 상태 변화 코드 모음
+extension AppState {
+
+    func addFavoritePrime() {
+        self.favoritePrimes.append(self.count)
+        self.activityFeed.append(Activity(timestamp: Date(), type: .addedFavoritePrime(self.count)))
+    }
+
+    func removeFavoritePrime(_ prime: Int) {
+        self.favoritePrimes.removeAll(where: { $0 == prime })
+        self.activityFeed.append(Activity(timestamp: Date(), type: .removedFavoritePrime(prime)))
+    }
+
+    func removeFavoritePrime() {
+        self.removeFavoritePrime(self.count)
+    }
+
+    func removeFavoritePrimes(at indexSet: IndexSet) {
+        for index in indexSet {
+            self.removeFavoritePrime(self.favoritePrimes[index])
+        }
+    }
 }
 
 struct PrimeAlert: Identifiable {
@@ -61,10 +105,15 @@ struct CounterView: View {
     @ObservedObject var state: AppState
     @State var isPrimeModalShown: Bool = false
     @State var alertNthPrime: PrimeAlert?
+    @State var isNthPrimeButtonDisabled = false
 
     var body: some View {
         VStack {
             HStack {
+                // MARK: 애플리케이션 아키텍쳐 관점에서 봤을 때 해결해야 할 문제 4가지
+                // MARK: 1. 변화하는 상태를 관리하는 방법
+                // 문제점: 상태 변화 코드가 분산되어 있다
+                // 해결방법: AppState를 extension 함으로써 상태 변화 코드를 하나로 모은다
                 Button(action: { self.state.count -= 1 }) {
                     Text("-")
                 }
@@ -79,6 +128,8 @@ struct CounterView: View {
             Button(action: self.nthPrimeButtonAction) {
               Text("What is the \(ordinal(self.state.count)) prime?")
             }
+            // API 리퀘스트 진행되는 동안 버튼 disabled
+            .disabled(self.isNthPrimeButtonDisabled)
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
@@ -100,10 +151,15 @@ struct CounterView: View {
         return formatter.string(for: n) ?? ""
     }
 
+    // MARK: 2. Side-Effect를 실행시키는 방법
+    // 문제점: 리퀘스트를 중간에 취소하거나 여러 번의 리퀘스트를 묶어주는 디바운스 기능을 사용할 수 없으며 이를 실행시켜볼 수 있는 방법이 없다 (Side-Effect가 제어되지 않음)
+    // 해결방법: 아직 SwiftUI는 이에 대한 대안을 제시하지 못했다..
     private func nthPrimeButtonAction() {
+        self.isNthPrimeButtonDisabled = true
         nthPrime(self.state.count) { prime in
             self.alertNthPrime = prime.map(PrimeAlert.init(prime:))
         }
+        self.isNthPrimeButtonDisabled = false
     }
 }
 
@@ -117,13 +173,13 @@ struct IsPrimeModalView: View {
                 Text("\(self.state.count) is prime 🎉")
                 if self.state.favoritePrimes.contains(self.state.count) {
                     Button(action: {
-                        self.state.favoritePrimes.removeAll(where: { $0 == self.state.count })
+                        self.state.removeFavoritePrime()
                     }) {
                         Text("Remove from favorite primes")
                     }
                 } else {
                     Button(action: {
-                        self.state.favoritePrimes.append(self.state.count)
+                        self.state.addFavoritePrime()
                     }) {
                         Text("Save to favorite primes")
                     }
@@ -147,23 +203,35 @@ struct IsPrimeModalView: View {
 
 struct FavoritePrimesView: View {
 
-    @ObservedObject var state: AppState
+    // MARK: 3. 모듈화 하는 방법 (거대한 애플리케이션을 작은 애플리케이션으로 분할하는 방법)
+    // 문제점: 모듈화가 어렵다 (AppState 실제로 사용하는 것은 favoritePrimes 하나 뿐이지만 전체를 받고 있음)
+    // 해결방법: 아직 SwiftUI는 이에 대한 대안을 제시하지 못했다.. 또는 ObservedObject를 따르는 래퍼 클래스를 만들고 일부만 구현하는 방식으로 해결 가능
+//    @ObservedObject var state: AppState
+
+    @Binding var favoritePrimes: [Int]
+    @Binding var activityFeed: [AppState.Activity]
 
     var body: some View {
         List {
             // 테이블뷰화 시킬 수 있도록 List 내부에 ForEach 구문 삽입
-            ForEach(self.state.favoritePrimes, id: \.self) { prime in
+            ForEach(self.favoritePrimes, id: \.self) { prime in
                 Text("\(prime)")
             }
+//            .onDelete { self.state.removeFavoritePrimes(at: $0) }
             .onDelete { indexSet in
                 for index in indexSet {
-                    self.state.favoritePrimes.remove(at: index)
+                    let prime = self.favoritePrimes[index]
+                    self.favoritePrimes.remove(at: index)
+                    self.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(prime)))
                 }
             }
         }
         .navigationBarTitle(Text("Favorite Primes"))
     }
 }
+
+// MARK: 4. 애플리케이션을 테스트하는 방법
+// 문제점: 테스트하기 어려운 구조다 (상태나 변화를 일으키는 코드가 뷰에서 서로 얽혀있어 실제 기능이 동작하는지 테스트하기 어렵다
 
 // MARK: - Rendering in a playground
 

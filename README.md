@@ -32,6 +32,14 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 
 
+- **앱 개발 후 정리한 애플리케이션 아키텍쳐 관점에서 봤을 때 해결해야 할 문제 4가지**
+  - 변화하는 상태를 관리하는 방법
+  - Side-Effect를 실행시키는 방법
+  - 모듈화 하는 방법
+  - 애플리케이션을 테스트하는 방법
+
+
+
 ## Section 2. Reducers and Stores
 
 
