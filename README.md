@@ -42,6 +42,12 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 ## Section 2. Reducers and Stores
 
+- 강의 목표: **값 타입 사용을 지향**하고 **큰 문제를 작게 분할시킬 수 있도록** **Reducer를 활용**하는 방법을 배우고 애플리케이션의 복잡한 **런타임을 stores 라는 단위에 위임**하는 것
+  - Reducers
+  - State Pullbacks
+  - Action Pullbacks
+  - Higher-Order Reducers
+
 
 
 ## Section 3. Modularity
