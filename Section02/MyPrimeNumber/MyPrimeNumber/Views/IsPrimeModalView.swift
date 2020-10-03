@@ -9,29 +9,31 @@ import SwiftUI
 
 struct IsPrimeModalView: View {
 
-    @ObservedObject var state: AppState
+    @ObservedObject var store: Store<AppState, AppAction>
 
     var body: some View {
         VStack {
-            if isPrime(self.state.count) {
-                Text("\(self.state.count) is prime 🎉")
-                if self.state.favoritePrimes.contains(self.state.count) {
-                    Button(action: {
-                        self.state.favoritePrimes.removeAll(where: { $0 == self.state.count })
-                        self.state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(self.state.count)))
-                    }) {
-                        Text("Remove from favorite primes")
+            if isPrime(self.store.value.count) {
+                Text("\(self.store.value.count) is prime 🎉")
+                if self.store.value.favoritePrimes.contains(self.store.value.count) {
+                    Button("Remove from favorite primes") {
+//                        self.store.value.favoritePrimes.removeAll(where: { $0 == self.store.value.count })
+//                        self.store.value.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(self.store.value.count)))
+
+                        // MARK: 상태 변화 코드 Store로 이동
+                        self.store.send(.primeModal(.removeFavoritePrime))
                     }
                 } else {
-                    Button(action: {
-                        self.state.favoritePrimes.append(self.state.count)
-                        self.state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(self.state.count)))
-                    }) {
-                        Text("Save to favorite primes")
+                    Button("Save to favorite primes") {
+//                        self.store.value.favoritePrimes.append(self.store.value.count)
+//                        self.store.value.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(self.store.value.count)))
+
+                        // MARK: 상태 변화 코드 Store로 이동
+                        self.store.send(.primeModal(.addFavoritePrime))
                     }
                 }
             } else {
-                Text("\(self.state.count) is not prime 😅")
+                Text("\(self.store.value.count) is not prime 😅")
             }
 
         }
@@ -49,6 +51,6 @@ struct IsPrimeModalView: View {
 
 struct IsPrimeModalView_Previews: PreviewProvider {
     static var previews: some View {
-        IsPrimeModalView(state: AppState())
+        IsPrimeModalView(store: Store(initialValue: AppState(), reducer: appReducer))
     }
 }

@@ -15,7 +15,7 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 - 강의 목표: **애플리케이션 아키텍쳐의 필요성을 이해**하고 **SwiftUI가 상태 관리(State Management) 하는 방법을 이해**함으로써 Composable Architecture를 통해 해결하고자 하는 **5가지 문제점**을 정의하는 것
   - 전체 애플리케이션에서 상태를 관리하는 방법
-  - 값 유형과 같은 간단한 단위로 아키텍쳐를 모델링하는 방법
+  - 값 타입과 같은 간단한 단위로 아키텍쳐를 모델링하는 방법
   - 애플리케이션의 각 기능을 모듈화하는 방법
   - 애플리케이션에서 Side-Effect를 모델링하는 방법
   - 기능 별 테스트를 쉽게 작성하는 방법
@@ -43,10 +43,18 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 ## Section 2. Reducers and Stores
 
 - 강의 목표: **값 타입 사용을 지향**하고 **큰 문제를 작게 분할시킬 수 있도록** **Reducer를 활용**하는 방법을 배우고 애플리케이션의 복잡한 **런타임을 stores 라는 단위에 위임**하는 것
-  - Reducers
-  - State Pullbacks
-  - Action Pullbacks
-  - Higher-Order Reducers
+  - **Reducers**
+    -  글로벌 상태를 모델링하는 더 나은 방법 (값 타입과 ObservableObject 래퍼 사용)
+    - 함수형 상태 관리 (Reducer 사용)
+    - Ergonomics: Store 내부에서 Reducer 캡처
+    - Ergonomics: in-out Reducers
+    - 상태 변화 코드 Store로 이동
+  
+  
+  
+  - **State Pullbacks**
+  - **Action Pullbacks**
+  - **Higher-Order Reducers**
 
 
 

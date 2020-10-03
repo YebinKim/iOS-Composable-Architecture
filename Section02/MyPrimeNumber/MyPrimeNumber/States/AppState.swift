@@ -8,12 +8,15 @@
 import SwiftUI
 import Combine
 
-class AppState: ObservableObject {
+// MARK: 글로벌 상태를 모델링하는 더 나은 방법
+// AppState를 값 타입으로 변경하고 ObservableObject 래퍼(Store)로 감싼다
+// 값 타입으로 모델링함으로써 데이터를 간단한 단위로 모델링할 수 있게 되고 상태 변화에 대한 영향을 줄임
+struct AppState {
 
-    @Published var count = 0
-    @Published var favoritePrimes: [Int] = []
-    @Published var activityFeed: [Activity] = []
-    @Published var loggedInUser: User? = nil
+    var count = 0
+    var favoritePrimes: [Int] = []
+    var activityFeed: [Activity] = []
+    var loggedInUser: User? = nil
 
     struct Activity {
         let timestamp: Date

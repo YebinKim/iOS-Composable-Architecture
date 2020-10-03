@@ -16,6 +16,8 @@
 		44971786253385C800C54185 /* IsPrimeModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44971785253385C800C54185 /* IsPrimeModalView.swift */; };
 		4497178A253385EA00C54185 /* FavoritePrimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44971789253385EA00C54185 /* FavoritePrimesView.swift */; };
 		4497178E2533864400C54185 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497178D2533864400C54185 /* WolframAlpha.swift */; };
+		449717952533E22400C54185 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449717942533E22400C54185 /* Store.swift */; };
+		4497179A2533EA6D00C54185 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449717992533EA6D00C54185 /* Reducers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		44971785253385C800C54185 /* IsPrimeModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPrimeModalView.swift; sourceTree = "<group>"; };
 		44971789253385EA00C54185 /* FavoritePrimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesView.swift; sourceTree = "<group>"; };
 		4497178D2533864400C54185 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
+		449717942533E22400C54185 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		449717992533EA6D00C54185 /* Reducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				4497177E2533857600C54185 /* AppState.swift */,
+				449717942533E22400C54185 /* Store.swift */,
+				449717992533EA6D00C54185 /* Reducers.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -188,8 +194,10 @@
 				4497178A253385EA00C54185 /* FavoritePrimesView.swift in Sources */,
 				4497177F2533857600C54185 /* AppState.swift in Sources */,
 				4497176E253384A800C54185 /* ContentView.swift in Sources */,
+				449717952533E22400C54185 /* Store.swift in Sources */,
 				4497178E2533864400C54185 /* WolframAlpha.swift in Sources */,
 				44971786253385C800C54185 /* IsPrimeModalView.swift in Sources */,
+				4497179A2533EA6D00C54185 /* Reducers.swift in Sources */,
 				4497176C253384A800C54185 /* MyPrimeNumberApp.swift in Sources */,
 				44971783253385AE00C54185 /* CounterView.swift in Sources */,
 			);
