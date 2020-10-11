@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44612BE9253422F3003C3ACE /* FavoritePrimesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44612BE8253422F3003C3ACE /* FavoritePrimesState.swift */; };
 		4497176C253384A800C54185 /* MyPrimeNumberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497176B253384A800C54185 /* MyPrimeNumberApp.swift */; };
 		4497176E253384A800C54185 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497176D253384A800C54185 /* ContentView.swift */; };
 		44971770253384A900C54185 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4497176F253384A900C54185 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44612BE8253422F3003C3ACE /* FavoritePrimesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesState.swift; sourceTree = "<group>"; };
 		44971768253384A800C54185 /* MyPrimeNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPrimeNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4497176B253384A800C54185 /* MyPrimeNumberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrimeNumberApp.swift; sourceTree = "<group>"; };
 		4497176D253384A800C54185 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				4497177E2533857600C54185 /* AppState.swift */,
 				449717942533E22400C54185 /* Store.swift */,
 				449717992533EA6D00C54185 /* Reducers.swift */,
+				44612BE8253422F3003C3ACE /* FavoritePrimesState.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				4497178A253385EA00C54185 /* FavoritePrimesView.swift in Sources */,
 				4497177F2533857600C54185 /* AppState.swift in Sources */,
 				4497176E253384A800C54185 /* ContentView.swift in Sources */,
+				44612BE9253422F3003C3ACE /* FavoritePrimesState.swift in Sources */,
 				449717952533E22400C54185 /* Store.swift in Sources */,
 				4497178E2533864400C54185 /* WolframAlpha.swift in Sources */,
 				44971786253385C800C54185 /* IsPrimeModalView.swift in Sources */,

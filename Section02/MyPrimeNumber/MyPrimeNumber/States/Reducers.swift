@@ -120,6 +120,7 @@ func counterReducer(count: inout Int, action: AppAction) -> Void {
     }
 }
 
+// primeModalReducer는 필요로 하는 AppState가 많기 때문에 포커싱 작업 x
 func primeModalReducer(state: inout AppState, action: AppAction) -> Void {
     switch action {
     case .primeModal(.addFavoritePrime):
@@ -135,7 +136,11 @@ func primeModalReducer(state: inout AppState, action: AppAction) -> Void {
     }
 }
 
-func favoritePrimesReducer(state: inout AppState, action: AppAction) -> Void {
+// MARK: Pulling back more reducers
+// FavoritePrimesState 모델을 생성하고 Reducer 리팩토링
+// 하지만 타입을 변경하면 오류 발생 -> Cannot convert value of type 'AppState' to expected argument type 'FavoritePrimesState'
+//func favoritePrimesReducer(state: inout AppState, action: AppAction) -> Void {
+func favoritePrimesReducer(state: inout FavoritePrimesState, action: AppAction) -> Void {
     switch action {
     case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
         for index in indexSet {
@@ -200,6 +205,6 @@ func pullback<LocalValue, GlobalValue, Action>(
 let _appReducer = combine(
     pullback(counterReducer, value: \.count),
     primeModalReducer,
-    pullback(favoritePrimesReducer, value: \.self)
+    pullback(favoritePrimesReducer, value: \.favoritePrimesState)
 )
 let appReducer = pullback(_appReducer, value: \.self)
