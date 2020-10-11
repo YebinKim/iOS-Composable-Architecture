@@ -53,6 +53,14 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
   
   
   - **State Pullbacks**
+    - Combining reducers
+    - Focusing a reducer's state
+    - Pulling back reducers along state
+    - Key path pullbacks
+    - Pulling back more reducers
+  
+  
+  
   - **Action Pullbacks**
   - **Higher-Order Reducers**
 
