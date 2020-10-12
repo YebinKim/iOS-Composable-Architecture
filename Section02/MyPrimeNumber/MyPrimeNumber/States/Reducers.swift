@@ -82,6 +82,18 @@ enum AppAction {
 //}
 
 // MARK: Combining reducers
+// 두 개의 Reducer 동작을 하나의 Reducer로 결합
+//func combine<Value, Action>(
+//    _ first: @escaping (inout Value, Action) -> Void,
+//    _ second: @escaping (inout Value, Action) -> Void
+//) -> (inout Value, Action) -> Void {
+//
+//    return { value, action in
+//        first(&value, action)
+//        second(&value, action)
+//    }
+//}
+
 // 다수의 Reducer 동작을 하나의 Reducer로 결합
 func combine<Value, Action>(
     _ reducers: (inout Value, Action) -> Void...
@@ -110,9 +122,11 @@ func combine<Value, Action>(
 func counterReducer(count: inout Int, action: AppAction) -> Void {
     switch action {
     case .counter(.decreaseCount):
+//        state.count -= 1
         count -= 1
 
     case .counter(.increaseCount):
+//        state.count += 1
         count += 1
 
     default:
@@ -154,7 +168,7 @@ func favoritePrimesReducer(state: inout FavoritePrimesState, action: AppAction) 
 }
 
 // MARK: Pulling back reducers along state
-// 글로벌 -> 로컬 값으로 이동하는 방법을 제공한 경우
+// 글로벌 -> 로컬 값으로 참조하는 경로를 제공한 경우
 // 로컬 값의 Reducer를 글로벌 값의 Reducer로 변환 할 수 있음
 
 //func pullback<LocalValue, GlobalValue, Action>(
