@@ -54,6 +54,39 @@ enum AppAction {
     case counter(CounterAction)
     case primeModal(PrimeModalAction)
     case favoritePrimes(FavoritePrimesAction)
+
+    // MARK: Enum properties
+    // WritableKeyPath로 사용할 수 있도록 get/set 프로퍼티 추가
+    var counter: CounterAction? {
+        get {
+            guard case let .counter(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .counter = self, let newValue = newValue else { return }
+            self = .counter(newValue)
+        }
+    }
+    var primeModal: PrimeModalAction? {
+        get {
+            guard case let .primeModal(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .primeModal = self, let newValue = newValue else { return }
+            self = .primeModal(newValue)
+        }
+    }
+    var favoritePrimes: FavoritePrimesAction? {
+        get {
+            guard case let .favoritePrimes(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .favoritePrimes = self, let newValue = newValue else { return }
+            self = .favoritePrimes(newValue)
+        }
+    }
 }
 
 //func appReducer(value: inout AppState, action: AppAction) -> Void {
@@ -119,52 +152,82 @@ func combine<Value, Action>(
 // 이걸 해결하기 위한 방법: Pullback
 
 //func counterReducer(state: inout AppState, action: AppAction) -> Void {
-func counterReducer(count: inout Int, action: AppAction) -> Void {
+func counterReducer(count: inout Int, action: CounterAction) -> Void {
+    // MARK: Focusing a reducer's actions
+    // AppAction을 CounterAction로 포커싱
     switch action {
-    case .counter(.decreaseCount):
-//        state.count -= 1
+    case .decreaseCount:
         count -= 1
 
-    case .counter(.increaseCount):
-//        state.count += 1
+    case .increaseCount:
         count += 1
-
-    default:
-        break
     }
+//    switch action {
+//    case .counter(.decreaseCount):
+////        state.count -= 1
+//        count -= 1
+//
+//    case .counter(.increaseCount):
+////        state.count += 1
+//        count += 1
+//
+//    default:
+//        break
+//    }
 }
 
 // primeModalReducer는 필요로 하는 AppState가 많기 때문에 포커싱 작업 x
-func primeModalReducer(state: inout AppState, action: AppAction) -> Void {
+func primeModalReducer(state: inout AppState, action: PrimeModalAction) -> Void {
+    // MARK: Pulling back more reducers
+    // AppAction을 PrimeModalAction로 포커싱
     switch action {
-    case .primeModal(.addFavoritePrime):
+    case .addFavoritePrime:
         state.favoritePrimes.append(state.count)
         state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
 
-    case .primeModal(.removeFavoritePrime):
+    case .removeFavoritePrime:
         state.favoritePrimes.removeAll(where: { $0 == state.count })
         state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
-
-    default:
-        break
     }
+//    switch action {
+//    case .primeModal(.addFavoritePrime):
+//        state.favoritePrimes.append(state.count)
+//        state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+//
+//    case .primeModal(.removeFavoritePrime):
+//        state.favoritePrimes.removeAll(where: { $0 == state.count })
+//        state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+//
+//    default:
+//        break
+//    }
 }
 
 // MARK: Pulling back more reducers
 // FavoritePrimesState 모델을 생성하고 Reducer 리팩토링
 // 하지만 타입을 변경하면 오류 발생 -> Cannot convert value of type 'AppState' to expected argument type 'FavoritePrimesState'
 //func favoritePrimesReducer(state: inout AppState, action: AppAction) -> Void {
-func favoritePrimesReducer(state: inout FavoritePrimesState, action: AppAction) -> Void {
+func favoritePrimesReducer(state: inout FavoritePrimesState, action: FavoritePrimesAction) -> Void {
+    // MARK: Pulling back more reducers
+    // AppAction을 FavoritePrimesAction로 포커싱
     switch action {
-    case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
+    case let .removeFavoritePrimes(indexSet):
         for index in indexSet {
             state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
             state.favoritePrimes.remove(at: index)
         }
-
-    default:
-        break
     }
+
+//    switch action {
+//    case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
+//        for index in indexSet {
+//            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
+//            state.favoritePrimes.remove(at: index)
+//        }
+//
+//    default:
+//        break
+//    }
 }
 
 // MARK: Pulling back reducers along state
@@ -207,18 +270,52 @@ func favoritePrimesReducer(state: inout FavoritePrimesState, action: AppAction) 
 // MARK: Key path pullbacks
 // getter/setter 쌍을 하나로 묶는 방법 -> KeyPath
 
-func pullback<LocalValue, GlobalValue, Action>(
-    _ reducer: @escaping (inout LocalValue, Action) -> Void,
-    value: WritableKeyPath<GlobalValue, LocalValue>
-) -> (inout GlobalValue, Action) -> Void {
-    return { globalValue, action in
-        reducer(&globalValue[keyPath: value], action)
+//func pullback<LocalValue, GlobalValue, Action>(
+//    _ reducer: @escaping (inout LocalValue, Action) -> Void,
+//    value: WritableKeyPath<GlobalValue, LocalValue>
+//) -> (inout GlobalValue, Action) -> Void {
+//    return { globalValue, action in
+//        reducer(&globalValue[keyPath: value], action)
+//    }
+//}
+
+// MARK: Enums and key paths
+struct _KeyPath<Root, Value> {
+  let get: (Root) -> Value
+  let set: (inout Root, Value) -> Void
+}
+// CounterAction enum에는 KeyPath 적용이 되지 않으므로 struct로 변경 필요
+struct EnumKeyPath<Root, Value> {
+  let embed: (Value) -> Root
+  let extract: (Root) -> Value?
+}
+
+//AppAction.counter(CounterAction.increaseCount)
+//
+//let action = AppAction.favoritePrimes(.deleteFavoritePrimes([1]))
+//let favoritePrimesAction: FavoritePrimesAction?
+//switch action {
+//case let .favoritePrimes(action):
+//    favoritePrimesAction = action
+//default:
+//    favoritePrimesAction = nil
+//}
+
+// MARK: Pulling back reducers along actions
+func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
+    _ reducer: @escaping (inout LocalValue, LocalAction) -> Void,
+    value: WritableKeyPath<GlobalValue, LocalValue>,
+    action: WritableKeyPath<GlobalAction, LocalAction?>
+) -> (inout GlobalValue, GlobalAction) -> Void {
+    return { globalValue, globalAction in
+        guard let localAction = globalAction[keyPath: action] else { return }
+        reducer(&globalValue[keyPath: value], localAction)
     }
 }
 
-let _appReducer = combine(
-    pullback(counterReducer, value: \.count),
-    primeModalReducer,
-    pullback(favoritePrimesReducer, value: \.favoritePrimesState)
+let _appReducer: (inout AppState, AppAction) -> Void = combine(
+    pullback(counterReducer, value: \.count, action: \AppAction.counter),
+    pullback(primeModalReducer, value: \.self, action: \.primeModal),
+    pullback(favoritePrimesReducer, value: \.favoritePrimesState, action: \.favoritePrimes)
 )
-let appReducer = pullback(_appReducer, value: \.self)
+let appReducer = pullback(_appReducer, value: \.self, action: \.self)
