@@ -91,6 +91,26 @@ struct PrimeAlert: Identifiable {
 
 struct CounterView_Previews: PreviewProvider {
     static var previews: some View {
-        CounterView(store: Store(initialValue: AppState(), reducer: appReducer))
+        CounterView(store: Store(initialValue: AppState(), reducer: with(
+            appReducer,
+            compose(
+                logger,
+                activityFeed
+            )
+        )))
     }
+}
+
+private func compose<A, B, C>(
+    _ f: @escaping (B) -> C,
+    _ g: @escaping (A) -> B
+)
+-> (A) -> C {
+    return { (a: A) -> C in
+        f(g(a))
+    }
+}
+
+private func with<A, B>(_ a: A, _ f: (A) throws -> B) rethrows -> B {
+    return try f(a)
 }

@@ -25,7 +25,10 @@ final class Store<Value, Action>: ObservableObject {
     // MARK: Ergonomics: in-out Reducers
     let reducer: (inout Value, Action) -> Void
 
-    @Published var value: Value
+//    @Published var value: Value
+    // 앱 상태를 변경하기 위해서는 반드시 Store를 통과하도록 강제할 수 있게 됨
+    // send(_:)를 통해서만 상태 변경 가능
+    @Published private(set) var value: Value
 
 //    init(initialValue: Value, reducer: @escaping (Value, Action) -> Value) {
 //        self.value = initialValue
