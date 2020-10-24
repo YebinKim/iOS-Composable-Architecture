@@ -37,21 +37,23 @@ struct AppState {
 
 // MARK: Pulling back more reducers
 // AppState에서 favoritePrimesReducer을 pulling back하여 오류 수정
-extension AppState {
-
-    var favoritePrimesState: FavoritePrimesState {
-        get {
-            return FavoritePrimesState(
-                favoritePrimes: self.favoritePrimes,
-                activityFeed: self.activityFeed
-            )
-        }
-        set {
-            self.activityFeed = newValue.activityFeed
-            self.favoritePrimes = newValue.favoritePrimes
-        }
-    }
-}
+// MARK: Higher-order activity feeds
+// activityFeed 임시 상태 제거
+//extension AppState {
+//
+//    var favoritePrimesState: FavoritePrimesState {
+//        get {
+//            return FavoritePrimesState(
+//                favoritePrimes: self.favoritePrimes,
+//                activityFeed: self.activityFeed
+//            )
+//        }
+//        set {
+//            self.activityFeed = newValue.activityFeed
+//            self.favoritePrimes = newValue.favoritePrimes
+//        }
+//    }
+//}
 
 //extension AppState {
 //

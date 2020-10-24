@@ -183,11 +183,11 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) -> Void 
     switch action {
     case .addFavoritePrime:
         state.favoritePrimes.append(state.count)
-        state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+//        state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
 
     case .removeFavoritePrime:
         state.favoritePrimes.removeAll(where: { $0 == state.count })
-        state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+//        state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
     }
 //    switch action {
 //    case .primeModal(.addFavoritePrime):
@@ -207,14 +207,14 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) -> Void 
 // FavoritePrimesState 모델을 생성하고 Reducer 리팩토링
 // 하지만 타입을 변경하면 오류 발생 -> Cannot convert value of type 'AppState' to expected argument type 'FavoritePrimesState'
 //func favoritePrimesReducer(state: inout AppState, action: AppAction) -> Void {
-func favoritePrimesReducer(state: inout FavoritePrimesState, action: FavoritePrimesAction) -> Void {
+func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) -> Void {
     // MARK: Pulling back more reducers
     // AppAction을 FavoritePrimesAction로 포커싱
     switch action {
     case let .removeFavoritePrimes(indexSet):
         for index in indexSet {
-            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
-            state.favoritePrimes.remove(at: index)
+//            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
+            state.remove(at: index)
         }
     }
 
@@ -316,6 +316,33 @@ func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
 let _appReducer: (inout AppState, AppAction) -> Void = combine(
     pullback(counterReducer, value: \.count, action: \AppAction.counter),
     pullback(primeModalReducer, value: \.self, action: \.primeModal),
-    pullback(favoritePrimesReducer, value: \.favoritePrimesState, action: \.favoritePrimes)
+    pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )
 let appReducer = pullback(_appReducer, value: \.self, action: \.self)
+
+// MARK: Higher-order activity feeds
+// 고차 리듀서를 이용해 activityFeed 관리를 하나로 정리
+func activityFeed(
+    _ reducer: @escaping (inout AppState, AppAction) -> Void
+) -> (inout AppState, AppAction) -> Void {
+
+    return { state, action in
+        switch action {
+        case .counter:
+            break
+
+        case .primeModal(.addFavoritePrime):
+            state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+
+        case .primeModal(.removeFavoritePrime):
+            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+
+        case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
+            for index in indexSet {
+                state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
+            }
+        }
+
+        reducer(&state, action)
+    }
+}
