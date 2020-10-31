@@ -5,12 +5,13 @@
 //  Created by Yebin Kim on 2020/10/02.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct FavoritePrimesView: View {
-
+    
     @ObservedObject var store: Store<AppState, AppAction>
-
+    
     var body: some View {
         List {
             ForEach(self.store.value.favoritePrimes, id: \.self) { prime in

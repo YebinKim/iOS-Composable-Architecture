@@ -5,12 +5,14 @@
 //  Created by Yebin Kim on 2020/10/02.
 //
 
+import ComposableArchitecture
+import PrimeModal
 import SwiftUI
 
 struct IsPrimeModalView: View {
-
+    
     @ObservedObject var store: Store<AppState, AppAction>
-
+    
     var body: some View {
         VStack {
             if isPrime(self.store.value.count) {
@@ -27,10 +29,10 @@ struct IsPrimeModalView: View {
             } else {
                 Text("\(self.store.value.count) is not prime 😅")
             }
-
+            
         }
     }
-
+    
     private func isPrime(_ p: Int) -> Bool {
         if p <= 1 { return false }
         if p <= 3 { return true }

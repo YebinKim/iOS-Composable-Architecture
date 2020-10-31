@@ -5,12 +5,13 @@
 //  Created by Yebin Kim on 2020/10/02.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct ContentView: View {
-
+    
     @ObservedObject var store: Store<AppState, AppAction>
-
+    
     var body: some View {
         NavigationView {
             List {

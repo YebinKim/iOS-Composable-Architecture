@@ -5,6 +5,8 @@
 //  Created by Yebin Kim on 2020/10/02.
 //
 
+import ComposableArchitecture
+import Counter
 import SwiftUI
 
 struct CounterView: View {
@@ -26,10 +28,10 @@ struct CounterView: View {
                 }
             }
             Button(action: { self.isPrimeModalShown = true }) {
-              Text("Is this prime?")
+                Text("Is this prime?")
             }
             Button(action: self.nthPrimeButtonAction) {
-              Text("What is the \(ordinal(self.store.value.count)) prime?")
+                Text("What is the \(ordinal(self.store.value.count)) prime?")
             }
             .disabled(self.isNthPrimeButtonDisabled)
         }
@@ -62,10 +64,8 @@ struct CounterView: View {
 }
 
 struct PrimeAlert: Identifiable {
-
-  let prime: Int
-
-  var id: Int { self.prime }
+    let prime: Int
+    var id: Int { self.prime }
 }
 
 struct CounterView_Previews: PreviewProvider {
@@ -73,7 +73,7 @@ struct CounterView_Previews: PreviewProvider {
         CounterView(store: Store(initialValue: AppState(), reducer: with(
             appReducer,
             compose(
-                logger,
+                logging,
                 activityFeed
             )
         )))
