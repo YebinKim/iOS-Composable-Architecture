@@ -6,6 +6,8 @@
 //
 // MARK: Reducer 모듈화: Modularizing the counter reducer
 
+public typealias CounterViewState = (count: Int, favoritePrimes: [Int])
+
 // 앱 액션 모델
 public enum CounterAction {
     case decreaseCount

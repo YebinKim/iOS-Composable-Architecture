@@ -11,7 +11,9 @@ import SwiftUI
 
 struct CounterView: View {
 
-    @ObservedObject var store: Store<AppState, AppAction>
+    //@ObservedObject var store: Store<AppState, AppAction>
+    // MARK: View State: Focusing on view state
+    @ObservedObject var store: Store<CounterViewState, AppAction>
     @State var isPrimeModalShown: Bool = false
     @State var alertNthPrime: PrimeAlert?
     @State var isNthPrimeButtonDisabled = false
@@ -38,6 +40,9 @@ struct CounterView: View {
         .font(.title)
         .navigationBarTitle("Counter demo")
         .sheet(isPresented: self.$isPrimeModalShown) {
+//            IsPrimeModalView(
+//                store: self.store.view { ($0.count, $0.favoritePrimes) }
+//            )
             IsPrimeModalView(store: self.store)
         }
         .alert(item: self.$alertNthPrime) { alert in
@@ -66,31 +71,4 @@ struct CounterView: View {
 struct PrimeAlert: Identifiable {
     let prime: Int
     var id: Int { self.prime }
-}
-
-struct CounterView_Previews: PreviewProvider {
-    static var previews: some View {
-        CounterView(store: Store(initialValue: AppState(), reducer: with(
-            appReducer,
-            compose(
-                logging,
-                activityFeed
-            )
-        )))
-    }
-}
-
-// MARK: Utils
-private func compose<A, B, C>(
-    _ f: @escaping (B) -> C,
-    _ g: @escaping (A) -> B
-)
--> (A) -> C {
-    return { (a: A) -> C in
-        f(g(a))
-    }
-}
-
-private func with<A, B>(_ a: A, _ f: (A) throws -> B) rethrows -> B {
-    return try f(a)
 }

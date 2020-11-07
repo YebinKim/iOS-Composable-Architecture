@@ -10,9 +10,11 @@ import PrimeModal
 import SwiftUI
 
 struct IsPrimeModalView: View {
-    
-    @ObservedObject var store: Store<AppState, AppAction>
-    
+
+    //@ObservedObject var store: Store<AppState, AppAction>
+    // MARK: View State: Focusing on view state
+    @ObservedObject var store: Store<PrimeModalState, AppAction>
+
     var body: some View {
         VStack {
             if isPrime(self.store.value.count) {
@@ -29,10 +31,10 @@ struct IsPrimeModalView: View {
             } else {
                 Text("\(self.store.value.count) is not prime 😅")
             }
-            
+
         }
     }
-    
+
     private func isPrime(_ p: Int) -> Bool {
         if p <= 1 { return false }
         if p <= 3 { return true }
@@ -40,11 +42,5 @@ struct IsPrimeModalView: View {
             if p % i == 0 { return false }
         }
         return true
-    }
-}
-
-struct IsPrimeModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        IsPrimeModalView(store: Store(initialValue: AppState(), reducer: appReducer))
     }
 }
