@@ -6,6 +6,9 @@
 //
 
 import ComposableArchitecture
+import FavoritePrimes
+import PrimeModal
+import Counter
 import SwiftUI
 
 struct ContentView: View {
@@ -18,17 +21,34 @@ struct ContentView: View {
                 NavigationLink(
                     "Counter demo",
                     destination: CounterView(
-                        store: self.store
-                            // MARK: View State: Focusing on view state
-                            .view { ($0.count, $0.favoritePrimes) }
+//                        // MARK: View State: Focusing on view state
+//                        store: self.store.view { ($0.count, $0.favoritePrimes) }
+                        // MARK: View Actions: Focusing on counter actions
+                        store: self.store.view(
+                            value: { ($0.count, $0.favoritePrimes) },
+//                            action: { $0 }
+                            // MARK: View Actions: Focusing on counter actions
+                            action: {
+                                switch $0 {
+                                case let .counter(action):
+                                    return AppAction.counter(action)
+                                case let .primeModal(action):
+                                    return AppAction.primeModal(action)
+                                }
+                            }
+                        )
                     )
                 )
                 NavigationLink(
                     "Favorite primes",
                     destination: FavoritePrimesView(
-                        store: self.store
-                            // MARK: View State: Focusing on view state
-                            .view { $0.favoritePrimes }
+//                        // MARK: View State: Focusing on view state
+//                        store: self.store.view { $0.favoritePrimes }
+                        // MARK: View Actions: Focusing on favorite primes actions
+                        store: self.store.view(
+                            value: { $0.favoritePrimes },
+                            action: { AppAction.favoritePrimes($0) }
+                        )
                     )
                 )
             }

@@ -28,11 +28,8 @@
 		44971770253384A900C54185 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4497176F253384A900C54185 /* Assets.xcassets */; };
 		44971773253384A900C54185 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44971772253384A900C54185 /* Preview Assets.xcassets */; };
 		4497177F2533857600C54185 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497177E2533857600C54185 /* AppState.swift */; };
-		44971783253385AE00C54185 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44971782253385AE00C54185 /* CounterView.swift */; };
-		44971786253385C800C54185 /* IsPrimeModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44971785253385C800C54185 /* IsPrimeModalView.swift */; };
-		4497178A253385EA00C54185 /* FavoritePrimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44971789253385EA00C54185 /* FavoritePrimesView.swift */; };
-		4497178E2533864400C54185 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497178D2533864400C54185 /* WolframAlpha.swift */; };
 		4497179A2533EA6D00C54185 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449717992533EA6D00C54185 /* Reducers.swift */; };
+		44B1658E256BAA3C0091F62F /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B1658D256BAA3C0091F62F /* WolframAlpha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,11 +104,8 @@
 		44971772253384A900C54185 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44971774253384A900C54185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4497177E2533857600C54185 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		44971782253385AE00C54185 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
-		44971785253385C800C54185 /* IsPrimeModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPrimeModalView.swift; sourceTree = "<group>"; };
-		44971789253385EA00C54185 /* FavoritePrimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesView.swift; sourceTree = "<group>"; };
-		4497178D2533864400C54185 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		449717992533EA6D00C54185 /* Reducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
+		44B1658D256BAA3C0091F62F /* WolframAlpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +176,7 @@
 			children = (
 				44484D4E256B89BF00CF3F14 /* Counter.h */,
 				44484D76256B8A5500CF3F14 /* Counter.swift */,
+				44B1658D256BAA3C0091F62F /* WolframAlpha.swift */,
 				44484D4F256B89BF00CF3F14 /* Info.plist */,
 			);
 			path = Counter;
@@ -227,7 +222,6 @@
 				4497176B253384A800C54185 /* MyPrimeNumberApp.swift */,
 				4497177C2533851200C54185 /* Views */,
 				4497177B2533850B00C54185 /* States */,
-				4497178C2533862900C54185 /* Networking */,
 				4497177D2533852000C54185 /* Supporting Files */,
 				44971771253384A900C54185 /* Preview Content */,
 			);
@@ -255,9 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				4497176D253384A800C54185 /* ContentView.swift */,
-				44971782253385AE00C54185 /* CounterView.swift */,
-				44971789253385EA00C54185 /* FavoritePrimesView.swift */,
-				44971785253385C800C54185 /* IsPrimeModalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,14 +260,6 @@
 				44971774253384A900C54185 /* Info.plist */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4497178C2533862900C54185 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				4497178D2533864400C54185 /* WolframAlpha.swift */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44484D77256B8A5500CF3F14 /* Counter.swift in Sources */,
+				44B1658E256BAA3C0091F62F /* WolframAlpha.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,14 +524,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4497178A253385EA00C54185 /* FavoritePrimesView.swift in Sources */,
 				4497177F2533857600C54185 /* AppState.swift in Sources */,
 				4497176E253384A800C54185 /* ContentView.swift in Sources */,
-				4497178E2533864400C54185 /* WolframAlpha.swift in Sources */,
-				44971786253385C800C54185 /* IsPrimeModalView.swift in Sources */,
 				4497179A2533EA6D00C54185 /* Reducers.swift in Sources */,
 				4497176C253384A800C54185 /* MyPrimeNumberApp.swift in Sources */,
-				44971783253385AE00C54185 /* CounterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
