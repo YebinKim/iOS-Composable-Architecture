@@ -106,6 +106,7 @@
 		4497177E2533857600C54185 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		449717992533EA6D00C54185 /* Reducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
 		44B1658D256BAA3C0091F62F /* WolframAlpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
+		44B165B5256BB1AC0091F62F /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +196,7 @@
 		4497175F253384A800C54185 = {
 			isa = PBXGroup;
 			children = (
+				44B165B5256BB1AC0091F62F /* Playground.playground */,
 				4497176A253384A800C54185 /* MyPrimeNumber */,
 				44484D27256B89A900CF3F14 /* ComposableArchitecture */,
 				44484D3A256B89B600CF3F14 /* FavoritePrimes */,

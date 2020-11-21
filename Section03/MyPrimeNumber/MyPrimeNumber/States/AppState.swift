@@ -5,7 +5,7 @@
 //  Created by Yebin Kim on 2020/10/02.
 //
 
-import PrimeModal
+import Counter
 import SwiftUI
 
 // 앱 상태 모델
@@ -34,9 +34,10 @@ struct AppState {
 }
 
 extension AppState {
-    var primeModal: PrimeModalState {
+
+    var counterView: CounterViewState {
         get {
-            PrimeModalState(
+            CounterViewState(
                 count: self.count,
                 favoritePrimes: self.favoritePrimes
             )

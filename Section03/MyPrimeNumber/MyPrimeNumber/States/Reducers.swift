@@ -12,30 +12,23 @@ import PrimeModal
 
 // 앱 액션 모델
 enum AppAction {
-    case counter(CounterAction)
-    case primeModal(PrimeModalAction)
+//    case counter(CounterAction)
+//    case primeModal(PrimeModalAction)
+    // MARK: The Point: Fixing the root app
+    case counterView(CounterViewAction)
     case favoritePrimes(FavoritePrimesAction)
+
+    var counterView: CounterViewAction? {
+        get {
+            guard case let .counterView(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .counterView = self, let newValue = newValue else { return }
+            self = .counterView(newValue)
+        }
+    }
     
-    var counter: CounterAction? {
-        get {
-            guard case let .counter(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard case .counter = self, let newValue = newValue else { return }
-            self = .counter(newValue)
-        }
-    }
-    var primeModal: PrimeModalAction? {
-        get {
-            guard case let .primeModal(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard case .primeModal = self, let newValue = newValue else { return }
-            self = .primeModal(newValue)
-        }
-    }
     var favoritePrimes: FavoritePrimesAction? {
         get {
             guard case let .favoritePrimes(value) = self else { return nil }
@@ -55,13 +48,13 @@ func activityFeed(
     
     return { state, action in
         switch action {
-        case .counter:
+        case .counterView(.counter):
             break
             
-        case .primeModal(.addFavoritePrime):
+        case .counterView(.primeModal(.addFavoritePrime)):
             state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
             
-        case .primeModal(.removeFavoritePrime):
+        case .counterView(.primeModal(.removeFavoritePrime)):
             state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
             
         case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
@@ -76,7 +69,11 @@ func activityFeed(
 
 // MARK: - Global Reducer
 let appReducer: (inout AppState, AppAction) -> Void = combine(
-    pullback(counterReducer, value: \.count, action: \.counter),
-    pullback(primeModalReducer, value: \.primeModal, action: \.primeModal),
+    // MARK: The Point: The counter app
+    // CounterView Reducer를 분리 -> Playground에서도 실행할 수 있도록
+//    pullback(counterReducer, value: \.count, action: \.counter),
+//    pullback(primeModalReducer, value: \.primeModal, action: \.primeModal),
+    // MARK: The Point: Fixing the root app
+    pullback(counterViewReducer, value: \.counterView, action: \.counterView),
     pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )

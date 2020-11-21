@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 import FavoritePrimes
-import PrimeModal
+//import PrimeModal
 import Counter
 import SwiftUI
 
@@ -25,17 +25,20 @@ struct ContentView: View {
 //                        store: self.store.view { ($0.count, $0.favoritePrimes) }
                         // MARK: View Actions: Focusing on counter actions
                         store: self.store.view(
-                            value: { ($0.count, $0.favoritePrimes) },
+//                            value: { ($0.count, $0.favoritePrimes) },
 //                            action: { $0 }
                             // MARK: View Actions: Focusing on counter actions
-                            action: {
-                                switch $0 {
-                                case let .counter(action):
-                                    return AppAction.counter(action)
-                                case let .primeModal(action):
-                                    return AppAction.primeModal(action)
-                                }
-                            }
+//                            action: {
+//                                switch $0 {
+//                                case let .counter(action):
+//                                    return AppAction.counter(action)
+//                                case let .primeModal(action):
+//                                    return AppAction.primeModal(action)
+//                                }
+//                            }
+                            // MARK: The Point: Fixing the root app
+                            value: { $0.counterView },
+                            action: { .counterView($0) }
                         )
                     )
                 )

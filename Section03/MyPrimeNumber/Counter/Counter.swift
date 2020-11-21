@@ -22,7 +22,35 @@ public typealias CounterViewState = (count: Int, favoritePrimes: [Int])
 public enum CounterViewAction {
     case counter(CounterAction)
     case primeModal(PrimeModalAction)
+
+    // MARK: The Point: The counter app
+    var counter: CounterAction? {
+        get {
+            guard case let .counter(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .counter = self, let newValue = newValue else { return }
+            self = .counter(newValue)
+        }
+    }
+    var primeModal: PrimeModalAction? {
+        get {
+            guard case let .primeModal(value) = self else { return nil }
+            return value
+        }
+        set {
+            guard case .primeModal = self, let newValue = newValue else { return }
+            self = .primeModal(newValue)
+        }
+    }
 }
+
+// MARK: The Point: The counter app
+public let counterViewReducer: (inout CounterViewState, CounterViewAction) -> Void = combine(
+    pullback(counterReducer, value: \.count, action: \.counter),
+    pullback(primeModalReducer, value: \.self, action: \.primeModal)
+)
 
 // MARK: - Reducers
 // 앱의 기능 별 로직을 구현한 Reducer
