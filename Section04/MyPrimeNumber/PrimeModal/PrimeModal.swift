@@ -15,13 +15,15 @@ public enum PrimeModalAction {
     case removeFavoritePrime
 }
 
-public func primeModalReducer(state: inout PrimeModalState, action: PrimeModalAction) -> Void {
+public func primeModalReducer(state: inout PrimeModalState, action: PrimeModalAction) -> Effect {
     switch action {
     case .addFavoritePrime:
         state.favoritePrimes.append(state.count)
+        return {}
 
     case .removeFavoritePrime:
         state.favoritePrimes.removeAll(where: { $0 == state.count })
+        return {}
     }
 }
 

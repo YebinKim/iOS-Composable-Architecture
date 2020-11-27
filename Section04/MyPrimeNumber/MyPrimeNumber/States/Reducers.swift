@@ -40,8 +40,8 @@ enum AppAction {
 
 // ActivityFeed 도메인에 특화된 High-order Reducr
 func activityFeed(
-    _ reducer: @escaping (inout AppState, AppAction) -> Void
-) -> (inout AppState, AppAction) -> Void {
+    _ reducer: @escaping (inout AppState, AppAction) -> Effect
+) -> (inout AppState, AppAction) -> Effect {
     
     return { state, action in
         switch action {
@@ -58,14 +58,18 @@ func activityFeed(
             for index in indexSet {
                 state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
             }
+        case .favoritePrimes(.loadedFavoritePrimes(_)): break
+
+        case .favoritePrimes(.saveButtonTapped): break
+
         }
-        
-        reducer(&state, action)
+
+        return reducer(&state, action)
     }
 }
 
 // MARK: - Global Reducer
-let appReducer: (inout AppState, AppAction) -> Void = combine(
+let appReducer: (inout AppState, AppAction) -> Effect = combine(
     pullback(counterViewReducer, value: \.counterView, action: \.counterView),
     pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )
