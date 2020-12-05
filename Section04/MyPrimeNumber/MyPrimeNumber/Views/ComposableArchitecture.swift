@@ -8,9 +8,13 @@
 import Combine
 
 // MARK: Synchronous Effects - Reducers as pure functions
-public typealias Reducer<Value, Action> = (inout Value, Action) -> Effect
+//public typealias Reducer<Value, Action> = (inout Value, Action) -> Effect
 // MARK: Synchronous Effects - Effects as values
-public typealias Effect = () -> Void
+//public typealias Effect = () -> Void
+// MARK: Unidirectional Effects - Synchronous effects that produce results
+public typealias Effect<Action> = () -> Action?
+// MARK: Unidirectional Effects - Combining multiple effects that produce results
+public typealias Reducer<Value, Action> = (inout Value, Action) -> [Effect<Action>]
 
 // MARK: Library
 // 앱 아키텍처를 지원하는 핵심 라이브러리
@@ -29,8 +33,16 @@ public final class Store<Value, Action>: ObservableObject {
     // MARK: Synchronous Effects - Updating our architecture for effects
     public func send(_ action: Action) {
 //        self.reducer(&self.value, action)
-        let effect = self.reducer(&self.value, action)
-        effect()
+
+//        let effect = self.reducer(&self.value, action)
+//        effect()
+
+        let effects = self.reducer(&self.value, action)
+        effects.forEach { effect in
+            if let action = effect() {
+                self.send(action)
+            }
+        }
     }
 
     public func view<LocalValue, LocalAction>(
@@ -42,7 +54,7 @@ public final class Store<Value, Action>: ObservableObject {
             reducer: { localValue, localAction in
                 self.send(toGlobalAction(localAction))
                 localValue = toLocalValue(self.value)
-                return {}
+                return []
             }
         )
         localStore.cancellable = self.$value.sink { [weak localStore] newValue in
@@ -60,11 +72,20 @@ public func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
     value: WritableKeyPath<GlobalValue, LocalValue>,
     action: WritableKeyPath<GlobalAction, LocalAction?>
 ) -> Reducer<GlobalValue, GlobalAction> {
+
+    // MARK: Unidirectional Effects - Pulling local effects back globally
     return { globalValue, globalAction in
-        guard let localAction = globalAction[keyPath: action] else { return {} }
-//        reducer(&globalValue[keyPath: value], localAction)
-        let effect = reducer(&globalValue[keyPath: value], localAction)
-        return effect
+        guard let localAction = globalAction[keyPath: action] else { return [] }
+        let localEffects = reducer(&globalValue[keyPath: value], localAction)
+
+        return localEffects.map { localEffect in
+            return { () -> GlobalAction? in
+                guard let localAction = localEffect() else { return nil }
+                var globalAction = globalAction
+                globalAction[keyPath: action] = localAction
+                return globalAction
+            }
+        }
     }
 }
 
@@ -77,12 +98,16 @@ public func combine<Value, Action>(
 //        for reducer in reducers {
 //            reducer(&value, action)
 //        }
-        let effects = reducers.map { $0(&value, action) }
-        return {
-          for effect in effects {
-            effect()
-          }
-        }
+
+//        let effects = reducers.map { $0(&value, action) }
+//        return {
+//            for effect in effects {
+//                effect()
+//            }
+//        }
+
+        let effects = reducers.flatMap { $0(&value, action) }
+        return effects
     }
 }
 
@@ -90,15 +115,14 @@ public func logging<Value, Action>(
     _ reducer: @escaping Reducer<Value, Action>
 ) -> Reducer<Value, Action> {
     return { value, action in
-//        reducer(&value, action)
-        let effect = reducer(&value, action)
+        let effects = reducer(&value, action)
         let newValue = value
-        return {
-          print("Action: \(action)")
-          print("Value:")
-          dump(newValue)
-          print("---")
-          effect()
-        }
+        return [{
+            print("Action: \(action)")
+            print("Value:")
+            dump(newValue)
+            print("---")
+            return nil
+        }] + effects
     }
 }

@@ -43,21 +43,21 @@ public enum CounterViewAction {
     }
 }
 
-public let counterViewReducer: (inout CounterViewState, CounterViewAction) -> Effect = combine(
+public let counterViewReducer: (inout CounterViewState, CounterViewAction) -> [Effect<CounterViewAction>] = combine(
     pullback(counterReducer, value: \.count, action: \.counter),
     pullback(primeModalReducer, value: \.self, action: \.primeModal)
 )
 
 // MARK: - Reducers
 // 앱의 기능 별 로직을 구현한 Reducer
-public func counterReducer(count: inout Int, action: CounterAction) -> Effect {
+public func counterReducer(count: inout Int, action: CounterAction) -> [Effect<CounterAction>] {
     switch action {
     case .increaseCount:
         count += 1
-        return {}
+        return []
     case .decreaseCount:
         count -= 1
-        return {}
+        return []
     }
 }
 

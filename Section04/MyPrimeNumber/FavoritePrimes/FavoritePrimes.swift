@@ -13,28 +13,28 @@ public enum FavoritePrimesAction {
     case loadedFavoritePrimes([Int])
     // MARK: Synchronous Effects - Effects in reducers
     case saveButtonTapped
+    case loadButtonTapped
 }
 
-public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) -> Effect {
+// MARK: Unidirectional Effects - Working with our new effects
+public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) -> [Effect<FavoritePrimesAction>] {
     switch action {
     case let .removeFavoritePrimes(indexSet):
         for index in indexSet {
             state.remove(at: index)
         }
-        return {}
+        return []
+
     case let .loadedFavoritePrimes(favoritePrimes):
         state = favoritePrimes
-        return {}
+        return []
+
     case .saveButtonTapped:
         let state = state
-        return {
-            let data = try! JSONEncoder().encode(state)
-            let documentsPath = NSSearchPathForDirectoriesInDomains(
-                .documentDirectory, .userDomainMask, true
-            )[0]
-            let documentsUrl = URL(fileURLWithPath: documentsPath)
-            try! data.write(to: documentsUrl.appendingPathComponent("favorite-primes.json"))
-        }
+        return [saveEffect(favoritePrimes: state)]
+
+    case .loadButtonTapped:
+        return [loadEffect]
     }
 }
 
@@ -62,22 +62,37 @@ public struct FavoritePrimesView: View {
                 Button("Save to disk") {
                     self.store.send(.saveButtonTapped)
                 }
-
+                // MARK: Unidirectional Effects - Synchronous effects that produce results
                 Button("Load") {
-                    let documentsPath = NSSearchPathForDirectoriesInDomains(
-                        .documentDirectory, .userDomainMask, true
-                    )[0]
-                    let documentsUrl = URL(fileURLWithPath: documentsPath)
-                    let favoritePrimesUrl = documentsUrl
-                        .appendingPathComponent("favorite-primes.json")
-                    guard
-                        let data = try? Data(contentsOf: favoritePrimesUrl),
-                        let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
-                    else { return }
-
-                    self.store.send(.loadedFavoritePrimes(favoritePrimes))
+                    self.store.send(.loadButtonTapped)
                 }
             }
         )
     }
+}
+
+private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
+    return {
+        let data = try! JSONEncoder().encode(favoritePrimes)
+        let documentsPath = NSSearchPathForDirectoriesInDomains(
+            .documentDirectory, .userDomainMask, true
+        )[0]
+        let documentsUrl = URL(fileURLWithPath: documentsPath)
+        try! data.write(to: documentsUrl.appendingPathComponent("favorite-primes.json"))
+        return nil
+    }
+}
+
+private let loadEffect: Effect<FavoritePrimesAction> = {
+    let documentsPath = NSSearchPathForDirectoriesInDomains(
+        .documentDirectory, .userDomainMask, true
+    )[0]
+    let documentsUrl = URL(fileURLWithPath: documentsPath)
+    let favoritePrimesUrl = documentsUrl
+        .appendingPathComponent("favorite-primes.json")
+    guard
+        let data = try? Data(contentsOf: favoritePrimesUrl),
+        let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
+    else { return nil }
+    return .loadedFavoritePrimes(favoritePrimes)
 }
