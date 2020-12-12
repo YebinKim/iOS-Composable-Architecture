@@ -70,7 +70,7 @@ func activityFeed(
 }
 
 // MARK: - Global Reducer
-let appReducer: (inout AppState, AppAction) -> [Effect<AppAction>] = combine(
-    pullback(counterViewReducer, value: \.counterView, action: \.counterView),
+let appReducer = combine(
+    pullback(counterViewReducer, value: \AppState.counterView, action: \AppAction.counterView),
     pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )

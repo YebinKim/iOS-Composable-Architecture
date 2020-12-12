@@ -15,6 +15,7 @@ public enum PrimeModalAction {
     case removeFavoritePrime
 }
 
+// MARK: Asynchronous Effects - Extracting our asynchronous effect
 public func primeModalReducer(state: inout PrimeModalState, action: PrimeModalAction) -> [Effect<PrimeModalAction>] {
     switch action {
     case .addFavoritePrime:

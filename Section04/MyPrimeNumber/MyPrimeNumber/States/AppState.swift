@@ -39,7 +39,7 @@ extension AppState {
         get {
             CounterViewState(
                 count: self.count,
-                favoritePrimes: self.favoritePrimes
+                favoritePrimes: self.favoritePrimes, isNthPrimeButtonDisabled: false
             )
         }
         set {
