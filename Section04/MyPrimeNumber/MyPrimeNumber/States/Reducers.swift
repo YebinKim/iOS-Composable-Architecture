@@ -40,8 +40,8 @@ enum AppAction {
 
 // ActivityFeed 도메인에 특화된 High-order Reducr
 func activityFeed(
-    _ reducer: @escaping Reducer<AppState, AppAction>
-) -> Reducer<AppState, AppAction> {
+  _ reducer: @escaping (inout AppState, AppAction) -> [Effect<AppAction>]
+) -> (inout AppState, AppAction) -> [Effect<AppAction>] {
     
     return { state, action in
         switch action {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4429C6DD2590A92600E28C40 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4429C6DC2590A92600E28C40 /* Effects.swift */; };
 		44484D2A256B89A900CF3F14 /* ComposableArchitecture.h in Headers */ = {isa = PBXBuildFile; fileRef = 44484D28256B89A900CF3F14 /* ComposableArchitecture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44484D2D256B89A900CF3F14 /* ComposableArchitecture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44484D26256B89A900CF3F14 /* ComposableArchitecture.framework */; };
 		44484D2E256B89A900CF3F14 /* ComposableArchitecture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44484D26256B89A900CF3F14 /* ComposableArchitecture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -81,6 +82,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4429C6DC2590A92600E28C40 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		44484D26256B89A900CF3F14 /* ComposableArchitecture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ComposableArchitecture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44484D28256B89A900CF3F14 /* ComposableArchitecture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposableArchitecture.h; sourceTree = "<group>"; };
 		44484D29256B89A900CF3F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			children = (
 				44484D28256B89A900CF3F14 /* ComposableArchitecture.h */,
 				44484D70256B8A3500CF3F14 /* ComposableArchitecture.swift */,
+				4429C6DC2590A92600E28C40 /* Effects.swift */,
 				44484D29256B89A900CF3F14 /* Info.plist */,
 			);
 			path = ComposableArchitecture;
@@ -493,6 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4429C6DD2590A92600E28C40 /* Effects.swift in Sources */,
 				44484D71256B8A3500CF3F14 /* ComposableArchitecture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

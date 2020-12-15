@@ -99,7 +99,7 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
 
     case .nthPrimeButtonTapped:
         state.isNthPrimeButtonDisabled = true
-        let count = state.count
+//        let count = state.count
 //        return [{
 //            var p: Int?
 //            let sema = DispatchSemaphore(value: 0)
@@ -110,14 +110,21 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
 //            sema.wait()
 //            return .nthPrimeResponse(p)
 //        }]
-        return [{ callback in
-            // MARK: Refactor-related bugs
-            nthPrime(count) { prime in
-                DispatchQueue.main.async {
-                    callback(.nthPrimeResponse(prime))
-                }
-            }
-        }]
+
+//        return [{ callback in
+//            // MARK: Refactor-related bugs
+//            nthPrime(count) { prime in
+//                DispatchQueue.main.async {
+//                    callback(.nthPrimeResponse(prime))
+//                }
+//            }
+//        }]
+        
+        return [
+            nthPrime(state.count)
+                .map(CounterAction.nthPrimeResponse)
+                .receive(on: .main)
+        ]
 
     case .nthPrimeResponse(let prime):
         state.alertNthPrime = prime.map(PrimeAlert.init(prime:))

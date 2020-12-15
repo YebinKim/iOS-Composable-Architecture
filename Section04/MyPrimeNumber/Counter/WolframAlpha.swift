@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 // N번째 소수 판별 API
 public struct WolframAlphaResult: Decodable {
@@ -28,7 +29,8 @@ public struct WolframAlphaResult: Decodable {
     }
 }
 
-public func wolframAlpha(query: String, callback: @escaping (WolframAlphaResult?) -> Void) -> Void {
+// MARK: The Point - Reusable effects: network requests
+public func wolframAlpha(query: String) -> Effect<WolframAlphaResult?> {
     var components = URLComponents(string: "https://api.wolframalpha.com/v2/query")!
     components.queryItems = [
         URLQueryItem(name: "input", value: query),
@@ -37,28 +39,21 @@ public func wolframAlpha(query: String, callback: @escaping (WolframAlphaResult?
         URLQueryItem(name: "appid", value: WolframAlphaResult.wolframAlphaApiKey),
     ]
 
-    URLSession.shared.dataTask(with: components.url(relativeTo: nil)!) { data, response, error in
-        callback(
-            data
-                .flatMap { try? JSONDecoder().decode(WolframAlphaResult.self, from: $0) }
-        )
-    }
-    .resume()
+    return dataTask(with: components.url(relativeTo: nil)!)
+        .decode(as: WolframAlphaResult.self)
 }
 
-public func nthPrime(_ n: Int, callback: @escaping (Int?) -> Void) -> Void {
-    wolframAlpha(query: "prime \(n)") { result in
-        callback(
-            result
-                .flatMap {
-                    $0.queryresult
-                        .pods
-                        .first(where: { $0.primary == .some(true) })?
-                        .subpods
-                        .first?
-                        .plaintext
-                }
-                .flatMap(Int.init)
-        )
+public func nthPrime(_ n: Int) -> Effect<Int?> {
+    return wolframAlpha(query: "prime \(n)").map { result in
+        result
+            .flatMap {
+                $0.queryresult
+                    .pods
+                    .first(where: { $0.primary == .some(true) })?
+                    .subpods
+                    .first?
+                    .plaintext
+            }
+            .flatMap(Int.init)
     }
 }

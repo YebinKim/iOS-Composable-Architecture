@@ -16,7 +16,7 @@ import Combine
 // MARK: Unidirectional Effects - Combining multiple effects that produce results
 public typealias Reducer<Value, Action> = (inout Value, Action) -> [Effect<Action>]
 // MARK: Asynchronous Effects - The async effect
-public typealias Effect<Action> = (@escaping (Action) -> Void) -> Void
+//public typealias Effect<Action> = (@escaping (Action) -> Void) -> Void
 
 // MARK: Library
 // 앱 아키텍처를 지원하는 핵심 라이브러리
@@ -57,7 +57,8 @@ public final class Store<Value, Action>: ObservableObject {
 //            }
 //        }
         effects.forEach { effect in
-          effect(self.send)
+//          effect(self.send)
+            effect.run(self.send)
         }
     }
 
@@ -93,16 +94,19 @@ public func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
     return { globalValue, globalAction in
         guard let localAction = globalAction[keyPath: action] else { return [] }
         let localEffects = reducer(&globalValue[keyPath: value], localAction)
+
         return localEffects.map { localEffect in
-            { callback in
+            Effect { callback in
 //        guard let localAction = localEffect() else { return nil }
-                localEffect { localAction in
+                localEffect.run { localAction in
                     var globalAction = globalAction
                     globalAction[keyPath: action] = localAction
                     callback(globalAction)
                 }
             }
         }
+
+//    return effect
     }
 }
 
@@ -134,11 +138,34 @@ public func logging<Value, Action>(
     return { value, action in
         let effects = reducer(&value, action)
         let newValue = value
-        return [{ _ in
+        return [Effect { _ in
             print("Action: \(action)")
             print("Value:")
             dump(newValue)
             print("---")
         }] + effects
     }
+}
+
+// MARK: The Point - Composable, transformable effects
+public struct Effect<A> {
+
+    public let run: (@escaping (A) -> Void) -> Void
+
+    public init(run: @escaping (@escaping (A) -> Void) -> Void) {
+        self.run = run
+    }
+
+    public func map<B>(_ transform: @escaping (A) -> B) -> Effect<B> {
+        return Effect<B> { callback in
+            self.run { callback(transform($0)) }
+        }
+    }
+
+//    public func receive(on queue: DispatchQueue) -> Effect {
+//        return Effect { callback in
+//            self.run { a in queue.async { callback(a) }
+//            }
+//        }
+//    }
 }
