@@ -169,3 +169,17 @@ public struct Effect<A> {
 //        }
 //    }
 }
+
+// MARK: - The Combine Framework and Effects: Part 1
+//public struct Effect<Output>: Publisher {
+//
+//    public typealias Failure = Never
+//
+//    let publisher: AnyPublisher<Output, Failure>
+//
+//    public func receive<S>(
+//        subscriber: S
+//    ) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+//        self.publisher.receive(subscriber: subscriber)
+//    }
+//}
