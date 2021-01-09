@@ -34,7 +34,12 @@ public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesActi
         return [saveEffect(favoritePrimes: state)]
 
     case .loadButtonTapped:
-        return [loadEffect()]
+//        return [loadEffect()]
+        return [
+            loadEffect
+                .compactMap { $0 }
+                .eraseToEffect()
+        ]
     }
 }
 
@@ -72,8 +77,11 @@ public struct FavoritePrimesView: View {
 }
 
 // MARK: The Point - Getting everything building again
+//private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
+//    return Effect { _ in
+// MARK: - The Combine Framework and Effects: Part 2 - Refactoring synchronous effects
 private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
-    return Effect { _ in
+    return .fireAndForget {
         let data = try! JSONEncoder().encode(favoritePrimes)
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let documentsUrl = URL(fileURLWithPath: documentsPath)
@@ -82,18 +90,39 @@ private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
     }
 }
 
-private func loadEffect() -> Effect<FavoritePrimesAction> {
-    return Effect { closure in
-        let documentsPath = NSSearchPathForDirectoriesInDomains(
-            .documentDirectory, .userDomainMask, true
-        )[0]
-        let documentsUrl = URL(fileURLWithPath: documentsPath)
-        let favoritePrimesUrl = documentsUrl
-            .appendingPathComponent("favorite-primes.json")
-        guard
-            let data = try? Data(contentsOf: favoritePrimesUrl),
-            let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
-        else { return }
-        closure(.loadedFavoritePrimes(favoritePrimes))
+//private func loadEffect() -> Effect<FavoritePrimesAction> {
+//    return Effect { closure in
+//        let documentsPath = NSSearchPathForDirectoriesInDomains(
+//            .documentDirectory, .userDomainMask, true
+//        )[0]
+//        let documentsUrl = URL(fileURLWithPath: documentsPath)
+//        let favoritePrimesUrl = documentsUrl
+//            .appendingPathComponent("favorite-primes.json")
+//        guard
+//            let data = try? Data(contentsOf: favoritePrimesUrl),
+//            let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
+//        else { return }
+//        closure(.loadedFavoritePrimes(favoritePrimes))
+//    }
+//}
+
+private let loadEffect = Effect<FavoritePrimesAction?>.sync {
+    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+    let documentsUrl = URL(fileURLWithPath: documentsPath)
+    let favoritePrimesUrl = documentsUrl.appendingPathComponent("favorite-primes.json")
+    guard
+        let data = try? Data(contentsOf: favoritePrimesUrl),
+        let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
+    else { return nil }
+    return .loadedFavoritePrimes(favoritePrimes)
+}
+
+import Combine
+
+extension Effect {
+    static func sync(work: @escaping () -> Output) -> Effect {
+        return Deferred {
+            Just(work())
+        }.eraseToEffect()
     }
 }

@@ -123,7 +123,9 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
         return [
             nthPrime(state.count)
                 .map(CounterAction.nthPrimeResponse)
-                .receive(on: .main)
+                .receive(on: DispatchQueue.main)
+                // MARK: - The Combine Framework and Effects: Part 2 - Refactoring asynchronous effects
+                .eraseToEffect()
         ]
 
     case .nthPrimeResponse(let prime):

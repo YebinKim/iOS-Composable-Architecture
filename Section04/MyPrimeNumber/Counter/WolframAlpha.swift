@@ -29,6 +29,8 @@ public struct WolframAlphaResult: Decodable {
     }
 }
 
+import Combine
+
 // MARK: The Point - Reusable effects: network requests
 public func wolframAlpha(query: String) -> Effect<WolframAlphaResult?> {
     var components = URLComponents(string: "https://api.wolframalpha.com/v2/query")!
@@ -39,8 +41,16 @@ public func wolframAlpha(query: String) -> Effect<WolframAlphaResult?> {
         URLQueryItem(name: "appid", value: WolframAlphaResult.wolframAlphaApiKey),
     ]
 
-    return dataTask(with: components.url(relativeTo: nil)!)
-        .decode(as: WolframAlphaResult.self)
+//    return dataTask(with: components.url(relativeTo: nil)!)
+//        .decode(as: WolframAlphaResult.self)
+
+    // MARK: - The Combine Framework and Effects: Part 2 - Refactoring asynchronous effects
+    return URLSession.shared
+        .dataTaskPublisher(for: components.url(relativeTo: nil)!)
+        .map { data, _ in data }
+        .decode(type: WolframAlphaResult?.self, decoder: JSONDecoder())
+        .replaceError(with: nil)
+        .eraseToEffect()
 }
 
 public func nthPrime(_ n: Int) -> Effect<Int?> {
@@ -56,4 +66,5 @@ public func nthPrime(_ n: Int) -> Effect<Int?> {
             }
             .flatMap(Int.init)
     }
+    .eraseToEffect()
 }

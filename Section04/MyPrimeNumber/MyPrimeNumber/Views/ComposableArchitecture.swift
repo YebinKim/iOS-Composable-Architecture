@@ -25,7 +25,9 @@ public final class Store<Value, Action>: ObservableObject {
     
     private let reducer: Reducer<Value, Action>
     @Published public private(set) var value: Value
-    private var cancellable: Cancellable?
+//    private var cancellable: Cancellable?
+    private var viewCancellable: Cancellable?
+    private var effectCancellables: Set<AnyCancellable> = []
 
     public init(initialValue: Value, reducer: @escaping Reducer<Value, Action>) {
         self.value = initialValue
@@ -58,7 +60,21 @@ public final class Store<Value, Action>: ObservableObject {
 //        }
         effects.forEach { effect in
 //          effect(self.send)
-            effect.run(self.send)
+//            effect.run(self.send)
+            // MARK: - The Combine Framework and Effects: Part 2 - Effect as a Combine publisher
+            var effectCancellable: AnyCancellable?
+            var didComplete = false
+            effectCancellable = effect.sink(
+                receiveCompletion: { [weak self] _ in
+                    didComplete = true
+                    guard let effectCancellable = effectCancellable else { return }
+                    self?.effectCancellables.remove(effectCancellable)
+                },
+                receiveValue: self.send
+            )
+            if !didComplete, let effectCancellable = effectCancellable {
+                self.effectCancellables.insert(effectCancellable)
+            }
         }
     }
 
@@ -74,7 +90,7 @@ public final class Store<Value, Action>: ObservableObject {
                 return []
             }
         )
-        localStore.cancellable = self.$value.sink { [weak localStore] newValue in
+        localStore.viewCancellable = self.$value.sink { [weak localStore] newValue in
             localStore?.value = toLocalValue(newValue)
         }
         return localStore
@@ -95,18 +111,27 @@ public func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
         guard let localAction = globalAction[keyPath: action] else { return [] }
         let localEffects = reducer(&globalValue[keyPath: value], localAction)
 
-        return localEffects.map { localEffect in
-            Effect { callback in
+//        return localEffects.map { localEffect in
+//            Effect { callback in
 //        guard let localAction = localEffect() else { return nil }
-                localEffect.run { localAction in
-                    var globalAction = globalAction
-                    globalAction[keyPath: action] = localAction
-                    callback(globalAction)
-                }
-            }
-        }
+//                localEffect.run { localAction in
+//                    var globalAction = globalAction
+//                    globalAction[keyPath: action] = localAction
+//                    callback(globalAction)
+//                }
+//            }
+//        }
 
 //    return effect
+        // MARK: - The Combine Framework and Effects: Part 2 - Pulling back reducers with publishers
+        return localEffects.map { localEffect in
+            localEffect.map { localAction -> GlobalAction in
+                var globalAction = globalAction
+                globalAction[keyPath: action] = localAction
+                return globalAction
+            }
+            .eraseToEffect()
+        }
     }
 }
 
@@ -138,48 +163,56 @@ public func logging<Value, Action>(
     return { value, action in
         let effects = reducer(&value, action)
         let newValue = value
-        return [Effect { _ in
-            print("Action: \(action)")
-            print("Value:")
-            dump(newValue)
-            print("---")
+//        return [Effect { _ in
+//            print("Action: \(action)")
+//            print("Value:")
+//            dump(newValue)
+//            print("---")
+//        }] + effects
+
+        // MARK: - The Combine Framework and Effects: Part 2 - Finishing the architecture refactor
+        return [.fireAndForget {
+          print("Action: \(action)")
+          print("Value:")
+          dump(newValue)
+          print("---")
         }] + effects
     }
 }
 
 // MARK: The Point - Composable, transformable effects
-public struct Effect<A> {
-
-    public let run: (@escaping (A) -> Void) -> Void
-
-    public init(run: @escaping (@escaping (A) -> Void) -> Void) {
-        self.run = run
-    }
-
-    public func map<B>(_ transform: @escaping (A) -> B) -> Effect<B> {
-        return Effect<B> { callback in
-            self.run { callback(transform($0)) }
-        }
-    }
-
-//    public func receive(on queue: DispatchQueue) -> Effect {
-//        return Effect { callback in
-//            self.run { a in queue.async { callback(a) }
-//            }
+//public struct Effect<A> {
+//
+//    public let run: (@escaping (A) -> Void) -> Void
+//
+//    public init(run: @escaping (@escaping (A) -> Void) -> Void) {
+//        self.run = run
+//    }
+//
+//    public func map<B>(_ transform: @escaping (A) -> B) -> Effect<B> {
+//        return Effect<B> { callback in
+//            self.run { callback(transform($0)) }
 //        }
 //    }
-}
-
-// MARK: - The Combine Framework and Effects: Part 1
-//public struct Effect<Output>: Publisher {
 //
-//    public typealias Failure = Never
-//
-//    let publisher: AnyPublisher<Output, Failure>
-//
-//    public func receive<S>(
-//        subscriber: S
-//    ) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-//        self.publisher.receive(subscriber: subscriber)
-//    }
+////    public func receive(on queue: DispatchQueue) -> Effect {
+////        return Effect { callback in
+////            self.run { a in queue.async { callback(a) }
+////            }
+////        }
+////    }
 //}
+
+// MARK: - The Combine Framework and Effects: Part 2 - Effect as a Combine publisher
+public struct Effect<Output>: Publisher {
+
+    public typealias Failure = Never
+
+    let publisher: AnyPublisher<Output, Failure>
+
+    public func receive<S>(
+        subscriber: S
+    ) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        self.publisher.receive(subscriber: subscriber)
+    }
+}
