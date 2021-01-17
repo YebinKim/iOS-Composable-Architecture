@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-public enum FavoritePrimesAction {
+public enum FavoritePrimesAction: Equatable {
     case removeFavoritePrimes(IndexSet)
     case loadedFavoritePrimes([Int])
     case saveButtonTapped

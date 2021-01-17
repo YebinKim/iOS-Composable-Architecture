@@ -31,6 +31,9 @@
 		4497177F2533857600C54185 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497177E2533857600C54185 /* AppState.swift */; };
 		4497179A2533EA6D00C54185 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449717992533EA6D00C54185 /* Reducers.swift */; };
 		44B1658E256BAA3C0091F62F /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B1658D256BAA3C0091F62F /* WolframAlpha.swift */; };
+		C245A92425C722E900368C8F /* PrimeModalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A92325C722E900368C8F /* PrimeModalTests.swift */; };
+		C245A94625C7251700368C8F /* FavoritePrimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A94525C7251700368C8F /* FavoritePrimesTests.swift */; };
+		C245A95A25C7252300368C8F /* CounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A95925C7252300368C8F /* CounterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 44484D5F256B8A2700CF3F14;
 			remoteInfo = PrimeModal;
+		};
+		C245A92625C722E900368C8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44971767253384A800C54185;
+			remoteInfo = MyPrimeNumber;
+		};
+		C245A94825C7251700368C8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44971767253384A800C54185;
+			remoteInfo = MyPrimeNumber;
+		};
+		C245A95C25C7252300368C8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44971767253384A800C54185;
+			remoteInfo = MyPrimeNumber;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -109,6 +133,15 @@
 		449717992533EA6D00C54185 /* Reducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
 		44B1658D256BAA3C0091F62F /* WolframAlpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		44B165B5256BB1AC0091F62F /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C245A92125C722E900368C8F /* PrimeModalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeModalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C245A92325C722E900368C8F /* PrimeModalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeModalTests.swift; sourceTree = "<group>"; };
+		C245A92525C722E900368C8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C245A94325C7251700368C8F /* FavoritePrimesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FavoritePrimesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C245A94525C7251700368C8F /* FavoritePrimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesTests.swift; sourceTree = "<group>"; };
+		C245A94725C7251700368C8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C245A95725C7252300368C8F /* CounterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C245A95925C7252300368C8F /* CounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTests.swift; sourceTree = "<group>"; };
+		C245A95B25C7252300368C8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +181,27 @@
 				44484D53256B89BF00CF3F14 /* Counter.framework in Frameworks */,
 				44484D67256B8A2700CF3F14 /* PrimeModal.framework in Frameworks */,
 				44484D2D256B89A900CF3F14 /* ComposableArchitecture.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A91E25C722E900368C8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A94025C7251700368C8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A95425C7252300368C8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,9 +256,12 @@
 				44B165B5256BB1AC0091F62F /* Playground.playground */,
 				4497176A253384A800C54185 /* MyPrimeNumber */,
 				44484D27256B89A900CF3F14 /* ComposableArchitecture */,
-				44484D3A256B89B600CF3F14 /* FavoritePrimes */,
 				44484D4D256B89BF00CF3F14 /* Counter */,
+				C245A95825C7252300368C8F /* CounterTests */,
+				44484D3A256B89B600CF3F14 /* FavoritePrimes */,
+				C245A94425C7251700368C8F /* FavoritePrimesTests */,
 				44484D61256B8A2700CF3F14 /* PrimeModal */,
+				C245A92225C722E900368C8F /* PrimeModalTests */,
 				44971769253384A800C54185 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -217,6 +274,9 @@
 				44484D39256B89B600CF3F14 /* FavoritePrimes.framework */,
 				44484D4C256B89BE00CF3F14 /* Counter.framework */,
 				44484D60256B8A2700CF3F14 /* PrimeModal.framework */,
+				C245A92125C722E900368C8F /* PrimeModalTests.xctest */,
+				C245A94325C7251700368C8F /* FavoritePrimesTests.xctest */,
+				C245A95725C7252300368C8F /* CounterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,6 +325,33 @@
 				44971774253384A900C54185 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C245A92225C722E900368C8F /* PrimeModalTests */ = {
+			isa = PBXGroup;
+			children = (
+				C245A92325C722E900368C8F /* PrimeModalTests.swift */,
+				C245A92525C722E900368C8F /* Info.plist */,
+			);
+			path = PrimeModalTests;
+			sourceTree = "<group>";
+		};
+		C245A94425C7251700368C8F /* FavoritePrimesTests */ = {
+			isa = PBXGroup;
+			children = (
+				C245A94525C7251700368C8F /* FavoritePrimesTests.swift */,
+				C245A94725C7251700368C8F /* Info.plist */,
+			);
+			path = FavoritePrimesTests;
+			sourceTree = "<group>";
+		};
+		C245A95825C7252300368C8F /* CounterTests */ = {
+			isa = PBXGroup;
+			children = (
+				C245A95925C7252300368C8F /* CounterTests.swift */,
+				C245A95B25C7252300368C8F /* Info.plist */,
+			);
+			path = CounterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,13 +486,67 @@
 			productReference = 44971768253384A800C54185 /* MyPrimeNumber.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C245A92025C722E900368C8F /* PrimeModalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C245A92A25C722E900368C8F /* Build configuration list for PBXNativeTarget "PrimeModalTests" */;
+			buildPhases = (
+				C245A91D25C722E900368C8F /* Sources */,
+				C245A91E25C722E900368C8F /* Frameworks */,
+				C245A91F25C722E900368C8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C245A92725C722E900368C8F /* PBXTargetDependency */,
+			);
+			name = PrimeModalTests;
+			productName = PrimeModalTests;
+			productReference = C245A92125C722E900368C8F /* PrimeModalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C245A94225C7251700368C8F /* FavoritePrimesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C245A94A25C7251700368C8F /* Build configuration list for PBXNativeTarget "FavoritePrimesTests" */;
+			buildPhases = (
+				C245A93F25C7251700368C8F /* Sources */,
+				C245A94025C7251700368C8F /* Frameworks */,
+				C245A94125C7251700368C8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C245A94925C7251700368C8F /* PBXTargetDependency */,
+			);
+			name = FavoritePrimesTests;
+			productName = FavoritePrimesTests;
+			productReference = C245A94325C7251700368C8F /* FavoritePrimesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C245A95625C7252300368C8F /* CounterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C245A95E25C7252300368C8F /* Build configuration list for PBXNativeTarget "CounterTests" */;
+			buildPhases = (
+				C245A95325C7252300368C8F /* Sources */,
+				C245A95425C7252300368C8F /* Frameworks */,
+				C245A95525C7252300368C8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C245A95D25C7252300368C8F /* PBXTargetDependency */,
+			);
+			name = CounterTests;
+			productName = CounterTests;
+			productReference = C245A95725C7252300368C8F /* CounterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		44971760253384A800C54185 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					44484D25256B89A900CF3F14 = {
@@ -427,6 +568,15 @@
 					44971767253384A800C54185 = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
+					C245A92025C722E900368C8F = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					C245A94225C7251700368C8F = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					C245A95625C7252300368C8F = {
+						CreatedOnToolsVersion = 12.3;
+					};
 				};
 			};
 			buildConfigurationList = 44971763253384A800C54185 /* Build configuration list for PBXProject "MyPrimeNumber" */;
@@ -445,8 +595,11 @@
 				44971767253384A800C54185 /* MyPrimeNumber */,
 				44484D25256B89A900CF3F14 /* ComposableArchitecture */,
 				44484D38256B89B600CF3F14 /* FavoritePrimes */,
+				C245A94225C7251700368C8F /* FavoritePrimesTests */,
 				44484D4B256B89BE00CF3F14 /* Counter */,
+				C245A95625C7252300368C8F /* CounterTests */,
 				44484D5F256B8A2700CF3F14 /* PrimeModal */,
+				C245A92025C722E900368C8F /* PrimeModalTests */,
 			);
 		};
 /* End PBXProject section */
@@ -486,6 +639,27 @@
 			files = (
 				44971773253384A900C54185 /* Preview Assets.xcassets in Resources */,
 				44971770253384A900C54185 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A91F25C722E900368C8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A94125C7251700368C8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A95525C7252300368C8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +711,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C245A91D25C722E900368C8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C245A92425C722E900368C8F /* PrimeModalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A93F25C7251700368C8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C245A94625C7251700368C8F /* FavoritePrimesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C245A95325C7252300368C8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C245A95A25C7252300368C8F /* CounterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -559,6 +757,21 @@
 			isa = PBXTargetDependency;
 			target = 44484D5F256B8A2700CF3F14 /* PrimeModal */;
 			targetProxy = 44484D65256B8A2700CF3F14 /* PBXContainerItemProxy */;
+		};
+		C245A92725C722E900368C8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44971767253384A800C54185 /* MyPrimeNumber */;
+			targetProxy = C245A92625C722E900368C8F /* PBXContainerItemProxy */;
+		};
+		C245A94925C7251700368C8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44971767253384A800C54185 /* MyPrimeNumber */;
+			targetProxy = C245A94825C7251700368C8F /* PBXContainerItemProxy */;
+		};
+		C245A95D25C7252300368C8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44971767253384A800C54185 /* MyPrimeNumber */;
+			targetProxy = C245A95C25C7252300368C8F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -943,6 +1156,114 @@
 			};
 			name = Release;
 		};
+		C245A92825C722E900368C8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrimeModalTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.PrimeModalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C245A92925C722E900368C8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrimeModalTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.PrimeModalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C245A94B25C7251700368C8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FavoritePrimesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.FavoritePrimesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C245A94C25C7251700368C8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FavoritePrimesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.FavoritePrimesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C245A95F25C7252300368C8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CounterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.CounterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C245A96025C7252300368C8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CounterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.CounterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -996,6 +1317,33 @@
 			buildConfigurations = (
 				44971778253384A900C54185 /* Debug */,
 				44971779253384A900C54185 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C245A92A25C722E900368C8F /* Build configuration list for PBXNativeTarget "PrimeModalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C245A92825C722E900368C8F /* Debug */,
+				C245A92925C722E900368C8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C245A94A25C7251700368C8F /* Build configuration list for PBXNativeTarget "FavoritePrimesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C245A94B25C7251700368C8F /* Debug */,
+				C245A94C25C7251700368C8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C245A95E25C7252300368C8F /* Build configuration list for PBXNativeTarget "CounterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C245A95F25C7252300368C8F /* Debug */,
+				C245A96025C7252300368C8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

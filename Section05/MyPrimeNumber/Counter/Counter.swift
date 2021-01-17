@@ -12,7 +12,7 @@ import SwiftUI
 public typealias CounterState = (alertNthPrime: PrimeAlert?, count: Int, isNthPrimeButtonDisabled: Bool)
 
 // 앱 액션 모델
-public enum CounterAction {
+public enum CounterAction: Equatable {
     case decreaseCount
     case increaseCount
     case nthPrimeButtonTapped
@@ -21,7 +21,7 @@ public enum CounterAction {
 }
 
 // 앱 상태 모델
-public struct CounterViewState {
+public struct CounterViewState: Equatable {
     public var alertNthPrime: PrimeAlert?
     public var count: Int
     public var favoritePrimes: [Int]
@@ -50,7 +50,7 @@ public struct CounterViewState {
     }
 }
 
-public enum CounterViewAction {
+public enum CounterViewAction: Equatable {
     case counter(CounterAction)
     case primeModal(PrimeModalAction)
 
@@ -172,7 +172,7 @@ public struct CounterView: View {
 }
 
 // MARK: Utils
-public struct PrimeAlert: Identifiable {
+public struct PrimeAlert: Identifiable, Equatable {
     let prime: Int
     public var id: Int { self.prime }
 }
