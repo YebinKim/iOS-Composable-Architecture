@@ -97,10 +97,10 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
         state.isNthPrimeButtonDisabled = true
         
         return [
-            nthPrime(state.count)
+            Current
+                .nthPrime(state.count)
                 .map(CounterAction.nthPrimeResponse)
                 .receive(on: DispatchQueue.main)
-                // MARK: - The Combine Framework and Effects: Part 2 - Refactoring asynchronous effects
                 .eraseToEffect()
         ]
 
@@ -170,6 +170,23 @@ public struct CounterView: View {
         self.store.send(.counter(.nthPrimeButtonTapped))
     }
 }
+
+// MARK: Testable State Management: Effects - Controlling the counter effect
+struct CounterEnvironment {
+    var nthPrime: (Int) -> Effect<Int?>
+}
+
+extension CounterEnvironment {
+    static let live = CounterEnvironment(nthPrime: Counter.nthPrime)
+}
+
+var Current = CounterEnvironment.live
+
+#if DEBUG
+extension CounterEnvironment {
+    static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 } })
+}
+#endif
 
 // MARK: Utils
 public struct PrimeAlert: Identifiable, Equatable {

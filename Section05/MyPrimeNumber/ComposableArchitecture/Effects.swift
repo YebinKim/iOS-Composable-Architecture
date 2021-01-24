@@ -15,6 +15,13 @@ extension Publisher where Failure == Never {
 }
 
 extension Effect {
+
+    public static func sync(work: @escaping () -> Output) -> Effect {
+        return Deferred {
+            Just(work())
+        }.eraseToEffect()
+    }
+
     public static func fireAndForget(work: @escaping () -> Void) -> Effect {
         return Deferred { () -> Empty<Output, Never> in
             work()
