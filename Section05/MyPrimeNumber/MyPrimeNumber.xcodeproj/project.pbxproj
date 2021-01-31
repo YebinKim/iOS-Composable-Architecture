@@ -31,6 +31,7 @@
 		4497177F2533857600C54185 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497177E2533857600C54185 /* AppState.swift */; };
 		4497179A2533EA6D00C54185 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449717992533EA6D00C54185 /* Reducers.swift */; };
 		44B1658E256BAA3C0091F62F /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B1658D256BAA3C0091F62F /* WolframAlpha.swift */; };
+		C22C957C25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22C957B25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift */; };
 		C245A92425C722E900368C8F /* PrimeModalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A92325C722E900368C8F /* PrimeModalTests.swift */; };
 		C245A94625C7251700368C8F /* FavoritePrimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A94525C7251700368C8F /* FavoritePrimesTests.swift */; };
 		C245A95A25C7252300368C8F /* CounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A95925C7252300368C8F /* CounterTests.swift */; };
@@ -133,6 +134,7 @@
 		449717992533EA6D00C54185 /* Reducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
 		44B1658D256BAA3C0091F62F /* WolframAlpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		44B165B5256BB1AC0091F62F /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C22C957B25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableArchitectureTestSupport.swift; sourceTree = "<group>"; };
 		C245A92125C722E900368C8F /* PrimeModalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeModalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C245A92325C722E900368C8F /* PrimeModalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeModalTests.swift; sourceTree = "<group>"; };
 		C245A92525C722E900368C8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				C245A95925C7252300368C8F /* CounterTests.swift */,
+				C22C957B25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift */,
 				C245A95B25C7252300368C8F /* Info.plist */,
 			);
 			path = CounterTests;
@@ -732,6 +735,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C245A95A25C7252300368C8F /* CounterTests.swift in Sources */,
+				C22C957C25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
