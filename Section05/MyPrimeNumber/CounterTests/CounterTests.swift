@@ -18,46 +18,34 @@ class CounterTests: XCTestCase {
     }
 
     func testIncrButtonTapped() {
-        var state = CounterViewState(
-            alertNthPrime: nil,
-            count: 2,
-            favoritePrimes: [3, 5],
-            isNthPrimeButtonDisabled: false
-        )
+        var state = CounterViewState(count: 2)
+        var expected = state
         let effects = counterViewReducer(&state,
                                          .counter(.increaseCount))
 
-        XCTAssertEqual(
-            state,
-            CounterViewState(
-                alertNthPrime: nil,
-                count: 3,
-                favoritePrimes: [3, 5],
-                isNthPrimeButtonDisabled: false
-            )
-        )
+        // MARK: Testable State Management: Ergonomics - Simplifying testing state
+//        XCTAssertEqual(
+//            state,
+//            CounterViewState(
+//                alertNthPrime: nil,
+//                count: 3,
+//                favoritePrimes: [3, 5],
+//                isNthPrimeButtonDisabled: false
+//            )
+//        )
+        expected.count = 3
+        XCTAssertEqual(state, expected)
         XCTAssertTrue(effects.isEmpty)
     }
 
     func testDecrButtonTapped() {
-        var state = CounterViewState(
-            alertNthPrime: nil,
-            count: 2,
-            favoritePrimes: [3, 5],
-            isNthPrimeButtonDisabled: false
-        )
+        var state = CounterViewState(count: 2)
+        var expected = state
         let effects = counterViewReducer(&state,
                                          .counter(.decreaseCount))
 
-        XCTAssertEqual(
-            state,
-            CounterViewState(
-                alertNthPrime: nil,
-                count: 1,
-                favoritePrimes: [3, 5],
-                isNthPrimeButtonDisabled: false
-            )
-        )
+        expected.count = 1
+        XCTAssertEqual(state, expected)
         XCTAssertTrue(effects.isEmpty)
     }
 
@@ -67,22 +55,14 @@ class CounterTests: XCTestCase {
 
         var state = CounterViewState(
             alertNthPrime: nil,
-            count: 2,
-            favoritePrimes: [3, 5],
             isNthPrimeButtonDisabled: false
         )
+        var expected = state
+        var effects = counterViewReducer(&state,
+                                         .counter(.nthPrimeButtonTapped))
 
-        var effects = counterViewReducer(&state, .counter(.nthPrimeButtonTapped))
-
-        XCTAssertEqual(
-            state,
-            CounterViewState(
-                alertNthPrime: nil,
-                count: 2,
-                favoritePrimes: [3, 5],
-                isNthPrimeButtonDisabled: true
-            )
-        )
+        expected.isNthPrimeButtonDisabled = true
+        XCTAssertEqual(state, expected)
         XCTAssertEqual(effects.count, 1)
 
         var nextAction: CounterViewAction!
@@ -98,30 +78,19 @@ class CounterTests: XCTestCase {
         )
         self.wait(for: [receivedCompletion], timeout: 0.01)
 
-        effects = counterViewReducer(&state, nextAction)
+        effects = counterViewReducer(&state,
+                                     nextAction)
 
-        XCTAssertEqual(
-            state,
-            CounterViewState(
-                alertNthPrime: PrimeAlert(prime: 17),
-                count: 2,
-                favoritePrimes: [3, 5],
-                isNthPrimeButtonDisabled: false
-            )
-        )
+        expected.alertNthPrime = PrimeAlert(prime: 17)
+        expected.isNthPrimeButtonDisabled = false
+        XCTAssertEqual(state, expected)
         XCTAssertTrue(effects.isEmpty)
 
-        effects = counterViewReducer(&state, .counter(.alertDismissButtonTapped))
+        effects = counterViewReducer(&state,
+                                     .counter(.alertDismissButtonTapped))
 
-        XCTAssertEqual(
-            state,
-            CounterViewState(
-                alertNthPrime: nil,
-                count: 2,
-                favoritePrimes: [3, 5],
-                isNthPrimeButtonDisabled: false
-            )
-        )
+        expected.alertNthPrime = nil
+        XCTAssertEqual(state, expected)
         XCTAssertTrue(effects.isEmpty)
     }
 
