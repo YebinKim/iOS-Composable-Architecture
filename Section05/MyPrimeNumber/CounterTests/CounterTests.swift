@@ -37,9 +37,10 @@ struct Step<Value, Action> {
 
     init(
         _ action: Action,
-        _ update: @escaping (inout Value) -> Void,
         file: StaticString = #file,
-        line: UInt = #line
+        line: UInt = #line,
+        // MARK: Testable State Management: Ergonomics - Trailing closure ergonomics
+        _ update: @escaping (inout Value) -> Void
     ) {
         self.action = action
         self.update = update
