@@ -7,6 +7,22 @@
 
 import XCTest
 @testable import Counter
+import ComposableArchitecture
+
+// MARK: Testable State Management: Ergonomics - The shape of a test
+func assert<Value: Equatable, Action>(
+    initialValue: Value,
+    reducer: Reducer<Value, Action>,
+    steps: (action: Action, update: (inout Value) -> Void)...
+) {
+    var state = initialValue
+    steps.forEach { step in
+        var expected = state
+        _ = reducer(&state, step.action)
+        step.update(&expected)
+        XCTAssertEqual(state, expected)
+    }
+}
 
 // MARK: Testable State Management: Reducers - Testing the counter
 class CounterTests: XCTestCase {
@@ -18,12 +34,6 @@ class CounterTests: XCTestCase {
     }
 
     func testIncrButtonTapped() {
-        var state = CounterViewState(count: 2)
-        var expected = state
-        let effects = counterViewReducer(&state,
-                                         .counter(.increaseCount))
-
-        // MARK: Testable State Management: Ergonomics - Simplifying testing state
 //        XCTAssertEqual(
 //            state,
 //            CounterViewState(
@@ -33,9 +43,26 @@ class CounterTests: XCTestCase {
 //                isNthPrimeButtonDisabled: false
 //            )
 //        )
-        expected.count = 3
-        XCTAssertEqual(state, expected)
-        XCTAssertTrue(effects.isEmpty)
+
+        // MARK: Testable State Management: Ergonomics - Simplifying testing state
+//        var state = CounterViewState(count: 2)
+//        var expected = state
+//        let effects = counterViewReducer(&state,
+//                                         .counter(.increaseCount))
+//
+//        expected.count = 3
+//        XCTAssertEqual(state, expected)
+//        XCTAssertTrue(effects.isEmpty)
+
+        // MARK: Testable State Management: Ergonomics - The shape of a test
+        assert(
+            initialValue: CounterViewState(count: 2),
+            reducer: counterViewReducer,
+            steps:
+            (.counter(.increaseCount), { $0.count = 3 }),
+            (.counter(.increaseCount), { $0.count = 4 }),
+            (.counter(.decreaseCount), { $0.count = 3 })
+        )
     }
 
     func testDecrButtonTapped() {
