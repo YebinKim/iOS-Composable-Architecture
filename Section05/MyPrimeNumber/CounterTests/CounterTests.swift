@@ -31,9 +31,26 @@ func assert<Value: Equatable, Action: Equatable>(
         // MARK: Testable State Management: Ergonomics - Actions sent and actions received
         switch step.type {
         case .send:
+            // MARK: Testable State Management: Ergonomics - Assertion edge cases
+            if !effects.isEmpty {
+                XCTFail(
+                    "Assertion failed to handle \(effects.count) pending effect(s)",
+                    file: file,
+                    line: line
+                )
+            }
             effects.append(contentsOf: reducer(&state, step.action))
 
         case .receive:
+            // MARK: Testable State Management: Ergonomics - Assertion edge cases
+            guard !effects.isEmpty else {
+                XCTFail(
+                    "No pending effects to receive from",
+                    file: step.file,
+                    line: step.line
+                )
+                break
+            }
             let effect = effects.removeFirst()
             var action: Action!
             let receivedCompletion = XCTestExpectation(description: "receivedCompletion")
