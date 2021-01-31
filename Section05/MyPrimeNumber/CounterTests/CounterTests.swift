@@ -13,14 +13,38 @@ import ComposableArchitecture
 func assert<Value: Equatable, Action>(
     initialValue: Value,
     reducer: Reducer<Value, Action>,
-    steps: (action: Action, update: (inout Value) -> Void)...
+    // MARK: Testable State Management: Ergonomics - Improving test feedback
+//    steps: (action: Action, update: (inout Value) -> Void)...,
+    steps: Step<Value, Action>...,
+    file: StaticString = #file,
+    line: UInt = #line
 ) {
     var state = initialValue
     steps.forEach { step in
         var expected = state
         _ = reducer(&state, step.action)
         step.update(&expected)
-        XCTAssertEqual(state, expected)
+        XCTAssertEqual(state, expected, file: step.file, line: step.line)
+    }
+}
+
+// MARK: Testable State Management: Ergonomics - Improving test feedback
+struct Step<Value, Action> {
+    let action: Action
+    let update: (inout Value) -> Void
+    let file: StaticString
+    let line: UInt
+
+    init(
+        _ action: Action,
+        _ update: @escaping (inout Value) -> Void,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        self.action = action
+        self.update = update
+        self.file = file
+        self.line = line
     }
 }
 
@@ -55,13 +79,23 @@ class CounterTests: XCTestCase {
 //        XCTAssertTrue(effects.isEmpty)
 
         // MARK: Testable State Management: Ergonomics - The shape of a test
+//        assert(
+//            initialValue: CounterViewState(count: 2),
+//            reducer: counterViewReducer,
+//            steps:
+//            (.counter(.increaseCount), { $0.count = 3 }),
+//            (.counter(.increaseCount), { $0.count = 4 }),
+//            (.counter(.decreaseCount), { $0.count = 3 })
+//        )
+
+        // MARK: Testable State Management: Ergonomics - Improving test feedback
         assert(
             initialValue: CounterViewState(count: 2),
             reducer: counterViewReducer,
             steps:
-            (.counter(.increaseCount), { $0.count = 3 }),
-            (.counter(.increaseCount), { $0.count = 4 }),
-            (.counter(.decreaseCount), { $0.count = 3 })
+            Step(.counter(.increaseCount), { $0.count = 3 }),
+            Step(.counter(.increaseCount), { $0.count = 4 }),
+            Step(.counter(.decreaseCount), { $0.count = 3 })
         )
     }
 
