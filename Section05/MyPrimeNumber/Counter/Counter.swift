@@ -189,11 +189,6 @@ extension CounterEnvironment {
 #endif
 
 // MARK: Utils
-public struct PrimeAlert: Identifiable, Equatable {
-    let prime: Int
-    public var id: Int { self.prime }
-}
-
 private func ordinal(_ n: Int) -> String {
     let formatter = NumberFormatter()
     formatter.numberStyle = .ordinal

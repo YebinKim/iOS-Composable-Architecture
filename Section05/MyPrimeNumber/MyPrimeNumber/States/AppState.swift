@@ -9,14 +9,15 @@ import Counter
 import SwiftUI
 
 // 앱 상태 모델
-struct AppState {
-    
-    var count = 0
-    var favoritePrimes: [Int] = []
+class AppState: ObservableObject {
+
+    @Published var count = 0
+    @Published var favoritePrimes: [Int] = []
+    @Published var loggedInUser: User? = nil
+    @Published var activityFeed: [Activity] = []
+
     var alertNthPrime: PrimeAlert? = nil
     var isNthPrimeButtonDisabled: Bool = false
-    var activityFeed: [Activity] = []
-    var loggedInUser: User? = nil
     
     struct Activity {
         let timestamp: Date
@@ -33,6 +34,11 @@ struct AppState {
         let name: String
         let bio: String
     }
+}
+
+struct PrimeAlert: Identifiable, Equatable {
+    let prime: Int
+    public var id: Int { self.prime }
 }
 
 extension AppState {
