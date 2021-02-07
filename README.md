@@ -53,28 +53,173 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
   
   
   - **State Pullbacks**
-    - Combining reducers
-    - Focusing a reducer's state
-    - Pulling back reducers along state
-    - Key path pullbacks
-    - Pulling back more reducers
+    - Reducer 결합
+    - Reducer의 상태 세분화
+    - 상태에 따라 Reducer의 풀백 실행
+    - Key-path 풀백
+    - 더 많은 Reducer에 풀백 적용
   
   
   
   - **Action Pullbacks**
+    - Reducer의 액션 세분화
+    - Enum과 Key-path
+    - Enum 속성
+    - 액션에 따라 Reducer의 풀백 실행
+    - 더 많은 Reducer에 풀백 적용
+  
+  
+  
   - **Higher-Order Reducers**
+    - 고차 Reducer란?
+    - activityFeed에서 고차 Reducer 사용하도록 업데이트
+    - logging에서 고차 Reducer 사용하도록 업데이트
 
 
 
 ## Section 3. Modularity
 
+- 강의 목표: **각 기능을 모듈화**함으로써 애플리케이션의 **각 화면을 독립적으로 실행**할 수 있게 한다.
+
+  - **Reducers**
+    - What does modularity mean?
+    - Modularizing our reducers
+    - Modularizing the Composable Architecture
+    - Modularizing the favorite primes reducer
+    - Modularizing the counter reducer
+    - Modularizing the prime modal reducer
+
+  
+
+  - **View State**
+    - Modularizing our views
+    - Transforming a store's value
+    - A familiar-looking function
+    - What's in a name?
+    - Propagating global changes locally
+    - Focusing on view state
+
+  
+
+  - **View Actions**
+    - Transforming a store’s action
+    - Combining view functions
+    - Focusing on favorite primes actions
+    - Extracting our first modular view
+    - Focusing on prime modal actions
+    - Focusing on counter actions
+
+  
+
+  - **The Point**
+    - What’s the point?
+    - The favorite primes app
+    - The prime modal app
+    - The counter app
+    - Fixing the root app
+
 
 
 ## Section 4. Side Effects
 
+- 강의 목표: **사이드 이펙트를 일급 객체로 다룸으로써** 전달 및 제어, 테스트를 용이하게 할 수 있게 한다.
+
+  - **Synchronous Effects**
+    - Adding some simple side effects
+    - Effects in reducers
+    - Reducers as pure functions
+    - Effects as values
+    - Updating our architecture for effects
+    - Reflecting on our first effect
+
+  
+
+  - **Unidirectional Effects**
+    - Synchronous effects that produce results
+    - Combining multiple effects that produce results
+    - Pulling local effects back globally
+    - Working with our new effects
+    - What’s unidirectional data flow?
+
+  
+
+  - **Asynchronous Effects**
+    - Extracting our asynchronous effect
+    - Local state to global state
+    - The async signature
+    - The async effect
+    - Refactor-related bugs
+    - Thinking unidirectionally
+
+  
+
+  - **The Point**
+    - What’s the point?
+    - Composable, transformable effects
+    - Reusable effects: network requests
+    - Reusable effects: threading
+    - Getting everything building again
+
+  
+
+  - **The Combine Framework and Effects: Part 1**
+    - The Effect type: a quick recap
+    - The Combine-Effect Correspondence
+    - Publishers
+    - Subscribers
+    - Eagerness vs. laziness
+    - Subjects
+
+  
+
+  - **The Combine Framework and Effects: Part 2**
+    - Effect as a Combine publisher
+    - Pulling back reducers with publishers
+    - Finishing the architecture refactor
+    - Refactoring synchronous effects
+    - Refactoring asynchronous effects
+
 
 
 ## Section 5. Testing
+
+- 강의 목표: Composable Architecture는 테스트하기 정말 쉽습니다! 지금까지 진행했던 모듈화, 사이드 이펙트를 기반으로 **기능 및 화면에 관한 테스트를 작성**합니다.
+
+  - **Reducers**
+    - Testing the prime modal
+    - Testing favorite primes
+    - Testing the counter
+    - Unhappy paths and integration tests
+
+  
+
+  - **Effects**
+    - Controlling the favorite primes save effect
+    - Controlling the favorite primes load effect
+    - Testing the favorite primes save effect
+    - Testing the favorite primes load effect
+    - Controlling the counter effect
+    - Testing the counter effects
+
+  
+
+  - **Ergonomics**
+    - Simplifying testing state
+    - The shape of a test
+    - Improving test feedback
+    - Trailing closure ergonomics
+    - Actions sent and actions received
+    - Assertion edge cases
+
+  
+
+  - **The Point**
+    - A tour of the vanilla SwiftUI code base
+    - Testing vanilla SwiftUI
+    - Testing the prime modal
+    - Testing the favorite primes view
+    - Testing the counter view: @ObservedObject
+    - Testing the counter view: @State
 
 
 
@@ -84,3 +229,10 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 ## Section 7. Adaption
 
+
+
+## Section 8. Ergonomics
+
+
+
+## Section 9. A Tour of the Composable Architecture
