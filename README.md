@@ -183,7 +183,7 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 ## Section 5. Testing
 
-- 강의 목표: Composable Architecture는 테스트하기 정말 쉽습니다! 지금까지 진행했던 모듈화, 사이드 이펙트를 기반으로 **기능 및 화면에 관한 테스트를 작성**합니다.
+- 강의 목표: 지금까지 진행했던 모듈화, 사이드 이펙트를 기반으로 **기능 및 화면에 관한 테스트를 작성**한다, (Composable-Architecture가 얼마나 테스트하기 쉬운지가 키포인트)
 
   - **Reducers**
     - Testing the prime modal
@@ -224,6 +224,23 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 
 ## Section 6. Dependency Management
+
+- 강의 목표: Composable-Architecture에서 **종속성을 쉽게 관리**하기 위해 구조를 수정한다.
+
+  - **Dependency Injection Made Composable**
+    - Effects recap
+    - Environment recap
+    - Current problems
+    - Environment in the reducer
+    - Environment in the store
+    - Erasing the environment from the store
+
+  
+
+  - **Dependency Injection Made Modular**
+  - Modular Dependency Injection: The Point
+
+
 
 
 
