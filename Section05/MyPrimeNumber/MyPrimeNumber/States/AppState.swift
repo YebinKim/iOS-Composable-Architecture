@@ -36,11 +36,6 @@ class AppState: ObservableObject {
     }
 }
 
-struct PrimeAlert: Identifiable, Equatable {
-    let prime: Int
-    public var id: Int { self.prime }
-}
-
 extension AppState {
 
     var counterView: CounterViewState {

@@ -20,6 +20,11 @@ public enum CounterAction: Equatable {
     case alertDismissButtonTapped
 }
 
+public struct PrimeAlert: Equatable, Identifiable {
+    let prime: Int
+    public var id: Int { self.prime }
+}
+
 // 앱 상태 모델
 public struct CounterViewState: Equatable {
     public var alertNthPrime: PrimeAlert?
