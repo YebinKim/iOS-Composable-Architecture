@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,13 @@
 		C245A92425C722E900368C8F /* PrimeModalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A92325C722E900368C8F /* PrimeModalTests.swift */; };
 		C245A94625C7251700368C8F /* FavoritePrimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A94525C7251700368C8F /* FavoritePrimesTests.swift */; };
 		C245A95A25C7252300368C8F /* CounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245A95925C7252300368C8F /* CounterTests.swift */; };
+		C325CACC25E2C3B9003B3ECE /* MyPrimeNumberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */; };
+		C325CACD25E2C3B9003B3ECE /* MyPrimeNumberTests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C325CAE525E2C3E7003B3ECE /* MyPrimeNumberUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */; };
+		C325CAE625E2C3E7003B3ECE /* MyPrimeNumberUITests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C37ABCE525E2C5DE00AAD050 /* MyPrimeNumberUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37ABCE425E2C5DE00AAD050 /* MyPrimeNumberUITests.swift */; };
+		C37ABCF925E2C9A700AAD050 /* MyPrimeNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37ABCF825E2C9A700AAD050 /* MyPrimeNumberTests.swift */; };
+		C37ABD0E25E2CD5600AAD050 /* CasePaths in Frameworks */ = {isa = PBXBuildFile; productRef = C37ABD0D25E2CD5600AAD050 /* CasePaths */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +94,20 @@
 			remoteGlobalIDString = 44971767253384A800C54185;
 			remoteInfo = MyPrimeNumber;
 		};
+		C325CACA25E2C3B9003B3ECE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C325CAC425E2C3B9003B3ECE;
+			remoteInfo = MyPrimeNumberTests;
+		};
+		C325CAE325E2C3E7003B3ECE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C325CADD25E2C3E7003B3ECE;
+			remoteInfo = MyPrimeNumberUITests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +117,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C325CACD25E2C3B9003B3ECE /* MyPrimeNumberTests.framework in Embed Frameworks */,
+				C325CAE625E2C3E7003B3ECE /* MyPrimeNumberUITests.framework in Embed Frameworks */,
 				44484D41256B89B600CF3F14 /* FavoritePrimes.framework in Embed Frameworks */,
 				44484D54256B89BF00CF3F14 /* Counter.framework in Embed Frameworks */,
 				44484D68256B8A2700CF3F14 /* PrimeModal.framework in Embed Frameworks */,
@@ -144,6 +167,12 @@
 		C245A95725C7252300368C8F /* CounterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C245A95925C7252300368C8F /* CounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTests.swift; sourceTree = "<group>"; };
 		C245A95B25C7252300368C8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyPrimeNumberTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C325CAC825E2C3B9003B3ECE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyPrimeNumberUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C325CAE125E2C3E7003B3ECE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C37ABCE425E2C5DE00AAD050 /* MyPrimeNumberUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrimeNumberUITests.swift; sourceTree = "<group>"; };
+		C37ABCF825E2C9A700AAD050 /* MyPrimeNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrimeNumberTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37ABD0E25E2CD5600AAD050 /* CasePaths in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +209,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C325CACC25E2C3B9003B3ECE /* MyPrimeNumberTests.framework in Frameworks */,
+				C325CAE525E2C3E7003B3ECE /* MyPrimeNumberUITests.framework in Frameworks */,
 				44484D40256B89B600CF3F14 /* FavoritePrimes.framework in Frameworks */,
 				44484D53256B89BF00CF3F14 /* Counter.framework in Frameworks */,
 				44484D67256B8A2700CF3F14 /* PrimeModal.framework in Frameworks */,
@@ -201,6 +233,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C245A95425C7252300368C8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CAC225E2C3B9003B3ECE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CADB25E2C3E7003B3ECE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -257,6 +303,8 @@
 			children = (
 				44B165B5256BB1AC0091F62F /* Playground.playground */,
 				4497176A253384A800C54185 /* MyPrimeNumber */,
+				C325CAC625E2C3B9003B3ECE /* MyPrimeNumberTests */,
+				C325CADF25E2C3E7003B3ECE /* MyPrimeNumberUITests */,
 				44484D27256B89A900CF3F14 /* ComposableArchitecture */,
 				44484D4D256B89BF00CF3F14 /* Counter */,
 				C245A95825C7252300368C8F /* CounterTests */,
@@ -279,6 +327,8 @@
 				C245A92125C722E900368C8F /* PrimeModalTests.xctest */,
 				C245A94325C7251700368C8F /* FavoritePrimesTests.xctest */,
 				C245A95725C7252300368C8F /* CounterTests.xctest */,
+				C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */,
+				C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -357,6 +407,24 @@
 			path = CounterTests;
 			sourceTree = "<group>";
 		};
+		C325CAC625E2C3B9003B3ECE /* MyPrimeNumberTests */ = {
+			isa = PBXGroup;
+			children = (
+				C37ABCF825E2C9A700AAD050 /* MyPrimeNumberTests.swift */,
+				C325CAC825E2C3B9003B3ECE /* Info.plist */,
+			);
+			path = MyPrimeNumberTests;
+			sourceTree = "<group>";
+		};
+		C325CADF25E2C3E7003B3ECE /* MyPrimeNumberUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C37ABCE425E2C5DE00AAD050 /* MyPrimeNumberUITests.swift */,
+				C325CAE125E2C3E7003B3ECE /* Info.plist */,
+			);
+			path = MyPrimeNumberUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -392,6 +460,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C325CAC025E2C3B9003B3ECE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CAD925E2C3E7003B3ECE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -409,6 +491,9 @@
 			dependencies = (
 			);
 			name = ComposableArchitecture;
+			packageProductDependencies = (
+				C37ABD0D25E2CD5600AAD050 /* CasePaths */,
+			);
 			productName = ComposableArchitecture;
 			productReference = 44484D26256B89A900CF3F14 /* ComposableArchitecture.framework */;
 			productType = "com.apple.product-type.framework";
@@ -483,6 +568,8 @@
 				44484D3F256B89B600CF3F14 /* PBXTargetDependency */,
 				44484D52256B89BF00CF3F14 /* PBXTargetDependency */,
 				44484D66256B8A2700CF3F14 /* PBXTargetDependency */,
+				C325CACB25E2C3B9003B3ECE /* PBXTargetDependency */,
+				C325CAE425E2C3E7003B3ECE /* PBXTargetDependency */,
 			);
 			name = MyPrimeNumber;
 			productName = MyPrimeNumber;
@@ -543,6 +630,42 @@
 			productReference = C245A95725C7252300368C8F /* CounterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C325CAC425E2C3B9003B3ECE /* MyPrimeNumberTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C325CAD025E2C3B9003B3ECE /* Build configuration list for PBXNativeTarget "MyPrimeNumberTests" */;
+			buildPhases = (
+				C325CAC025E2C3B9003B3ECE /* Headers */,
+				C325CAC125E2C3B9003B3ECE /* Sources */,
+				C325CAC225E2C3B9003B3ECE /* Frameworks */,
+				C325CAC325E2C3B9003B3ECE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyPrimeNumberTests;
+			productName = MyPrimeNumberTests;
+			productReference = C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C325CADD25E2C3E7003B3ECE /* MyPrimeNumberUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C325CAE725E2C3E7003B3ECE /* Build configuration list for PBXNativeTarget "MyPrimeNumberUITests" */;
+			buildPhases = (
+				C325CAD925E2C3E7003B3ECE /* Headers */,
+				C325CADA25E2C3E7003B3ECE /* Sources */,
+				C325CADB25E2C3E7003B3ECE /* Frameworks */,
+				C325CADC25E2C3E7003B3ECE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyPrimeNumberUITests;
+			productName = MyPrimeNumberUITests;
+			productReference = C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -580,6 +703,14 @@
 					C245A95625C7252300368C8F = {
 						CreatedOnToolsVersion = 12.3;
 					};
+					C325CAC425E2C3B9003B3ECE = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
+					C325CADD25E2C3E7003B3ECE = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
 				};
 			};
 			buildConfigurationList = 44971763253384A800C54185 /* Build configuration list for PBXProject "MyPrimeNumber" */;
@@ -591,11 +722,16 @@
 				Base,
 			);
 			mainGroup = 4497175F253384A800C54185;
+			packageReferences = (
+				C37ABD0C25E2CD5600AAD050 /* XCRemoteSwiftPackageReference "swift-case-paths" */,
+			);
 			productRefGroup = 44971769253384A800C54185 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				44971767253384A800C54185 /* MyPrimeNumber */,
+				C325CAC425E2C3B9003B3ECE /* MyPrimeNumberTests */,
+				C325CADD25E2C3E7003B3ECE /* MyPrimeNumberUITests */,
 				44484D25256B89A900CF3F14 /* ComposableArchitecture */,
 				44484D38256B89B600CF3F14 /* FavoritePrimes */,
 				C245A94225C7251700368C8F /* FavoritePrimesTests */,
@@ -666,6 +802,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C325CAC325E2C3B9003B3ECE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CADC25E2C3E7003B3ECE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -726,6 +876,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37ABCE525E2C5DE00AAD050 /* MyPrimeNumberUITests.swift in Sources */,
+				C37ABCF925E2C9A700AAD050 /* MyPrimeNumberTests.swift in Sources */,
 				C245A94625C7251700368C8F /* FavoritePrimesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -736,6 +888,20 @@
 			files = (
 				C245A95A25C7252300368C8F /* CounterTests.swift in Sources */,
 				C22C957C25C7685D002BCBB3 /* ComposableArchitectureTestSupport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CAC125E2C3B9003B3ECE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C325CADA25E2C3E7003B3ECE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,6 +942,16 @@
 			isa = PBXTargetDependency;
 			target = 44971767253384A800C54185 /* MyPrimeNumber */;
 			targetProxy = C245A95C25C7252300368C8F /* PBXContainerItemProxy */;
+		};
+		C325CACB25E2C3B9003B3ECE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C325CAC425E2C3B9003B3ECE /* MyPrimeNumberTests */;
+			targetProxy = C325CACA25E2C3B9003B3ECE /* PBXContainerItemProxy */;
+		};
+		C325CAE425E2C3E7003B3ECE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C325CADD25E2C3E7003B3ECE /* MyPrimeNumberUITests */;
+			targetProxy = C325CAE325E2C3E7003B3ECE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1268,6 +1444,120 @@
 			};
 			name = Release;
 		};
+		C325CACE25E2C3B9003B3ECE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MyPrimeNumberTests/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberTests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C325CACF25E2C3B9003B3ECE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MyPrimeNumberTests/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberTests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C325CAE825E2C3E7003B3ECE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MyPrimeNumberUITests/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberUITests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C325CAE925E2C3E7003B3ECE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MyPrimeNumberUITests/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberUITests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1352,7 +1642,44 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C325CAD025E2C3B9003B3ECE /* Build configuration list for PBXNativeTarget "MyPrimeNumberTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C325CACE25E2C3B9003B3ECE /* Debug */,
+				C325CACF25E2C3B9003B3ECE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C325CAE725E2C3E7003B3ECE /* Build configuration list for PBXNativeTarget "MyPrimeNumberUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C325CAE825E2C3E7003B3ECE /* Debug */,
+				C325CAE925E2C3E7003B3ECE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C37ABD0C25E2CD5600AAD050 /* XCRemoteSwiftPackageReference "swift-case-paths" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-case-paths.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C37ABD0D25E2CD5600AAD050 /* CasePaths */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C37ABD0C25E2CD5600AAD050 /* XCRemoteSwiftPackageReference "swift-case-paths" */;
+			productName = CasePaths;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44971760253384A800C54185 /* Project object */;
 }

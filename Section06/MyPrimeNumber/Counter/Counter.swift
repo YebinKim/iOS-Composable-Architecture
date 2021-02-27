@@ -8,6 +8,8 @@
 import ComposableArchitecture
 import PrimeModal
 import SwiftUI
+import Combine
+import CasePaths
 
 public typealias CounterState = (alertNthPrime: PrimeAlert?, count: Int, isNthPrimeButtonDisabled: Bool)
 
@@ -16,8 +18,19 @@ public enum CounterAction: Equatable {
     case decreaseCount
     case increaseCount
     case nthPrimeButtonTapped
-    case nthPrimeResponse(Int?)
+    case nthPrimeResponse(n: Int, prime: Int?)
     case alertDismissButtonTapped
+}
+
+public struct PrimeAlert: Equatable, Identifiable {
+    public let n: Int
+    public let prime: Int
+    public var id: Int { self.prime }
+
+    public init(n: Int, prime: Int) {
+        self.n = n
+        self.prime = prime
+    }
 }
 
 // 앱 상태 모델
@@ -76,14 +89,28 @@ public enum CounterViewAction: Equatable {
     }
 }
 
-public let counterViewReducer = combine(
-  pullback(counterReducer, value: \CounterViewState.counter, action: \CounterViewAction.counter),
-  pullback(primeModalReducer, value: \.primeModal, action: \.primeModal)
+public let counterViewReducer: Reducer<CounterViewState, CounterViewAction, CounterEnvironment> = combine(
+    pullback(
+        counterReducer,
+        value: \CounterViewState.counter,
+        action: /CounterViewAction.counter,
+        environment: { $0 }
+    ),
+    pullback(
+        primeModalReducer,
+        value: \.primeModal,
+        action: /CounterViewAction.primeModal,
+        environment: { _ in () }
+    )
 )
 
 // MARK: - Reducers
 // 앱의 기능 별 로직을 구현한 Reducer
-public func counterReducer(state: inout CounterState, action: CounterAction) -> [Effect<CounterAction>] {
+public func counterReducer(
+    state: inout CounterState,
+    action: CounterAction,
+    environment: CounterEnvironment
+) -> [Effect<CounterAction>] {
     switch action {
     case .increaseCount:
         state.count += 1
@@ -91,21 +118,31 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
 
     case .decreaseCount:
         state.count -= 1
-        return []
+
+        // MARK: Dependency Injection Made Composable - Effects recap
+        let count = state.count
+        return [
+            .fireAndForget {
+                print("DecreaseCount Tapped", count)
+            },
+
+            Just(CounterAction.increaseCount)
+                .delay(for: 1, scheduler: DispatchQueue.main)
+                .eraseToEffect()
+        ]
 
     case .nthPrimeButtonTapped:
         state.isNthPrimeButtonDisabled = true
-        
+        let n = state.count
         return [
-            Current
-                .nthPrime(state.count)
-                .map(CounterAction.nthPrimeResponse)
+            environment(state.count)
+                .map { CounterAction.nthPrimeResponse(n: n, prime: $0) }
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
         ]
 
-    case .nthPrimeResponse(let prime):
-        state.alertNthPrime = prime.map(PrimeAlert.init(prime:))
+    case .nthPrimeResponse(let n, let prime):
+        state.alertNthPrime = prime.map { PrimeAlert(n: n, prime: $0) }
         state.isNthPrimeButtonDisabled = false
         return []
 
@@ -171,21 +208,23 @@ public struct CounterView: View {
     }
 }
 
-struct CounterEnvironment {
-    var nthPrime: (Int) -> Effect<Int?>
-}
+//public struct CounterEnvironment {
+//    var nthPrime: (Int) -> Effect<Int?>
+//}
+//
+//extension CounterEnvironment {
+//    static let live = CounterEnvironment(nthPrime: Counter.nthPrime)
+//}
+//
+//#if DEBUG
+//extension CounterEnvironment {
+//    static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 } })
+//}
+//#endif
+//
+//var Current = CounterEnvironment.live
 
-extension CounterEnvironment {
-    static let live = CounterEnvironment(nthPrime: Counter.nthPrime)
-}
-
-var Current = CounterEnvironment.live
-
-#if DEBUG
-extension CounterEnvironment {
-    static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 } })
-}
-#endif
+public typealias CounterEnvironment = (Int) -> Effect<Int?>
 
 // MARK: Utils
 private func ordinal(_ n: Int) -> String {

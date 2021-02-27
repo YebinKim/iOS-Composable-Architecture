@@ -3,7 +3,6 @@ import SwiftUI
 import ComposableArchitecture
 @testable import FavoritePrimes
 
-// MARK: Testable State Management: Effects - Controlling the favorite primes save and load effect
 Current = .mock
 
 Current.fileClient.load = { _ in

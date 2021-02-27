@@ -52,6 +52,10 @@ struct ContentView_Previews: PreviewProvider {
                         logging,
                         activityFeed
                     )
+                ),
+                environment: AppEnvironment(
+                    fileClient: .live,
+                    nthPrime: Counter.nthPrime
                 )
             )
         )

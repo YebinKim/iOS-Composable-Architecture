@@ -9,6 +9,7 @@ import ComposableArchitecture
 import Counter
 import FavoritePrimes
 import PrimeModal
+import CasePaths
 
 // 앱 액션 모델
 enum AppAction {
@@ -40,10 +41,10 @@ enum AppAction {
 
 // ActivityFeed 도메인에 특화된 High-order Reducr
 func activityFeed(
-  _ reducer: @escaping (inout AppState, AppAction) -> [Effect<AppAction>]
-) -> (inout AppState, AppAction) -> [Effect<AppAction>] {
+    _ reducer: @escaping Reducer<AppState, AppAction, AppEnvironment>
+) -> Reducer<AppState, AppAction, AppEnvironment> {
     
-    return { state, action in
+    return { state, action, environment in
         switch action {
         case .counterView(.counter):
             break
@@ -65,12 +66,27 @@ func activityFeed(
         case .favoritePrimes(.loadButtonTapped): break
         }
 
-        return reducer(&state, action)
+        return reducer(&state, action, environment)
     }
 }
 
+typealias AppEnvironment = (
+    fileClient: FileClient,
+    nthPrime: (Int) -> Effect<Int?>
+)
+
 // MARK: - Global Reducer
-let appReducer = combine(
-    pullback(counterViewReducer, value: \AppState.counterView, action: \AppAction.counterView),
-    pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
+let appReducer: Reducer<AppState, AppAction, AppEnvironment> = combine(
+    pullback(
+        counterViewReducer,
+        value: \AppState.counterView,
+        action: /AppAction.counterView,
+        environment: { $0.nthPrime }
+    ),
+    pullback(
+        favoritePrimesReducer,
+        value: \.favoritePrimes,
+        action: /AppAction.favoritePrimes,
+        environment: { $0.fileClient }
+    )
 )

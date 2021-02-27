@@ -14,6 +14,20 @@ extension Publisher where Failure == Never {
     }
 }
 
+// MARK: Dependency Injection Made Composable - Effects recap
+public struct Effect<Output>: Publisher {
+
+    public typealias Failure = Never
+
+    let publisher: AnyPublisher<Output, Failure>
+
+    public func receive<S>(
+        subscriber: S
+    ) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        self.publisher.receive(subscriber: subscriber)
+    }
+}
+
 extension Effect {
 
     public static func sync(work: @escaping () -> Output) -> Effect {
