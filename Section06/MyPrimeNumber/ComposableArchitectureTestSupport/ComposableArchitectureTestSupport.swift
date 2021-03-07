@@ -1,17 +1,45 @@
 //
 //  ComposableArchitectureTestSupport.swift
-//  CounterTests
+//  ComposableArchitectureTestSupport
 //
-//  Created by Yebin Kim on 2021/02/01.
+//  Created by Yebin Kim on 2021/03/07.
 //
 
-import Combine
 import ComposableArchitecture
+import Combine
 import XCTest
 
-func assert<Value: Equatable, Action: Equatable>(
+enum StepType {
+    case send
+    case receive
+}
+
+struct Step<Value, Action> {
+    let type: StepType
+    let action: Action
+    let update: (inout Value) -> Void
+    let file: StaticString
+    let line: UInt
+
+    init(
+        _ type: StepType,
+        _ action: Action,
+        file: StaticString = #file,
+        line: UInt = #line,
+        _ update: @escaping (inout Value) -> Void
+    ) {
+        self.type = type
+        self.action = action
+        self.update = update
+        self.file = file
+        self.line = line
+    }
+}
+
+func assert<Value: Equatable, Action: Equatable, Environment>(
     initialValue: Value,
-    reducer: Reducer<Value, Action>,
+    reducer: Reducer<Value, Action, Environment>,
+    environment: Environment,
     steps: Step<Value, Action>...,
     file: StaticString = #file,
     line: UInt = #line
@@ -28,11 +56,11 @@ func assert<Value: Equatable, Action: Equatable>(
             if !effects.isEmpty {
                 XCTFail(
                     "Assertion failed to handle \(effects.count) pending effect(s)",
-                    file: file,
-                    line: line
+                    file: step.file,
+                    line: step.line
                 )
             }
-            effects.append(contentsOf: reducer(&state, step.action))
+            effects.append(contentsOf: reducer(&state, step.action, environment))
 
         case .receive:
             guard !effects.isEmpty else {
@@ -55,40 +83,25 @@ func assert<Value: Equatable, Action: Equatable>(
                 )
             )
             if XCTWaiter.wait(for: [receivedCompletion], timeout: 0.01) != .completed {
-                XCTFail("Timed out waiting for the effect to complete", file: step.file, line: step.line)
+                XCTFail(
+                    "Timed out waiting for the effect to complete",
+                    file: step.file,
+                    line: step.line
+                )
             }
-            XCTAssertEqual(action, step.action, file: step.file, line: step.line)
-            effects.append(contentsOf: reducer(&state, action))
+            XCTAssertEqual(
+                action, step.action,
+                file: step.file,
+                line: step.line
+            )
+            effects.append(contentsOf: reducer(&state, action, environment))
         }
 
         step.update(&expected)
-        XCTAssertEqual(state, expected, file: step.file, line: step.line)
-    }
-}
-
-enum StepType {
-  case send
-  case receive
-}
-
-struct Step<Value, Action> {
-    let type: StepType
-    let action: Action
-    let update: (inout Value) -> Void
-    let file: StaticString
-    let line: UInt
-
-    init(
-        _ type: StepType,
-        _ action: Action,
-        file: StaticString = #file,
-        line: UInt = #line,
-        _ update: @escaping (inout Value) -> Void
-    ) {
-        self.type = type
-        self.action = action
-        self.update = update
-        self.file = file
-        self.line = line
+        XCTAssertEqual(
+            state, expected,
+            file: step.file,
+            line: step.line
+        )
     }
 }

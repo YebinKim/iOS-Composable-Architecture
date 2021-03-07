@@ -9,7 +9,7 @@ import Counter
 import SwiftUI
 
 // 앱 상태 모델
-class AppState: ObservableObject {
+struct AppState: Equatable {
 
     @Published var count = 0
     @Published var favoritePrimes: [Int] = []
@@ -19,17 +19,17 @@ class AppState: ObservableObject {
     var alertNthPrime: PrimeAlert? = nil
     var isNthPrimeButtonDisabled: Bool = false
     
-    struct Activity {
+    struct Activity: Equatable {
         let timestamp: Date
         let type: ActivityType
         
-        enum ActivityType {
+        enum ActivityType: Equatable {
             case addedFavoritePrime(Int)
             case removedFavoritePrime(Int)
         }
     }
     
-    struct User {
+    struct User: Equatable {
         let id: Int
         let name: String
         let bio: String
