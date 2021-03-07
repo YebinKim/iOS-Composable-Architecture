@@ -14,6 +14,10 @@ public struct PrimeAlert: Equatable, Identifiable {
         self.n = n
         self.prime = prime
     }
+
+    public var title: String {
+        return "The \(ordinal(self.n)) prime is \(self.prime)"
+    }
 }
 
 public func ordinal(_ n: Int) -> String {

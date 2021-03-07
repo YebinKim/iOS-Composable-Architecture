@@ -864,13 +864,13 @@
 				C325CAC425E2C3B9003B3ECE /* MyPrimeNumberTests */,
 				C325CADD25E2C3E7003B3ECE /* MyPrimeNumberUITests */,
 				44484D25256B89A900CF3F14 /* ComposableArchitecture */,
+				C3E4715325F4DBB00013D03D /* ComposableArchitectureTestSupport */,
 				44484D38256B89B600CF3F14 /* FavoritePrimes */,
 				C245A94225C7251700368C8F /* FavoritePrimesTests */,
 				44484D4B256B89BE00CF3F14 /* Counter */,
 				C245A95625C7252300368C8F /* CounterTests */,
 				44484D5F256B8A2700CF3F14 /* PrimeModal */,
 				C245A92025C722E900368C8F /* PrimeModalTests */,
-				C3E4715325F4DBB00013D03D /* ComposableArchitectureTestSupport */,
 				C3E471D625F4E6DD0013D03D /* PrimeAlert */,
 			);
 		};

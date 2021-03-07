@@ -30,7 +30,11 @@ func activityFeed(
              .offlineCounterView(.counter),
              .favoritePrimes(.loadedFavoritePrimes),
              .favoritePrimes(.loadButtonTapped),
-             .favoritePrimes(.saveButtonTapped):
+             .favoritePrimes(.saveButtonTapped),
+             // MARK: The Point - Sharing dependencies
+             .favoritePrimes(.primeButtonTapped(_)),
+             .favoritePrimes(.nthPrimeResponse),
+             .favoritePrimes(.alertDismissButtonTapped):
             break
             
         case .counterView(.primeModal(.addFavoritePrime)),
@@ -73,5 +77,12 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = combine(
         action: /AppAction.offlineCounterView,
         //        environment: { $0.nthPrime }
         environment: { $0.offlineNthPrime }
+    ),
+    // MARK: The Point - Sharing dependencies
+    pullback(
+        favoritePrimesReducer,
+        value: \.favoritePrimesState,
+        action: /AppAction.favoritePrimes,
+        environment: { ($0.fileClient, $0.nthPrime) }
     )
 )

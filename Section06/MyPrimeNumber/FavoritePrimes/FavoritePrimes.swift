@@ -15,64 +15,94 @@ public enum FavoritePrimesAction: Equatable {
     case loadedFavoritePrimes([Int])
     case saveButtonTapped
     case loadButtonTapped
+    // MARK: The Point - Sharing dependencies
+    case primeButtonTapped(Int)
+    case nthPrimeResponse(n: Int, prime: Int?)
+    case alertDismissButtonTapped
+
 }
 
+// MARK: The Point - Sharing dependencies
+public typealias FavoritePrimesState = (
+    alertNthPrime: PrimeAlert?,
+    favoritePrimes: [Int]
+)
+
 public func favoritePrimesReducer(
-    state: inout [Int],
+    state: inout FavoritePrimesState,
     action: FavoritePrimesAction,
     environment: FavoritePrimesEnvironment
 ) -> [Effect<FavoritePrimesAction>] {
     switch action {
     case let .removeFavoritePrimes(indexSet):
         for index in indexSet {
-            state.remove(at: index)
+            state.favoritePrimes.remove(at: index)
         }
         return []
 
     case let .loadedFavoritePrimes(favoritePrimes):
-        state = favoritePrimes
+        state.favoritePrimes = favoritePrimes
         return []
 
     case .saveButtonTapped:
         let state = state
         return [
-            environment.save("favorite-primes.json", try! JSONEncoder().encode(state))
+            environment.fileClient.save("favorite-primes.json", try! JSONEncoder().encode(state.favoritePrimes))
               .fireAndForget()
         ]
 
     case .loadButtonTapped:
         return [
-            environment.load("favorite-primes.json")
+            environment.fileClient.load("favorite-primes.json")
                 .compactMap { $0 }
                 .decode(type: [Int].self, decoder: JSONDecoder())
                 .catch { _ in Empty(completeImmediately: true) }
                 .map(FavoritePrimesAction.loadedFavoritePrimes)
                 .eraseToEffect()
         ]
+
+    case .primeButtonTapped(let n):
+        return [
+            environment.nthPrime(n)
+                .map { FavoritePrimesAction.nthPrimeResponse(n: n, prime: $0) }
+                .receive(on: DispatchQueue.main)
+                .eraseToEffect()
+        ]
+
+    case .nthPrimeResponse(let n, let prime):
+        state.alertNthPrime = prime.map { PrimeAlert(n: n, prime: $0) }
+        return []
+
+    case .alertDismissButtonTapped:
+        state.alertNthPrime = nil
+        return []
+
     }
 }
 
 public struct FavoritePrimesView: View {
 
-    @ObservedObject var store: Store<[Int], FavoritePrimesAction>
+    @ObservedObject var store: Store<FavoritePrimesState, FavoritePrimesAction>
 
-    public init(store: Store<[Int], FavoritePrimesAction>) {
+    public init(store: Store<FavoritePrimesState, FavoritePrimesAction>) {
         self.store = store
     }
 
     public var body: some View {
         List {
-            ForEach(self.store.value, id: \.self) { prime in
-                Text("\(prime)")
+            ForEach(self.store.value.favoritePrimes, id: \.self) { prime in
+                Button("\(prime)") {
+                    self.store.send(.primeButtonTapped(prime))
+                }
             }
             .onDelete { indexSet in
                 self.store.send(.removeFavoritePrimes(indexSet))
             }
         }
-        .navigationBarTitle("Favorite Primes")
+        .navigationBarTitle("Favorite primes")
         .navigationBarItems(
             trailing: HStack {
-                Button("Save to disk") {
+                Button("Save") {
                     self.store.send(.saveButtonTapped)
                 }
                 Button("Load") {
@@ -80,6 +110,11 @@ public struct FavoritePrimesView: View {
                 }
             }
         )
+        .alert(item: .constant(self.store.value.alertNthPrime)) { primeAlert in
+            Alert(title: Text(primeAlert.title), dismissButton: Alert.Button.default(Text("Ok"), action: {
+                self.store.send(.alertDismissButtonTapped)
+            }))
+        }
     }
 }
 
@@ -106,7 +141,11 @@ public struct FavoritePrimesView: View {
 //}
 //#endif
 
-public typealias FavoritePrimesEnvironment = FileClient
+// MARK: The Point - Sharing dependencies
+public typealias FavoritePrimesEnvironment = (
+    fileClient: FileClient,
+    nthPrime: (Int) -> Effect<Int?>
+)
 
 public struct FileClient {
     var load: (String) -> Effect<Data?>

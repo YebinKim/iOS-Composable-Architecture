@@ -45,8 +45,9 @@ struct ContentView: View {
                     "Favorite primes",
                     destination: FavoritePrimesView(
                         store: self.store.view(
-                            value: { $0.favoritePrimes },
-                            action: { AppAction.favoritePrimes($0) }
+                            // MARK: The Point - Sharing dependencies
+                            value: { $0.favoritePrimesState },
+                            action: { .favoritePrimes($0) }
                         )
                     )
                 )

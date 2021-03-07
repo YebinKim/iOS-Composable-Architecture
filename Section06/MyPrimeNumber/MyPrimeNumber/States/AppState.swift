@@ -56,4 +56,14 @@ extension AppState {
             self.isNthPrimeButtonDisabled = newValue.isNthPrimeButtonDisabled
         }
     }
+
+    // MARK: The Point - Sharing dependencies
+    var favoritePrimesState: FavoritePrimesState {
+        get {
+            (self.alertNthPrime, self.favoritePrimes)
+        }
+        set {
+            (self.alertNthPrime, self.favoritePrimes) = newValue
+        }
+    }
 }
