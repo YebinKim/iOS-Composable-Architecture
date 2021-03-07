@@ -45,6 +45,10 @@
 		C3E4715B25F4DBB00013D03D /* ComposableArchitectureTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E4715425F4DBB00013D03D /* ComposableArchitectureTestSupport.framework */; };
 		C3E4715C25F4DBB00013D03D /* ComposableArchitectureTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3E4715425F4DBB00013D03D /* ComposableArchitectureTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3E471A925F4DEC20013D03D /* ComposableArchitectureTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E471A825F4DEC20013D03D /* ComposableArchitectureTestSupport.swift */; };
+		C3E471DB25F4E6DD0013D03D /* PrimeAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = C3E471D925F4E6DD0013D03D /* PrimeAlert.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3E471DE25F4E6DD0013D03D /* PrimeAlert.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */; };
+		C3E471DF25F4E6DD0013D03D /* PrimeAlert.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C3E471EF25F4E6F10013D03D /* PrimeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +122,13 @@
 			remoteGlobalIDString = C3E4715325F4DBB00013D03D;
 			remoteInfo = ComposableArchitectureTestSupport;
 		};
+		C3E471DC25F4E6DD0013D03D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44971760253384A800C54185 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3E471D625F4E6DD0013D03D;
+			remoteInfo = PrimeAlert;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +143,7 @@
 				44484D41256B89B600CF3F14 /* FavoritePrimes.framework in Embed Frameworks */,
 				44484D54256B89BF00CF3F14 /* Counter.framework in Embed Frameworks */,
 				C3E4715C25F4DBB00013D03D /* ComposableArchitectureTestSupport.framework in Embed Frameworks */,
+				C3E471DF25F4E6DD0013D03D /* PrimeAlert.framework in Embed Frameworks */,
 				44484D68256B8A2700CF3F14 /* PrimeModal.framework in Embed Frameworks */,
 				44484D2E256B89A900CF3F14 /* ComposableArchitecture.framework in Embed Frameworks */,
 			);
@@ -187,6 +199,10 @@
 		C3E4715625F4DBB00013D03D /* ComposableArchitectureTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposableArchitectureTestSupport.h; sourceTree = "<group>"; };
 		C3E4715725F4DBB00013D03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E471A825F4DEC20013D03D /* ComposableArchitectureTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableArchitectureTestSupport.swift; sourceTree = "<group>"; };
+		C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrimeAlert.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3E471D925F4E6DD0013D03D /* PrimeAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrimeAlert.h; sourceTree = "<group>"; };
+		C3E471DA25F4E6DD0013D03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +244,7 @@
 				44484D40256B89B600CF3F14 /* FavoritePrimes.framework in Frameworks */,
 				44484D53256B89BF00CF3F14 /* Counter.framework in Frameworks */,
 				C3E4715B25F4DBB00013D03D /* ComposableArchitectureTestSupport.framework in Frameworks */,
+				C3E471DE25F4E6DD0013D03D /* PrimeAlert.framework in Frameworks */,
 				44484D67256B8A2700CF3F14 /* PrimeModal.framework in Frameworks */,
 				44484D2D256B89A900CF3F14 /* ComposableArchitecture.framework in Frameworks */,
 			);
@@ -269,6 +286,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C3E4715125F4DBB00013D03D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3E471D425F4E6DD0013D03D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,6 +359,7 @@
 				C245A94425C7251700368C8F /* FavoritePrimesTests */,
 				44484D61256B8A2700CF3F14 /* PrimeModal */,
 				C245A92225C722E900368C8F /* PrimeModalTests */,
+				C3E471D825F4E6DD0013D03D /* PrimeAlert */,
 				44971769253384A800C54185 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -353,6 +378,7 @@
 				C325CAC525E2C3B9003B3ECE /* MyPrimeNumberTests.framework */,
 				C325CADE25E2C3E7003B3ECE /* MyPrimeNumberUITests.framework */,
 				C3E4715425F4DBB00013D03D /* ComposableArchitectureTestSupport.framework */,
+				C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -458,6 +484,16 @@
 			path = ComposableArchitectureTestSupport;
 			sourceTree = "<group>";
 		};
+		C3E471D825F4E6DD0013D03D /* PrimeAlert */ = {
+			isa = PBXGroup;
+			children = (
+				C3E471D925F4E6DD0013D03D /* PrimeAlert.h */,
+				C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */,
+				C3E471DA25F4E6DD0013D03D /* Info.plist */,
+			);
+			path = PrimeAlert;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -512,6 +548,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E4715825F4DBB00013D03D /* ComposableArchitectureTestSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3E471D225F4E6DD0013D03D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3E471DB25F4E6DD0013D03D /* PrimeAlert.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +656,7 @@
 				C325CACB25E2C3B9003B3ECE /* PBXTargetDependency */,
 				C325CAE425E2C3E7003B3ECE /* PBXTargetDependency */,
 				C3E4715A25F4DBB00013D03D /* PBXTargetDependency */,
+				C3E471DD25F4E6DD0013D03D /* PBXTargetDependency */,
 			);
 			name = MyPrimeNumber;
 			productName = MyPrimeNumber;
@@ -726,6 +771,24 @@
 			productReference = C3E4715425F4DBB00013D03D /* ComposableArchitectureTestSupport.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C3E471D625F4E6DD0013D03D /* PrimeAlert */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3E471E025F4E6DD0013D03D /* Build configuration list for PBXNativeTarget "PrimeAlert" */;
+			buildPhases = (
+				C3E471D225F4E6DD0013D03D /* Headers */,
+				C3E471D325F4E6DD0013D03D /* Sources */,
+				C3E471D425F4E6DD0013D03D /* Frameworks */,
+				C3E471D525F4E6DD0013D03D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrimeAlert;
+			productName = PrimeAlert;
+			productReference = C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -775,6 +838,10 @@
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1240;
 					};
+					C3E471D625F4E6DD0013D03D = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
 				};
 			};
 			buildConfigurationList = 44971763253384A800C54185 /* Build configuration list for PBXProject "MyPrimeNumber" */;
@@ -804,6 +871,7 @@
 				44484D5F256B8A2700CF3F14 /* PrimeModal */,
 				C245A92025C722E900368C8F /* PrimeModalTests */,
 				C3E4715325F4DBB00013D03D /* ComposableArchitectureTestSupport */,
+				C3E471D625F4E6DD0013D03D /* PrimeAlert */,
 			);
 		};
 /* End PBXProject section */
@@ -882,6 +950,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C3E4715225F4DBB00013D03D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3E471D525F4E6DD0013D03D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -984,6 +1059,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3E471D325F4E6DD0013D03D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3E471EF25F4E6F10013D03D /* PrimeAlert.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1036,6 +1119,11 @@
 			isa = PBXTargetDependency;
 			target = C3E4715325F4DBB00013D03D /* ComposableArchitectureTestSupport */;
 			targetProxy = C3E4715925F4DBB00013D03D /* PBXContainerItemProxy */;
+		};
+		C3E471DD25F4E6DD0013D03D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3E471D625F4E6DD0013D03D /* PrimeAlert */;
+			targetProxy = C3E471DC25F4E6DD0013D03D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1311,7 +1399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1366,7 +1454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1386,7 +1474,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPrimeNumber/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyPrimeNumber/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1408,7 +1496,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MyPrimeNumber/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyPrimeNumber/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1540,7 +1628,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MyPrimeNumberTests/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1549,6 +1637,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberTests;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1569,7 +1658,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MyPrimeNumberTests/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1578,6 +1667,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumberTests;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1597,7 +1687,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MyPrimeNumberUITests/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1626,7 +1716,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MyPrimeNumberUITests/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1654,7 +1744,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ComposableArchitectureTestSupport/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1683,13 +1773,70 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ComposableArchitectureTestSupport/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.ComposableArchitectureTestSupport;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C3E471E125F4E6DD0013D03D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PrimeAlert/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.PrimeAlert;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C3E471E225F4E6DD0013D03D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PrimeAlert/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.PrimeAlert;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1806,6 +1953,15 @@
 			buildConfigurations = (
 				C3E4715D25F4DBB00013D03D /* Debug */,
 				C3E4715E25F4DBB00013D03D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3E471E025F4E6DD0013D03D /* Build configuration list for PBXNativeTarget "PrimeAlert" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3E471E125F4E6DD0013D03D /* Debug */,
+				C3E471E225F4E6DD0013D03D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

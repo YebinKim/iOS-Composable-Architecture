@@ -10,6 +10,8 @@ import FavoritePrimes
 import Counter
 import SwiftUI
 
+let isInExperiment = Bool.random()
+
 struct ContentView: View {
     
     @ObservedObject var store: Store<AppState, AppAction>
@@ -17,15 +19,28 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(
-                    "Counter demo",
-                    destination: CounterView(
-                        store: self.store.view(
-                            value: { $0.counterView },
-                            action: { .counterView($0) }
+                if !isInExperiment {
+                    NavigationLink(
+                        "Counter demo",
+                        destination: CounterView(
+                            store: self.store.view(
+                                value: { $0.counterView },
+                                action: { .counterView($0) }
+                            )
                         )
                     )
-                )
+                } else {
+                    // MARK: The Point - Local dependencies
+                    NavigationLink(
+                        "Offline counter demo",
+                        destination: CounterView(
+                            store: self.store.view(
+                                value: { $0.counterView },
+                                action: { .offlineCounterView($0) }
+                            )
+                        )
+                    )
+                }
                 NavigationLink(
                     "Favorite primes",
                     destination: FavoritePrimesView(
@@ -55,7 +70,8 @@ struct ContentView_Previews: PreviewProvider {
                 ),
                 environment: AppEnvironment(
                     fileClient: .live,
-                    nthPrime: Counter.nthPrime
+                    nthPrime: Counter.nthPrime,
+                    offlineNthPrime: Counter.offlineNthPrime
                 )
             )
         )

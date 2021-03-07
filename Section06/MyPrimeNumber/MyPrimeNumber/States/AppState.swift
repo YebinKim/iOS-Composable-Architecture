@@ -6,15 +6,17 @@
 //
 
 import Counter
+import FavoritePrimes
+import PrimeAlert
 import SwiftUI
 
 // 앱 상태 모델
 struct AppState: Equatable {
 
-    @Published var count = 0
-    @Published var favoritePrimes: [Int] = []
-    @Published var loggedInUser: User? = nil
-    @Published var activityFeed: [Activity] = []
+    var count = 0
+    var favoritePrimes: [Int] = []
+    var loggedInUser: User? = nil
+    var activityFeed: [Activity] = []
 
     var alertNthPrime: PrimeAlert? = nil
     var isNthPrimeButtonDisabled: Bool = false

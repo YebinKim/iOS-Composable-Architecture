@@ -13,7 +13,13 @@ import ComposableArchitecture
 struct MyPrimeNumberApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(store: Store(initialValue: AppState(), reducer: appReducer, environment:  AppEnvironment(fileClient: .live, nthPrime: Counter.nthPrime)))
+            ContentView(store: Store(initialValue: AppState(),
+                                     reducer: appReducer,
+                                     environment: AppEnvironment(
+                                        fileClient: .live,
+                                        nthPrime: Counter.nthPrime,
+                                        offlineNthPrime: Counter.offlineNthPrime
+                                     )))
         }
     }
 }

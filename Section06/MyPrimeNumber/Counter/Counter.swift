@@ -7,11 +7,16 @@
 
 import ComposableArchitecture
 import PrimeModal
+import PrimeAlert
 import SwiftUI
 import Combine
 import CasePaths
 
-public typealias CounterState = (alertNthPrime: PrimeAlert?, count: Int, isNthPrimeButtonDisabled: Bool)
+public typealias CounterState = (
+    alertNthPrime: PrimeAlert?,
+    count: Int,
+    isNthPrimeButtonDisabled: Bool
+)
 
 // 앱 액션 모델
 public enum CounterAction: Equatable {
@@ -20,17 +25,6 @@ public enum CounterAction: Equatable {
     case nthPrimeButtonTapped
     case nthPrimeResponse(n: Int, prime: Int?)
     case alertDismissButtonTapped
-}
-
-public struct PrimeAlert: Equatable, Identifiable {
-    public let n: Int
-    public let prime: Int
-    public var id: Int { self.prime }
-
-    public init(n: Int, prime: Int) {
-        self.n = n
-        self.prime = prime
-    }
 }
 
 // 앱 상태 모델
@@ -66,27 +60,6 @@ public struct CounterViewState: Equatable {
 public enum CounterViewAction: Equatable {
     case counter(CounterAction)
     case primeModal(PrimeModalAction)
-
-    var counter: CounterAction? {
-        get {
-            guard case let .counter(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard case .counter = self, let newValue = newValue else { return }
-            self = .counter(newValue)
-        }
-    }
-    var primeModal: PrimeModalAction? {
-        get {
-            guard case let .primeModal(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard case .primeModal = self, let newValue = newValue else { return }
-            self = .primeModal(newValue)
-        }
-    }
 }
 
 public let counterViewReducer: Reducer<CounterViewState, CounterViewAction, CounterEnvironment> = combine(
@@ -225,10 +198,3 @@ public struct CounterView: View {
 //var Current = CounterEnvironment.live
 
 public typealias CounterEnvironment = (Int) -> Effect<Int?>
-
-// MARK: Utils
-private func ordinal(_ n: Int) -> String {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .ordinal
-    return formatter.string(for: n) ?? ""
-}
