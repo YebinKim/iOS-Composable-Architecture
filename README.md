@@ -238,6 +238,12 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
   
 
   - **Dependency Injection Made Modular**
+    - Using the architecture’s environment
+    - Tuplizing the environment
+    - Testing with the environment
+  
+  
+  
   - Modular Dependency Injection: The Point
 
 
