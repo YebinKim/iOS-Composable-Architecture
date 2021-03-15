@@ -244,9 +244,10 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
   
   
   
-  - Modular Dependency Injection: The Point
-
-
+  - **Modular Dependency Injection: The Point**
+    - Multiple environments
+    - Local dependencies
+    - Sharing dependencies
 
 
 
