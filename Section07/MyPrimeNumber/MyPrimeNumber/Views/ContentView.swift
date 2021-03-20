@@ -15,9 +15,16 @@ let isInExperiment = Bool.random()
 struct ContentView: View {
     
     @ObservedObject var store: Store<AppState, AppAction>
+
+    // MARK: Performance - View.init/body: tracking
+    init(store: Store<AppState, AppAction>) {
+      print("ContentView.init")
+      self.store = store
+    }
     
     var body: some View {
-        NavigationView {
+        print("ContentView.body")
+        return NavigationView {
             List {
                 if !isInExperiment {
                     NavigationLink(

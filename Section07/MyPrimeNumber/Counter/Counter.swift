@@ -130,12 +130,15 @@ public struct CounterView: View {
 
     @State var isPrimeModalShown: Bool = false
 
+    // MARK: Performance - View.init/body: tracking
     public init(store: Store<CounterViewState, CounterViewAction>) {
+        print("CounterView.init")
         self.store = store
     }
 
     public var body: some View {
-        VStack {
+        print("CounterView.body")
+        return VStack {
             HStack {
                 Button("-") {
                     self.store.send(.counter(.decreaseCount))
