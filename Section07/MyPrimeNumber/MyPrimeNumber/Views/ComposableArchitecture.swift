@@ -111,9 +111,11 @@ public final class Store<Value, Action>: ObservableObject {
             },
             environment: self.environment
         )
-        localStore.viewCancellable = self.$value.sink { [weak localStore] newValue in
-            localStore?.value = toLocalValue(newValue)
-        }
+        // MARK: Performance - View.init/body: analysis
+        localStore.viewCancellable = self.$value
+            .map(toLocalValue)
+//            .removeDuplicates()
+            .sink { [weak localStore] newValue in localStore?.value = newValue }
         return localStore
     }
 }
