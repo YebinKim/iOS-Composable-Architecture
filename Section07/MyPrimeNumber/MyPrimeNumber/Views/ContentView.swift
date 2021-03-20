@@ -56,6 +56,11 @@ struct ContentView: View {
                         )
                     )
                 )
+
+                // MARK: Performance - View.init/body: stress test
+                ForEach(Array(1...500_000), id: \.self) { value in
+                    Text("\(value)")
+                }
             }
             .navigationBarTitle("State management")
         }
