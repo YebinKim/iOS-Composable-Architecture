@@ -253,6 +253,16 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 ## Section 7. Adaption
 
+- 강의 목표: Composable-Architecture의 성능 향상 및 오류 수정을 진행하고, **다른 OS 환경에서도 사용할 수 있게 **작업을 진행합니다. 
+
+  - Adaptive State Management: Performance
+
+  - Adaptive State Management: State
+
+  - Adaptive State Management: Actions
+
+  - Adaptive State Management: The Point
+
 
 
 ## Section 8. Ergonomics
