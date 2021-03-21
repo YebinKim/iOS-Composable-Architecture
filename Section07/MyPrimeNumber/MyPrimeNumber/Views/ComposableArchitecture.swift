@@ -58,11 +58,12 @@ public func logging<Value, Action, Environment>(
 // MARK: Library
 // 앱 아키텍처를 지원하는 핵심 라이브러리
 // 앱 상태 및 액션을 변경할 수 있는 유일한 컨테이너
-public final class Store<Value, Action>: ObservableObject {
+public final class Store<Value, Action> /*: ObservableObject*/ {
 
     private let reducer: Reducer<Value, Action, Any>
     private let environment: Any
-    @Published public private(set) var value: Value
+    // MARK: State - View models and view stores
+    @Published private var value: Value
     private var viewCancellable: Cancellable?
     private var effectCancellables: Set<AnyCancellable> = []
 
@@ -98,7 +99,9 @@ public final class Store<Value, Action>: ObservableObject {
         }
     }
 
-    public func view<LocalValue, LocalAction>(
+    // MARK: State - View models and view stores
+//    public func view<LocalValue, LocalAction>(
+    public func scope<LocalValue, LocalAction>(
         value toLocalValue: @escaping (Value) -> LocalValue,
         action toGlobalAction: @escaping (LocalAction) -> Action
     ) -> Store<LocalValue, LocalAction> {
@@ -117,5 +120,29 @@ public final class Store<Value, Action>: ObservableObject {
 //            .removeDuplicates()
             .sink { [weak localStore] newValue in localStore?.value = newValue }
         return localStore
+    }
+}
+
+// MARK: State - View models and view stores
+public final class ViewStore<Value>: ObservableObject {
+
+    @Published public fileprivate(set) var value: Value
+    fileprivate var cancellable: Cancellable?
+
+    init(initialValue: Value) {
+        self.value = initialValue
+    }
+}
+
+extension Store {
+
+    var view: ViewStore<Value> {
+        let viewStore = ViewStore(initialValue: self.value)
+
+        viewStore.cancellable = self.$value.sink(receiveValue: { value in
+            viewStore.value = value
+        })
+
+        return viewStore
     }
 }
