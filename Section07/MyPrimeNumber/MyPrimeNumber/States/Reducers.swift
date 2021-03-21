@@ -13,9 +13,9 @@ import CasePaths
 
 // 앱 액션 모델
 enum AppAction: Equatable {
-    case counterView(CounterViewAction)
+    case counterView(CounterFeatureAction)
     case favoritePrimes(FavoritePrimesAction)
-    case offlineCounterView(CounterViewAction)
+    case offlineCounterView(CounterFeatureAction)
 }
 
 // ActivityFeed 도메인에 특화된 High-order Reducr

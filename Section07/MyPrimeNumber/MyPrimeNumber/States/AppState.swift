@@ -20,6 +20,8 @@ struct AppState: Equatable {
 
     var alertNthPrime: PrimeAlert? = nil
     var isNthPrimeButtonDisabled: Bool = false
+    // 누락 코드
+    var isPrimeModalShown: Bool = false
     
     struct Activity: Equatable {
         let timestamp: Date
@@ -40,13 +42,14 @@ struct AppState: Equatable {
 
 extension AppState {
 
-    var counterView: CounterViewState {
+    var counterView: CounterFeatureState {
         get {
-            CounterViewState(
+            CounterFeatureState(
                 alertNthPrime: self.alertNthPrime,
                 count: self.count,
                 favoritePrimes: self.favoritePrimes,
-                isNthPrimeButtonDisabled: self.isNthPrimeButtonDisabled
+                isNthPrimeButtonDisabled: self.isNthPrimeButtonDisabled,
+                isPrimeModalShown: self.isPrimeModalShown
             )
         }
         set {
@@ -54,6 +57,7 @@ extension AppState {
             self.count = newValue.count
             self.favoritePrimes = newValue.favoritePrimes
             self.isNthPrimeButtonDisabled = newValue.isNthPrimeButtonDisabled
+            self.isPrimeModalShown = newValue.isPrimeModalShown
         }
     }
 
