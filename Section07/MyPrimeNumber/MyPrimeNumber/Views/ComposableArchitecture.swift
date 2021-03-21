@@ -136,13 +136,37 @@ public final class ViewStore<Value>: ObservableObject {
 
 extension Store {
 
-    var view: ViewStore<Value> {
+//    var view: ViewStore<Value> {
+    // MARK: State - View store performance
+    public func view(
+        removeDuplicates predicate: @escaping (Value, Value) -> Bool
+    ) -> ViewStore<Value> {
+
         let viewStore = ViewStore(initialValue: self.value)
 
-        viewStore.cancellable = self.$value.sink(receiveValue: { value in
-            viewStore.value = value
-        })
+//        viewStore.cancellable = self.$value.sink(receiveValue: { value in
+//            viewStore.value = value
+//        })
+        // MARK: State - View store performance
+//        viewStore.cancellable = self.$value
+//            .removeDuplicates()
+//            .sink(receiveValue: { value in
+//                viewStore.value = value
+//            })
+        viewStore.cancellable = self.$value
+            .removeDuplicates(by: predicate)
+            .sink { [weak viewStore] newValue in
+                viewStore?.value = newValue
+            }
+
 
         return viewStore
+    }
+}
+
+// MARK: State - View store performance
+extension Store where Value: Equatable {
+    var view: ViewStore<Value> {
+        self.view(removeDuplicates: ==)
     }
 }

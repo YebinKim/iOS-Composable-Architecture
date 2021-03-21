@@ -126,7 +126,10 @@ public func counterReducer(
 
 public struct CounterView: View {
 
-    @ObservedObject var store: Store<CounterViewState, CounterViewAction>
+//    @ObservedObject var store: Store<CounterViewState, CounterViewAction>
+    // MARK: State - View store performance
+    let store: Store<CounterViewState, CounterViewAction>
+    @ObservedObject var viewStore: ViewStore<CounterViewState>
 
     @State var isPrimeModalShown: Bool = false
 
@@ -134,6 +137,7 @@ public struct CounterView: View {
     public init(store: Store<CounterViewState, CounterViewAction>) {
         print("CounterView.init")
         self.store = store
+        self.viewStore = self.store.view(removeDuplicates: ==)
     }
 
     public var body: some View {
@@ -143,7 +147,7 @@ public struct CounterView: View {
                 Button("-") {
                     self.store.send(.counter(.decreaseCount))
                 }
-                Text("\(self.store.value.count)")
+                Text("\(self.viewStore.value.count)")
                 Button("+") {
                     self.store.send(.counter(.increaseCount))
                 }
@@ -152,25 +156,25 @@ public struct CounterView: View {
                 Text("Is this prime?")
             }
             Button(action: self.nthPrimeButtonAction) {
-                Text("What is the \(ordinal(self.store.value.count)) prime?")
+                Text("What is the \(ordinal(self.viewStore.value.count)) prime?")
             }
-            .disabled(self.store.value.isNthPrimeButtonDisabled)
+            .disabled(self.viewStore.value.isNthPrimeButtonDisabled)
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
         .sheet(isPresented: self.$isPrimeModalShown) {
             IsPrimeModalView(
-                store: self.store.view(
+                store: self.store.scope(
                     value: { ($0.count, $0.favoritePrimes) },
                     action: { .primeModal($0) }
                 )
             )
         }
         .alert(
-          item: Binding.constant(self.store.value.alertNthPrime)
+          item: Binding.constant(self.viewStore.value.alertNthPrime)
         ) { alert in
             Alert(
-                title: Text("The \(ordinal(self.store.value.count)) prime is \(alert.prime)"),
+                title: Text("The \(ordinal(self.viewStore.value.count)) prime is \(alert.prime)"),
                 dismissButton: .default(Text("Ok")) {
                     self.store.send(.counter(.alertDismissButtonTapped))
                 }
