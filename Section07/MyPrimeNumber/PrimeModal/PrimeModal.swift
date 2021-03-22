@@ -50,7 +50,7 @@ public struct IsPrimeModalView: View {
         self.store = store
         self.viewStore = self.store
             .scope(value: State.init(primeModalState:), action: { $0 })
-            .view(removeDuplicates: ==)
+            .view
     }
     
     public var body: some View {

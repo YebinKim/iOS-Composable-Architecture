@@ -176,7 +176,7 @@ public struct CounterView: View {
         self.store = store
         self.viewStore = self.store
             .scope(value: State.init(counterFeatureState:), action: { $0 })
-            .view(removeDuplicates: ==)
+            .view
     }
 
     public var body: some View {

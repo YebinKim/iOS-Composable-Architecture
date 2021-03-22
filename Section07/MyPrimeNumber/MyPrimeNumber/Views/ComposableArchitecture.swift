@@ -166,7 +166,7 @@ extension Store {
 
 // MARK: State - View store performance
 extension Store where Value: Equatable {
-    var view: ViewStore<Value> {
+    public var view: ViewStore<Value> {
         self.view(removeDuplicates: ==)
     }
 }
