@@ -42,6 +42,11 @@ public struct CounterFeatureState: Equatable {
     public var isNthPrimeButtonDisabled: Bool
     public var isPrimeModalShown: Bool
 
+    // MARK: State - Adapting view stores
+//    public var isIncrementButtonDisabled: Bool
+//    public var isDecrementButtonDisabled: Bool
+//    public var isLoadingIndicatorHidden: Bool
+
     public init(
         alertNthPrime: PrimeAlert? = nil,
         count: Int = 0,
@@ -152,6 +157,10 @@ public struct CounterView: View {
         let count: Int
         let isNthPrimeButtonDisabled: Bool
         let isPrimeModalShown: Bool
+
+        // MARK: State - Adapting view stores
+        let isIncrementButtonDisabled: Bool
+        let isDecrementButtonDisabled: Bool
     }
 
 //    @ObservedObject var store: Store<CounterViewState, CounterViewAction>
@@ -174,13 +183,15 @@ public struct CounterView: View {
         print("CounterView.body")
         return VStack {
             HStack {
-                Button("-") {
-                    self.store.send(.counter(.decreaseCount))
-                }
+                Button("-") { self.store.send(.counter(.decreaseCount)) }
+                    // MARK: State - Counter view performance
+                    .disabled(self.viewStore.value.isDecrementButtonDisabled)
+
                 Text("\(self.viewStore.value.count)")
-                Button("+") {
-                    self.store.send(.counter(.increaseCount))
-                }
+
+                Button("+") { self.store.send(.counter(.increaseCount)) }
+                    // MARK: State - Counter view performance
+                    .disabled(self.viewStore.value.isIncrementButtonDisabled)
             }
             Button("Is this prime?") { self.store.send(.counter(.isPrimeButtonTapped)) }
             Button("What is the \(ordinal(self.viewStore.value.count)) prime?") {
@@ -225,6 +236,8 @@ extension CounterView.State {
         self.count = counterFeatureState.count
         self.isNthPrimeButtonDisabled = counterFeatureState.isNthPrimeButtonDisabled
         self.isPrimeModalShown = counterFeatureState.isPrimeModalShown
+        self.isIncrementButtonDisabled = counterFeatureState.isNthPrimeButtonDisabled
+        self.isDecrementButtonDisabled = counterFeatureState.isNthPrimeButtonDisabled
     }
 }
 
