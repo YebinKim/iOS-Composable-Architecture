@@ -195,27 +195,32 @@ public struct CounterView: View {
         print("CounterView.init")
         self.store = store
         self.viewStore = self.store
+//            .scope(
+//                value: State.init(counterFeatureState:),
+//                // MARK: Action - View actions
+//                action: {
+//                    switch $0 {
+//                    case .decreaseCount:
+//                        return .counter(.decreaseCount)
+//                    case .increaseCount:
+//                        return .counter(.increaseCount)
+//                    case .nthPrimeButtonTapped:
+//                        return .counter(.requestNthPrime)
+//                    case .alertDismissButtonTapped:
+//                        return .counter(.alertDismissButtonTapped)
+//                    case .isPrimeButtonTapped:
+//                        return .counter(.isPrimeButtonTapped)
+//                    case .primeModalDismissed:
+//                        return .counter(.primeModalDismissed)
+//                    case .doubleTap:
+//                        return .counter(.requestNthPrime)
+//                    }
+//                }
+//            )
+            // MARK: Action - Tests and the view store
             .scope(
-                value: State.init(counterFeatureState:),
-                // MARK: Action - View actions
-                action: {
-                    switch $0 {
-                    case .decreaseCount:
-                        return .counter(.decreaseCount)
-                    case .increaseCount:
-                        return .counter(.increaseCount)
-                    case .nthPrimeButtonTapped:
-                        return .counter(.requestNthPrime)
-                    case .alertDismissButtonTapped:
-                        return .counter(.alertDismissButtonTapped)
-                    case .isPrimeButtonTapped:
-                        return .counter(.isPrimeButtonTapped)
-                    case .primeModalDismissed:
-                        return .counter(.primeModalDismissed)
-                    case .doubleTap:
-                        return .counter(.requestNthPrime)
-                    }
-                }
+                value: State.init,
+                action: CounterFeatureAction.init
             )
             .view
     }
@@ -294,6 +299,28 @@ extension CounterView.State {
         self.isDecrementButtonDisabled = counterFeatureState.isNthPrimeButtonDisabled
         // MARK: Action - View actions
         self.nthPrimeButtonTitle = "What is the \(ordinal(counterFeatureState.count)) prime?"
+    }
+}
+
+// MARK: Action - Tests and the view store
+extension CounterFeatureAction {
+    init(action: CounterView.Action) {
+        switch action {
+        case .decreaseCount:
+            self = .counter(.decreaseCount)
+        case .increaseCount:
+            self = .counter(.increaseCount)
+        case .nthPrimeButtonTapped:
+            self = .counter(.requestNthPrime)
+        case .alertDismissButtonTapped:
+            self = .counter(.alertDismissButtonTapped)
+        case .isPrimeButtonTapped:
+            self = .counter(.isPrimeButtonTapped)
+        case .primeModalDismissed:
+            self = .counter(.primeModalDismissed)
+        case .doubleTap:
+            self = .counter(.requestNthPrime)
+        }
     }
 }
 
