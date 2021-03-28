@@ -30,6 +30,8 @@ public enum CounterAction: Equatable {
     // 누락 코드
     case isPrimeButtonTapped
     case primeModalDismissed
+    // MARK: Action - Action adaptation
+    case doubleTap
 }
 
 // 앱 상태 모델
@@ -195,7 +197,9 @@ public struct CounterView: View {
             }
             Button("Is this prime?") { self.store.send(.counter(.isPrimeButtonTapped)) }
             Button("What is the \(ordinal(self.viewStore.value.count)) prime?") {
-                self.store.send(.counter(.nthPrimeButtonTapped))
+                // MARK: Action - Action adaptation
+//                self.store.send(.counter(.nthPrimeButtonTapped))
+                self.store.send(.counter(.nthPrimeResponse(n: 7, prime: 17)))
             }
             .disabled(self.viewStore.value.isNthPrimeButtonDisabled)
         }
@@ -221,6 +225,17 @@ public struct CounterView: View {
                     self.store.send(.counter(.alertDismissButtonTapped))
                 }
             )
+        }
+        // MARK: Action - Action adaptation
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity
+        )
+        .background(Color.white)
+        .onTapGesture(count: 2) {
+            self.store.send(.counter(.doubleTap))
         }
     }
 
