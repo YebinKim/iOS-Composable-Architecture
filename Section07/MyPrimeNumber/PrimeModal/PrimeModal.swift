@@ -42,7 +42,7 @@ public struct IsPrimeModalView: View {
 //    @ObservedObject var store: Store<PrimeModalState, PrimeModalAction>
     // MARK: State - View store performance
     let store: Store<PrimeModalState, PrimeModalAction>
-    @ObservedObject var viewStore: ViewStore<State>
+    @ObservedObject var viewStore: ViewStore<State, PrimeModalAction>
 
     // MARK: Performance - View.init/body: tracking
     public init(store: Store<PrimeModalState, PrimeModalAction>) {
@@ -62,11 +62,11 @@ public struct IsPrimeModalView: View {
                 // MARK: State - Adapting view stores
                 if self.viewStore.value.isFavorite {
                     Button("Remove from favorite primes") {
-                        self.store.send(.removeFavoritePrime)
+                        self.viewStore.send(.removeFavoritePrime)
                     }
                 } else {
                     Button("Save to favorite primes") {
-                        self.store.send(.addFavoritePrime)
+                        self.viewStore.send(.addFavoritePrime)
                     }
                 }
             } else {

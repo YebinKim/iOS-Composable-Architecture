@@ -79,7 +79,8 @@ public final class Store<Value, Action> /*: ObservableObject*/ {
         self.environment = environment
     }
 
-    public func send(_ action: Action) {
+    // MARK: Action - View store action sending
+    private func send(_ action: Action) {
         let effects = self.reducer(&self.value, action, self.environment)
         effects.forEach { effect in
             var effectCancellable: AnyCancellable?
@@ -124,14 +125,24 @@ public final class Store<Value, Action> /*: ObservableObject*/ {
 }
 
 // MARK: State - View models and view stores
-public final class ViewStore<Value>: ObservableObject {
+public final class ViewStore<Value, Action>: ObservableObject {
 
     @Published public fileprivate(set) var value: Value
     fileprivate var cancellable: Cancellable?
 
-    init(initialValue: Value) {
+    // MARK: Action - View store action sending
+    public let send: (Action) -> Void
+
+    init(
+        initialValue: Value,
+        send: @escaping (Action) -> Void
+    ) {
         self.value = initialValue
+        self.send = send
     }
+
+//    public func send(_ action: Action) {
+//    }
 }
 
 extension Store {
@@ -140,9 +151,12 @@ extension Store {
     // MARK: State - View store performance
     public func view(
         removeDuplicates predicate: @escaping (Value, Value) -> Bool
-    ) -> ViewStore<Value> {
+    ) -> ViewStore<Value, Action> {
 
-        let viewStore = ViewStore(initialValue: self.value)
+        let viewStore = ViewStore(
+            initialValue: self.value,
+            send: self.send
+        )
 
 //        viewStore.cancellable = self.$value.sink(receiveValue: { value in
 //            viewStore.value = value
@@ -166,7 +180,7 @@ extension Store {
 
 // MARK: State - View store performance
 extension Store where Value: Equatable {
-    public var view: ViewStore<Value> {
+    public var view: ViewStore<Value, Action> {
         self.view(removeDuplicates: ==)
     }
 }

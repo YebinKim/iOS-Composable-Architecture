@@ -122,7 +122,7 @@ public func counterReducer(
                 .eraseToEffect()
         ]
 
-    case .nthPrimeButtonTapped:
+    case .nthPrimeButtonTapped, .doubleTap:
         state.isNthPrimeButtonDisabled = true
         let n = state.count
         return [
@@ -168,7 +168,7 @@ public struct CounterView: View {
 //    @ObservedObject var store: Store<CounterViewState, CounterViewAction>
     // MARK: State - View store performance
     let store: Store<CounterFeatureState, CounterFeatureAction>
-    @ObservedObject var viewStore: ViewStore<State>
+    @ObservedObject var viewStore: ViewStore<State, CounterFeatureAction>
 
 //    @State var isPrimeModalShown: Bool = false
 
@@ -185,21 +185,21 @@ public struct CounterView: View {
         print("CounterView.body")
         return VStack {
             HStack {
-                Button("-") { self.store.send(.counter(.decreaseCount)) }
+                Button("-") { self.viewStore.send(.counter(.decreaseCount)) }
                     // MARK: State - Counter view performance
                     .disabled(self.viewStore.value.isDecrementButtonDisabled)
 
                 Text("\(self.viewStore.value.count)")
 
-                Button("+") { self.store.send(.counter(.increaseCount)) }
+                Button("+") { self.viewStore.send(.counter(.increaseCount)) }
                     // MARK: State - Counter view performance
                     .disabled(self.viewStore.value.isIncrementButtonDisabled)
             }
-            Button("Is this prime?") { self.store.send(.counter(.isPrimeButtonTapped)) }
+            Button("Is this prime?") { self.viewStore.send(.counter(.isPrimeButtonTapped)) }
             Button("What is the \(ordinal(self.viewStore.value.count)) prime?") {
                 // MARK: Action - Action adaptation
 //                self.store.send(.counter(.nthPrimeButtonTapped))
-                self.store.send(.counter(.nthPrimeResponse(n: 7, prime: 17)))
+                self.viewStore.send(.counter(.nthPrimeResponse(n: 7, prime: 17)))
             }
             .disabled(self.viewStore.value.isNthPrimeButtonDisabled)
         }
@@ -207,7 +207,7 @@ public struct CounterView: View {
         .navigationBarTitle("Counter demo")
         .sheet(
             isPresented: .constant(self.viewStore.value.isPrimeModalShown),
-            onDismiss: { self.store.send(.counter(.primeModalDismissed)) }
+            onDismiss: { self.viewStore.send(.counter(.primeModalDismissed)) }
         ) {
             IsPrimeModalView(
                 store: self.store.scope(
@@ -222,7 +222,7 @@ public struct CounterView: View {
             Alert(
                 title: Text("The \(ordinal(self.viewStore.value.count)) prime is \(alert.prime)"),
                 dismissButton: .default(Text("Ok")) {
-                    self.store.send(.counter(.alertDismissButtonTapped))
+                    self.viewStore.send(.counter(.alertDismissButtonTapped))
                 }
             )
         }
@@ -235,12 +235,12 @@ public struct CounterView: View {
         )
         .background(Color.white)
         .onTapGesture(count: 2) {
-            self.store.send(.counter(.doubleTap))
+            self.viewStore.send(.counter(.doubleTap))
         }
     }
 
     private func nthPrimeButtonAction() {
-        self.store.send(.counter(.nthPrimeButtonTapped))
+        self.viewStore.send(.counter(.nthPrimeButtonTapped))
     }
 }
 
