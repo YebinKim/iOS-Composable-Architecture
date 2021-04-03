@@ -256,10 +256,29 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 - 강의 목표: Composable-Architecture의 성능 향상 및 오류 수정을 진행하고, **다른 OS 환경에서도 사용할 수 있게 **작업을 진행합니다. 
 
   - Adaptive State Management: Performance
+    - Fixing a couple memory leaks
+    - View.init/body: tracking
+    - View.init/body: analysis
+    - View.init/body: stress test
+
+  
 
   - Adaptive State Management: State
+    - View models and view stores
+    - View store performance
+    - Counter view performance
+    - View store memory management
+    - Adapting view stores
+
+  
 
   - Adaptive State Management: Actions
+    - Action adaptation
+    - View store action sending
+    - View actions
+    - Tests and the view store
+
+  
 
   - Adaptive State Management: The Point
 
