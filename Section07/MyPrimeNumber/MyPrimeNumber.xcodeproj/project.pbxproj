@@ -49,6 +49,8 @@
 		C3E471DE25F4E6DD0013D03D /* PrimeAlert.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */; };
 		C3E471DF25F4E6DD0013D03D /* PrimeAlert.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3E471D725F4E6DD0013D03D /* PrimeAlert.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3E471EF25F4E6F10013D03D /* PrimeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */; };
+		C3F0311426189E7A0060B51A /* CounterView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0311326189E7A0060B51A /* CounterView_iOS.swift */; };
+		C3F0312C26189E980060B51A /* CounterView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F0312B26189E980060B51A /* CounterView_macOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +206,8 @@
 		C3E471DA25F4E6DD0013D03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeAlert.swift; sourceTree = "<group>"; };
 		C3F030E4261890E90060B51A /* MyPrimeNumber.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPrimeNumber.entitlements; sourceTree = "<group>"; };
+		C3F0311326189E7A0060B51A /* CounterView_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView_iOS.swift; sourceTree = "<group>"; };
+		C3F0312B26189E980060B51A /* CounterView_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView_macOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +333,8 @@
 			children = (
 				44484D4E256B89BF00CF3F14 /* Counter.h */,
 				44484D76256B8A5500CF3F14 /* Counter.swift */,
+				C3F0311326189E7A0060B51A /* CounterView_iOS.swift */,
+				C3F0312B26189E980060B51A /* CounterView_macOS.swift */,
 				44B1658D256BAA3C0091F62F /* WolframAlpha.swift */,
 				44484D4F256B89BF00CF3F14 /* Info.plist */,
 			);
@@ -991,6 +997,8 @@
 			files = (
 				44484D77256B8A5500CF3F14 /* Counter.swift in Sources */,
 				44B1658E256BAA3C0091F62F /* WolframAlpha.swift in Sources */,
+				C3F0311426189E7A0060B51A /* CounterView_iOS.swift in Sources */,
+				C3F0312C26189E980060B51A /* CounterView_macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

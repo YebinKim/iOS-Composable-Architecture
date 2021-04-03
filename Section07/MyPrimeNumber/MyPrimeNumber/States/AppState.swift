@@ -49,7 +49,7 @@ extension AppState {
                 count: self.count,
                 favoritePrimes: self.favoritePrimes,
                 isNthPrimeButtonDisabled: self.isNthPrimeButtonDisabled,
-                isPrimeModalShown: self.isPrimeModalShown
+                isPrimeDetailShown: self.isPrimeModalShown
             )
         }
         set {
@@ -57,7 +57,7 @@ extension AppState {
             self.count = newValue.count
             self.favoritePrimes = newValue.favoritePrimes
             self.isNthPrimeButtonDisabled = newValue.isNthPrimeButtonDisabled
-            self.isPrimeModalShown = newValue.isPrimeModalShown
+            self.isPrimeModalShown = newValue.isPrimeDetailShown
         }
     }
 
