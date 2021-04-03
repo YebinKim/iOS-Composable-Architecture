@@ -203,6 +203,7 @@
 		C3E471D925F4E6DD0013D03D /* PrimeAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrimeAlert.h; sourceTree = "<group>"; };
 		C3E471DA25F4E6DD0013D03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E471EE25F4E6F10013D03D /* PrimeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeAlert.swift; sourceTree = "<group>"; };
+		C3F030E4261890E90060B51A /* MyPrimeNumber.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPrimeNumber.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,6 +387,7 @@
 		4497176A253384A800C54185 /* MyPrimeNumber */ = {
 			isa = PBXGroup;
 			children = (
+				C3F030E4261890E90060B51A /* MyPrimeNumber.entitlements */,
 				4497176B253384A800C54185 /* MyPrimeNumberApp.swift */,
 				4497177C2533851200C54185 /* Views */,
 				4497177B2533850B00C54185 /* States */,
@@ -1470,8 +1472,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPrimeNumber/MyPrimeNumber.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPrimeNumber/Preview Content\"";
+				DEVELOPMENT_TEAM = G5RZ7AYRC2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyPrimeNumber/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1481,6 +1485,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1492,8 +1497,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPrimeNumber/MyPrimeNumber.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MyPrimeNumber/Preview Content\"";
+				DEVELOPMENT_TEAM = G5RZ7AYRC2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyPrimeNumber/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1503,6 +1510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = developer.VIVI.MyPrimeNumber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

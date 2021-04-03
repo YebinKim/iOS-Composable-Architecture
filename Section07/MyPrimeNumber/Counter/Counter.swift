@@ -248,7 +248,7 @@ public struct CounterView: View {
             .disabled(self.viewStore.value.isNthPrimeButtonDisabled)
         }
         .font(.title)
-        .navigationBarTitle("Counter demo")
+        .counterNavBarTitle
         .sheet(
             isPresented: .constant(self.viewStore.value.isPrimeModalShown),
             onDismiss: { self.viewStore.send(.primeModalDismissed) }
@@ -300,6 +300,26 @@ extension CounterView.State {
         // MARK: Action - View actions
         self.nthPrimeButtonTitle = "What is the \(ordinal(counterFeatureState.count)) prime?"
     }
+}
+
+// MARK: The Point - Cross-platform SwiftUI views
+extension View {
+
+    var counterNavBarTitle: some View {
+        #if os(macOS)
+        return self
+        #else
+        return self.navigationBarTitle("Counter demo")
+        #endif
+    }
+
+//    var primeDetail: some View {
+//        #if os(iOS)
+//        // modal
+//        #elseif os(macOS)
+//        // popover
+//        #endif
+//    }
 }
 
 // MARK: Action - Tests and the view store
