@@ -8,6 +8,22 @@
 import Combine
 import CasePaths
 
+// MARK: Ergonomic State Management: Part 1 - Free functions
+// (inout RandomNumberGenerator) -> A
+struct Gen<A> {
+    let run: (inout RandomNumberGenerator) -> A
+}
+
+// (inout Substring) -> A?
+struct Parser<A> {
+    let run: (inout Substring) -> A?
+}
+
+// (@escaping (A) -> Void) -> Void
+//struct Effect<A> {
+//    let run: (@escaping (A) -> Void) -> Void
+//}
+
 public typealias Reducer<Value, Action, Environment> = (inout Value, Action, Environment) -> [Effect<Action>]
 
 // MARK: - Utils
