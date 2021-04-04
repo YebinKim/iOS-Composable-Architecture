@@ -103,16 +103,20 @@ extension Reducer {
 //            }] + effects
 //        }
 //    }
-    public func logging<Value, Action, Environment>(
-        _ reducer: Reducer<Value, Action, Environment>
-    ) -> Reducer<Value, Action, Environment> {
-        return .init { value, action, environment in
-            let effects = reducer(&value, action, environment)
+    // MARK: Ergonomic State Management: Part 1 - Reducer methods
+    public func logging(
+        printer: @escaping (Environment) -> (String) -> Void = { _ in { print($0) } }
+    ) -> Reducer {
+        .init { value, action, environment in
+            let effects = self(&value, action, environment)
             let newValue = value
+            let print = printer(environment)
             return [.fireAndForget {
                 print("Action: \(action)")
                 print("Value:")
-                dump(newValue)
+                var dumpedNewValue = ""
+                dump(newValue, to: &dumpedNewValue)
+                print(dumpedNewValue)
                 print("---")
             }] + effects
         }
