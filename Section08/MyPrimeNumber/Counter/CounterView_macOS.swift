@@ -52,22 +52,22 @@ public struct CounterView: View {
         return VStack {
             HStack {
                 Button("-") { self.viewStore.send(.decreaseCount) }
-                    .disabled(self.viewStore.value.isDecrementButtonDisabled)
+                    .disabled(self.viewStore.isDecrementButtonDisabled)
 
-                Text("\(self.viewStore.value.count)")
+                Text("\(self.viewStore.count)")
 
                 Button("+") { self.viewStore.send(.increaseCount) }
-                    .disabled(self.viewStore.value.isIncrementButtonDisabled)
+                    .disabled(self.viewStore.isIncrementButtonDisabled)
             }
             Button("Is this prime?") { self.viewStore.send(.isPrimeButtonTapped) }
-            Button(self.viewStore.value.nthPrimeButtonTitle) {
+            Button(self.viewStore.nthPrimeButtonTitle) {
                 self.viewStore.send(.nthPrimeButtonTapped)
             }
-            .disabled(self.viewStore.value.isNthPrimeButtonDisabled)
+            .disabled(self.viewStore.isNthPrimeButtonDisabled)
         }
         .popover(
             isPresented: Binding(
-                get: { self.viewStore.value.isPrimePopoverShown },
+                get: { self.viewStore.isPrimePopoverShown },
                 set: { _ in self.viewStore.send(.primePopoverDismissed) }
             )
         ) {
@@ -79,10 +79,10 @@ public struct CounterView: View {
             )
         }
         .alert(
-          item: Binding.constant(self.viewStore.value.alertNthPrime)
+          item: Binding.constant(self.viewStore.alertNthPrime)
         ) { alert in
             Alert(
-                title: Text("The \(ordinal(self.viewStore.value.count)) prime is \(alert.prime)"),
+                title: Text("The \(ordinal(self.viewStore.count)) prime is \(alert.prime)"),
                 dismissButton: .default(Text("Ok")) {
                     self.viewStore.send(.alertDismissButtonTapped)
                 }

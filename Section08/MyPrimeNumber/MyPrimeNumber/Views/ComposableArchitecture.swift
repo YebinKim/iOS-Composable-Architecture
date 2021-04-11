@@ -202,12 +202,18 @@ public final class Store<Value, Action> {
     }
 }
 
+// MARK: Ergonomic State Management: Part 2 - Dynamic member store
+@dynamicMemberLookup
 public final class ViewStore<Value, Action>: ObservableObject {
 
     @Published public fileprivate(set) var value: Value
     fileprivate var cancellable: Cancellable?
 
     public let send: (Action) -> Void
+
+    public subscript<LocalValue>(dynamicMember keyPath: KeyPath<Value, LocalValue>) -> LocalValue {
+        self.value[keyPath: keyPath]
+    }
 
     init(
         initialValue: Value,
