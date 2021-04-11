@@ -289,6 +289,19 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
 
 ## Section 8. Ergonomics
 
+- 강의 목표: Composable-Architecture를 활용한 작업을 원할하게 할 수 있도록 **코드 사용성 및 가독성 개선 작업을 진행**합니다.
+
+  - **Ergonomic State Management: Part 1**
+    - The architecture's surface area
+    - Free functions
+    - Reducer as a struct
+    - Reducer methods
+    - Updating the app's modules
+
+  
+
+  - **Ergonomic State Management: Part 2**
+
 
 
 ## Section 9. A Tour of the Composable Architecture
