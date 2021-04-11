@@ -68,15 +68,14 @@ public enum CounterFeatureAction: Equatable {
     case primeModal(PrimeModalAction)
 }
 
-public let counterViewReducer: Reducer<CounterFeatureState, CounterFeatureAction, CounterEnvironment> = combine(
-    pullback(
-        counterReducer,
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+public let counterFeatureReducer = Reducer.combine(
+    counterReducer.pullback(
         value: \CounterFeatureState.counter,
         action: /CounterFeatureAction.counter,
         environment: { $0 }
     ),
-    pullback(
-        primeModalReducer,
+    primeModalReducer.pullback(
         value: \.primeModal,
         action: /CounterFeatureAction.primeModal,
         environment: { _ in () }
@@ -85,11 +84,13 @@ public let counterViewReducer: Reducer<CounterFeatureState, CounterFeatureAction
 
 // MARK: - Reducers
 // 앱의 기능 별 로직을 구현한 Reducer
-public func counterReducer(
-    state: inout CounterState,
-    action: CounterAction,
-    environment: CounterEnvironment
-) -> [Effect<CounterAction>] {
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+//public func counterReducer(
+//    state: inout CounterState,
+//    action: CounterAction,
+//    environment: CounterEnvironment
+//) -> [Effect<CounterAction>] {
+public let counterReducer = Reducer<CounterState, CounterAction, CounterEnvironment> { state, action, environment in
     switch action {
     case .increaseCount:
         state.count += 1
@@ -137,5 +138,7 @@ public func counterReducer(
         return []
     }
 }
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+.logging()
 
 public typealias CounterEnvironment = (Int) -> Effect<Int?>

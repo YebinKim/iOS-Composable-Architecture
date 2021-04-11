@@ -46,10 +46,17 @@ extension Reducer {
 //            return effects
 //        }
 //    }
-    public func combine<Value, Action, Environment>(
-        _ reducers: Reducer<Value, Action, Environment>...
-    ) -> Reducer<Value, Action, Environment> {
-        return .init { value, action, environment in
+    // MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+//    public func combine<Value, Action, Environment>(
+//        _ reducers: Reducer<Value, Action, Environment>...
+//    ) -> Reducer<Value, Action, Environment> {
+//        return .init { value, action, environment in
+//            let effects = reducers.flatMap { $0(&value, action, environment) }
+//            return effects
+//        }
+//    }
+    public static func combine(_ reducers: Reducer...) -> Reducer {
+        .init { value, action, environment in
             let effects = reducers.flatMap { $0(&value, action, environment) }
             return effects
         }

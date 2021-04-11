@@ -71,13 +71,17 @@ struct ContentView_Previews: PreviewProvider {
         ContentView(
             store: Store(
                 initialValue: AppState(),
-                reducer: with(
-                    appReducer,
-                    compose(
-                        logging,
-                        activityFeed
-                    )
-                ),
+                // MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+//                reducer: with(
+//                    appReducer,
+//                    compose(
+//                        logging,
+//                        activityFeed
+//                    )
+//                ),
+                reducer: appReducer
+                    .activityFeed(),
+//                .logging()
                 environment: AppEnvironment(
                     fileClient: .live,
                     nthPrime: Counter.nthPrime,

@@ -15,11 +15,13 @@ public enum PrimeModalAction: Equatable {
     case removeFavoritePrime
 }
 
-public func primeModalReducer(
-    state: inout PrimeModalState,
-    action: PrimeModalAction,
-    environment: Void
-) -> [Effect<PrimeModalAction>] {
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+//public func primeModalReducer(
+//    state: inout PrimeModalState,
+//    action: PrimeModalAction,
+//    environment: Void
+//) -> [Effect<PrimeModalAction>] {
+public let primeModalReducer = Reducer<PrimeModalState, PrimeModalAction, Void> { state, action, _ in
     switch action {
     case .addFavoritePrime:
         state.favoritePrimes.append(state.count)

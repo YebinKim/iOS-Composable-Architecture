@@ -19,36 +19,36 @@ enum AppAction: Equatable {
 }
 
 // ActivityFeed 도메인에 특화된 High-order Reducr
-func activityFeed(
-    _ reducer: @escaping Reducer<AppState, AppAction, AppEnvironment>
-) -> Reducer<AppState, AppAction, AppEnvironment> {
-    
-    return { state, action, environment in
-        switch action {
-        case .counterView(.counter),
-             .offlineCounterView(.counter),
-             .favoritePrimes(.loadedFavoritePrimes),
-             .favoritePrimes(.loadButtonTapped),
-             .favoritePrimes(.saveButtonTapped),
-             .favoritePrimes(.primeButtonTapped(_)),
-             .favoritePrimes(.nthPrimeResponse),
-             .favoritePrimes(.alertDismissButtonTapped):
-            break
-            
-        case .counterView(.primeModal(.addFavoritePrime)),
-             .offlineCounterView(.primeModal(.addFavoritePrime)):
-            state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
-            
-        case .counterView(.primeModal(.removeFavoritePrime)),
-             .offlineCounterView(.primeModal(.removeFavoritePrime)):
-            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
-            
-        case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
-            for index in indexSet {
-                state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+extension Reducer where Value == AppState, Action == AppAction, Environment == AppEnvironment {
+    func activityFeed() -> Reducer {
+        return .init { state, action, environment in
+            switch action {
+            case .counterView(.counter),
+                 .offlineCounterView(.counter),
+                 .favoritePrimes(.loadedFavoritePrimes),
+                 .favoritePrimes(.loadButtonTapped),
+                 .favoritePrimes(.saveButtonTapped),
+                 .favoritePrimes(.primeButtonTapped(_)),
+                 .favoritePrimes(.nthPrimeResponse),
+                 .favoritePrimes(.alertDismissButtonTapped):
+                break
+
+            case .counterView(.primeModal(.addFavoritePrime)),
+                 .offlineCounterView(.primeModal(.addFavoritePrime)):
+                state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+
+            case .counterView(.primeModal(.removeFavoritePrime)),
+                 .offlineCounterView(.primeModal(.removeFavoritePrime)):
+                state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+
+            case let .favoritePrimes(.removeFavoritePrimes(indexSet)):
+                for index in indexSet {
+                    state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
+                }
             }
+            return self(&state, action, environment)
         }
-        return reducer(&state, action, environment)
     }
 }
 
@@ -60,21 +60,19 @@ typealias AppEnvironment = (
 )
 
 // MARK: - Global Reducer
-let appReducer: Reducer<AppState, AppAction, AppEnvironment> = combine(
-    pullback(
-        counterViewReducer,
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+let appReducer: Reducer<AppState, AppAction, AppEnvironment> = Reducer.combine(
+    counterFeatureReducer.pullback(
         value: \AppState.counterView,
         action: /AppAction.counterView,
         environment: { $0.nthPrime }
     ),
-    pullback(
-        counterViewReducer,
+    counterFeatureReducer.pullback(
         value: \AppState.counterView,
         action: /AppAction.offlineCounterView,
         environment: { $0.offlineNthPrime }
     ),
-    pullback(
-        favoritePrimesReducer,
+    favoritePrimesReducer.pullback(
         value: \.favoritePrimesState,
         action: /AppAction.favoritePrimes,
         environment: { ($0.fileClient, $0.nthPrime) }

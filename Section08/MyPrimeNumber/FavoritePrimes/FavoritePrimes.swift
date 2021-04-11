@@ -26,11 +26,13 @@ public typealias FavoritePrimesState = (
     favoritePrimes: [Int]
 )
 
-public func favoritePrimesReducer(
-    state: inout FavoritePrimesState,
-    action: FavoritePrimesAction,
-    environment: FavoritePrimesEnvironment
-) -> [Effect<FavoritePrimesAction>] {
+// MARK: Ergonomic State Management: Part 1 - Updating the app's modules
+//public func favoritePrimesReducer(
+//    state: inout FavoritePrimesState,
+//    action: FavoritePrimesAction,
+//    environment: FavoritePrimesEnvironment
+//) -> [Effect<FavoritePrimesAction>] {
+public let favoritePrimesReducer = Reducer<FavoritePrimesState, FavoritePrimesAction, FavoritePrimesEnvironment> { state, action, environment in
     switch action {
     case let .removeFavoritePrimes(indexSet):
         for index in indexSet {
