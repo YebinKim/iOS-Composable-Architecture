@@ -81,10 +81,12 @@ public struct CounterView: View {
           item: Binding.constant(self.viewStore.alertNthPrime)
         ) { alert in
             Alert(
-                title: Text("The \(ordinal(self.viewStore.count)) prime is \(alert.prime)"),
-                dismissButton: .default(Text("Ok")) {
-                    self.viewStore.send(.alertDismissButtonTapped)
-                }
+                // MARK: Ergonomic State Management: Part 2 - Bindings and the architecture
+                title: Text("The \(ordinal(self.viewStore.count)) prime is \(alert.prime)")
+//                title: Text("The \(ordinal(self.viewStore.count)) prime is \(alert.prime)"),
+//                dismissButton: .default(Text("Ok")) {
+//                    self.viewStore.send(.alertDismissButtonTapped)
+//                }
             )
         }
         .frame(
