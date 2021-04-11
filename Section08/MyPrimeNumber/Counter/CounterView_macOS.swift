@@ -66,9 +66,14 @@ public struct CounterView: View {
             .disabled(self.viewStore.isNthPrimeButtonDisabled)
         }
         .popover(
-            isPresented: Binding(
-                get: { self.viewStore.isPrimePopoverShown },
-                set: { _ in self.viewStore.send(.primePopoverDismissed) }
+            // MARK: Ergonomic State Management: Part 2 - Binding helpers
+//            isPresented: Binding(
+//                get: { self.viewStore.isPrimePopoverShown },
+//                set: { _ in self.viewStore.send(.primePopoverDismissed) }
+//            )
+            isPresented: self.viewStore.binding(
+                get: \.isPrimePopoverShown,
+                self: .primePopoverDismissed
             )
         ) {
             IsPrimeModalView(

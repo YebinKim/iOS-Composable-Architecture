@@ -67,8 +67,13 @@ public struct CounterView: View {
         .font(.title)
         .navigationBarTitle("Counter demo")
         .sheet(
-            isPresented: .constant(self.viewStore.isPrimeModalShown),
-            onDismiss: { self.viewStore.send(.primeModalDismissed) }
+            // MARK: Ergonomic State Management: Part 2 - Binding helpers
+//            isPresented: .constant(self.viewStore.isPrimeModalShown),
+//            onDismiss: { self.viewStore.send(.primeModalDismissed) }
+            isPresented: self.viewStore.binding(
+                get: \.isPrimeModalShown,
+                send: .primeModalDismissed
+            )
         ) {
             IsPrimeModalView(
                 store: self.store.scope(
@@ -78,7 +83,12 @@ public struct CounterView: View {
             )
         }
         .alert(
-          item: Binding.constant(self.viewStore.alertNthPrime)
+            // MARK: Ergonomic State Management: Part 2 - Binding helpers
+//            item: Binding.constant(self.viewStore.alertNthPrime)
+            item: self.viewStore.binding(
+                get: \.alertNthPrime,
+                send: .alertDismissButtonTapped
+            )
         ) { alert in
             Alert(
                 // MARK: Ergonomic State Management: Part 2 - Bindings and the architecture

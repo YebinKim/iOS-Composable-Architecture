@@ -112,7 +112,14 @@ public struct FavoritePrimesView: View {
                 }
             }
         )
-        .alert(item: .constant(self.viewStore.value.alertNthPrime)) { primeAlert in
+        .alert(
+            // MARK: Ergonomic State Management: Part 2 - Binding helpers
+//            item: .constant(self.viewStore.value.alertNthPrime)
+            item: self.viewStore.binding(
+                get: \.alertNthPrime,
+                send: .alertDismissButtonTapped
+                )
+        ) { primeAlert in
             Alert(title: Text(primeAlert.title), dismissButton: Alert.Button.default(Text("Ok"), action: {
                 self.viewStore.send(.alertDismissButtonTapped)
             }))

@@ -7,6 +7,7 @@
 
 import Combine
 import CasePaths
+import SwiftUI
 
 // MARK: Ergonomic State Management: Part 1 - Free functions
 // (inout RandomNumberGenerator) -> A
@@ -221,6 +222,27 @@ public final class ViewStore<Value, Action>: ObservableObject {
     ) {
         self.value = initialValue
         self.send = send
+    }
+
+    // MARK: Ergonomic State Management: Part 2 - Binding helpers
+    public func binding<LocalValue>(
+        get: @escaping (Value) -> LocalValue,
+        send toAction: @escaping (LocalValue) -> Action
+    ) -> Binding<LocalValue> {
+        Binding(
+            get: { get(self.value) },
+            set: { self.send(toAction($0)) }
+        )
+    }
+
+    public func binding<LocalValue>(
+        get: @escaping (Value) -> LocalValue,
+        send action: Action
+    ) -> Binding<LocalValue> {
+        Binding(
+            get: { get(self.value) },
+            set: { _ in self.send(action) }
+        )
     }
 }
 
