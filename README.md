@@ -301,6 +301,10 @@ Study Composable Architecture at [Pointfree](https://www.pointfree.co/collection
   
 
   - **Ergonomic State Management: Part 2**
+    - Dynamic member lookup
+    - Dynamic member store
+    - Bindings and the architecture
+    - Binding helpers
 
 
 
